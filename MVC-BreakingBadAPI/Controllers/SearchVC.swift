@@ -9,8 +9,17 @@
 import UIKit
 
 class SearchVC: UIViewController {
+    
+    let logoImageView = UIImageView()
+    let characterTextView = BBTextField()
+    let callToActionButton = BBButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }

@@ -15,6 +15,8 @@
 		CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCC3244DEBDD00B3AB30 /* CharacterInfoVC.swift */; };
 		CA91CCC6244DEC0300B3AB30 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCC5244DEC0300B3AB30 /* FavoritesVC.swift */; };
 		CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCC8244DEC6200B3AB30 /* BBTabBarController.swift */; };
+		CA91CCCB244DF4E800B3AB30 /* BBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCCA244DF4E800B3AB30 /* BBButton.swift */; };
+		CA91CCCD244DF4FF00B3AB30 /* BBTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		CA91CCC3244DEBDD00B3AB30 /* CharacterInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoVC.swift; sourceTree = "<group>"; };
 		CA91CCC5244DEC0300B3AB30 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		CA91CCC8244DEC6200B3AB30 /* BBTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBTabBarController.swift; sourceTree = "<group>"; };
+		CA91CCCA244DF4E800B3AB30 /* BBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBButton.swift; sourceTree = "<group>"; };
+		CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				CA91CCC8244DEC6200B3AB30 /* BBTabBarController.swift */,
+				CA91CCCA244DF4E800B3AB30 /* BBButton.swift */,
+				CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -192,6 +198,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA91CCC6244DEC0300B3AB30 /* FavoritesVC.swift in Sources */,
+				CA91CCCD244DF4FF00B3AB30 /* BBTextField.swift in Sources */,
+				CA91CCCB244DF4E800B3AB30 /* BBButton.swift in Sources */,
 				CA91CCC2244DEBA900B3AB30 /* SearchVC.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
