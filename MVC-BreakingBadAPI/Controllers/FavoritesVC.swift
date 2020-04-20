@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavoritesVC.swift
 //  MVC-BreakingBadAPI
 //
 //  Created by Iury Popov on 20.04.2020.
@@ -8,13 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FavoritesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
-
