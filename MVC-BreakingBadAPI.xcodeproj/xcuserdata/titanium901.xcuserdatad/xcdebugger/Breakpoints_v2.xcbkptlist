@@ -3,4 +3,118 @@
    uuid = "09641C04-5499-4B26-86A1-277DF7652921"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF320C18-BA40-4482-82CD-662934DD4DB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getCharacters(name:completed:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DF320C18-BA40-4482-82CD-662934DD4DB9 - 74675c4afbe1df15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVC_BreakingBadAPI.NetworkManager.getCharacters(name: Swift.String, completed: (Swift.Result&lt;MVC_BreakingBadAPI.Character, MVC_BreakingBadAPI.BBError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "502">
+               </Location>
+               <Location
+                  uuid = "DF320C18-BA40-4482-82CD-662934DD4DB9 - 6b8404c794f709a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MVC_BreakingBadAPI.NetworkManager.getCharacters(name: Swift.String, completed: (Swift.Result&lt;MVC_BreakingBadAPI.Character, MVC_BreakingBadAPI.BBError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "286">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90B52002-4887-4CCC-9005-4B7BA3FC4728"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "getCharacters(name:completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0571789C-0F15-4E7B-B7AA-56487BE9E5E0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getCharacters(name:completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "83254B7D-BFCD-4F64-AA46-ED6D4B8B0C61"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "getCharacters(name:completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58A6BBE2-2AFC-401D-9B54-40E6A1DF5FCC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "getCharacters(name:completed:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

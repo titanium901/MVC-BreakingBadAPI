@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct Character: Codable {
-    let char_id: Int
+struct Character: Decodable {
     let name: String
-    let birthday: String
+    let occupation: [String]
     let img: String
+    let status: String
     let nickname: String
+    let appearance: [Int]
     let portrayed: String
 }
