@@ -11,11 +11,10 @@ import UIKit
 class NetworkManager {
     static let shared = NetworkManager()
     let baseUrl = "https://www.breakingbadapi.com/api/"
-    let cache = NSCache<NSString, UIImage>()
     
     private init() {}
     
-    func getCharacters(name: String, completed: @escaping (Result<[Character], BBError>) -> Void) {
+    func getCharacters(completed: @escaping (Result<[Character], BBError>) -> Void) {
         let endpoint = baseUrl + "characters"
         
         guard let url = URL(string: endpoint) else {

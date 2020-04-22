@@ -10,4 +10,6 @@ import UIKit
 
 enum Images {
     static let bbLogo = UIImage(named: "bbLogo")
+    static let placeholder = UIImage(named: "placeholder")
+    static let testWhite = UIImage(named: "testWhite")
 }
