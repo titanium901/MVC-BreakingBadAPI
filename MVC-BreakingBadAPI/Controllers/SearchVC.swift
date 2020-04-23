@@ -11,13 +11,13 @@ import UIKit
 class SearchVC: UIViewController {
     
     let logoImageView = UIImageView()
-    let characterTextView = BBTextField()
+    let characterTextField = BBTextField()
     let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
     let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(logoImageView, characterTextView, showAllCharacteButton, searchCharacterButton)
+        view.addSubviews(logoImageView, characterTextField, showAllCharacteButton, searchCharacterButton)
         configureLogoImageView()
         configureTextField()
         configureShowAllCharacteButton()
@@ -27,6 +27,7 @@ class SearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        characterTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -36,14 +37,14 @@ class SearchVC: UIViewController {
     }
     
     @objc func pushCharacterInfoVC() {
-        characterTextView.resignFirstResponder()
-        
-        let characterInfoVC = CharacterInfoVC()
+        characterTextField.resignFirstResponder()
+        guard let name = characterTextField.text, !name.isEmpty else { return }
+        let characterInfoVC = CharacterInfoVC(name: name.replacingOccurrences(of: " ", with: "+"))
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
     @objc func pushCharactersListVC() {
-        characterTextView.resignFirstResponder()
+        characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()
         navigationController?.pushViewController(charactersListVC, animated: true)
@@ -64,10 +65,10 @@ class SearchVC: UIViewController {
     
     func configureTextField() {
         NSLayoutConstraint.activate([
-            characterTextView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
-            characterTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            characterTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            characterTextView.heightAnchor.constraint(equalToConstant: 50)
+            characterTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
+            characterTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            characterTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            characterTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

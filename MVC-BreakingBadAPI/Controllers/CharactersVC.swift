@@ -44,8 +44,8 @@ class CharactersVC: UIViewController {
 
 
         NSLayoutConstraint.activate([
-            activityIndicator.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            activityIndicator.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     

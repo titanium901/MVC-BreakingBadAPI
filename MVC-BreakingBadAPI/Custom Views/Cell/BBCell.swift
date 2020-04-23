@@ -43,6 +43,7 @@ class BBCell: UITableViewCell {
         let heightAnchor: CGFloat = 40
         let trailingAnchor: CGFloat = -20
         let leadingAnchor: CGFloat = 24
+        let topAnchor: CGFloat = 40
         
         NSLayoutConstraint.activate([
             characterImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -50,22 +51,22 @@ class BBCell: UITableViewCell {
             characterImageView.heightAnchor.constraint(equalToConstant: 150),
             characterImageView.widthAnchor.constraint(equalToConstant: 150),
             
-            characterName.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            characterName.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
             characterName.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: leadingAnchor),
             characterName.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: trailingAnchor),
             characterName.heightAnchor.constraint(equalToConstant: heightAnchor),
             
-            characterNickname.topAnchor.constraint(equalTo: characterName.topAnchor, constant: 40),
+            characterNickname.topAnchor.constraint(equalTo: characterName.topAnchor, constant: topAnchor),
             characterNickname.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: leadingAnchor),
             characterNickname.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: trailingAnchor),
             characterNickname.heightAnchor.constraint(equalToConstant: heightAnchor),
             
-            characterStatus.topAnchor.constraint(equalTo: characterNickname.topAnchor, constant: 40),
+            characterStatus.topAnchor.constraint(equalTo: characterNickname.topAnchor, constant: topAnchor),
             characterStatus.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: leadingAnchor),
             characterStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: trailingAnchor),
             characterStatus.heightAnchor.constraint(equalToConstant: heightAnchor),
             
-            characterPortrayed.topAnchor.constraint(equalTo: characterStatus.topAnchor, constant: 40),
+            characterPortrayed.topAnchor.constraint(equalTo: characterStatus.topAnchor, constant: topAnchor),
             characterPortrayed.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: leadingAnchor),
             characterPortrayed.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: trailingAnchor),
             characterPortrayed.heightAnchor.constraint(equalToConstant: heightAnchor)
