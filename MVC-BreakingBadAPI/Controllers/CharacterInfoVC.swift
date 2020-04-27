@@ -14,6 +14,7 @@ class CharacterInfoVC: UIViewController {
     let stackView = UIStackView()
     let characterImageView = BBImage(frame: .zero)
     let addToFavoriteButton = BBButton(backgroundColor: .black, title: "Add To Favorite")
+    let activityIndicator = UIActivityIndicatorView()
     
     let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
     let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
@@ -37,6 +38,7 @@ class CharacterInfoVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureStackView()
+        configureActivityIndicator()
         lauoutUI()
         getCharacterInfo()
 }
@@ -68,6 +70,8 @@ class CharacterInfoVC: UIViewController {
         
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
+        
+        activityIndicator.stopAnimating()
     }
     
     private func configureStackView() {
@@ -79,6 +83,20 @@ class CharacterInfoVC: UIViewController {
         stackView.addArrangedSubview(characterStatus)
         stackView.addArrangedSubview(characterPortrayed)
         stackView.addArrangedSubview(characterAppearance)
+    }
+    
+    func configureActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.style = .large
+        activityIndicator.color = .systemOrange
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     private func lauoutUI() {

@@ -12,8 +12,8 @@ class CharactersVC: UIViewController {
     
     var characters: [Character] = []
     
-    var tableView = UITableView()
-    var activityIndicator = UIActivityIndicatorView()
+    let tableView = UITableView()
+    let activityIndicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
