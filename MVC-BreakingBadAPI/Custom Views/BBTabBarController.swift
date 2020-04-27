@@ -28,7 +28,6 @@ class BBTabBarController: UITabBarController {
     func createFavoritesNC() -> UINavigationController {
         let favoritiesVC = FavoritesVC()
         favoritiesVC.title = "Favorities"
-        favoritiesVC.view.backgroundColor = .systemBackground
         favoritiesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         
         return UINavigationController(rootViewController: favoritiesVC)
