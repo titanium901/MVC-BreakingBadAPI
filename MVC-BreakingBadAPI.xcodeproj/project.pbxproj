@@ -28,6 +28,7 @@
 		CA91CCE6245080E100B3AB30 /* BBTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCE5245080E100B3AB30 /* BBTitleLabel.swift */; };
 		CA91CCE92450817D00B3AB30 /* BBImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCE82450817D00B3AB30 /* BBImage.swift */; };
 		CA91CCEB24508A3C00B3AB30 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEA24508A3C00B3AB30 /* UITableView+Ext.swift */; };
+		CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		CA91CCE5245080E100B3AB30 /* BBTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBTitleLabel.swift; sourceTree = "<group>"; };
 		CA91CCE82450817D00B3AB30 /* BBImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBImage.swift; sourceTree = "<group>"; };
 		CA91CCEA24508A3C00B3AB30 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				CA91CCDB244F331F00B3AB30 /* NetworkManager.swift */,
+				CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				CA91CCE92450817D00B3AB30 /* BBImage.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
+				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
 			);

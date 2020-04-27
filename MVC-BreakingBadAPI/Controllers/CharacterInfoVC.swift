@@ -13,7 +13,7 @@ class CharacterInfoVC: UIViewController {
     
     let stackView = UIStackView()
     let characterImageView = BBImage(frame: .zero)
-    let addToFavoriteButton = BBButton(backgroundColor: .black, title: "Add To Favorite")
+    let addToFavoriteButton = UIButton(frame: .zero)
     let activityIndicator = UIActivityIndicatorView()
     
     let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
@@ -24,6 +24,7 @@ class CharacterInfoVC: UIViewController {
     
     var character: [Character]!
     var name: String!
+    var isFavourite = false
     
     init(name: String) {
         super.init(nibName: nil, bundle: nil)
@@ -40,9 +41,11 @@ class CharacterInfoVC: UIViewController {
         configureStackView()
         configureActivityIndicator()
         lauoutUI()
+        loadFavouriteStatus()
+        configureaddToFavoriteButton()
         getCharacterInfo()
 }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -70,7 +73,7 @@ class CharacterInfoVC: UIViewController {
         
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
-        
+        addToFavoriteButton.isEnabled = true
         activityIndicator.stopAnimating()
     }
     
@@ -99,6 +102,15 @@ class CharacterInfoVC: UIViewController {
         ])
     }
     
+    func configureaddToFavoriteButton() {
+        addToFavoriteButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
+        addToFavoriteButton.isEnabled = false
+        addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = setImageForFavoriteButton()
+        addToFavoriteButton.setImage(image, for: .normal)
+    }
+    
     private func lauoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton)
         
@@ -119,7 +131,23 @@ class CharacterInfoVC: UIViewController {
             addToFavoriteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             addToFavoriteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             addToFavoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50)
+            addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50),
+            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    @objc func addButtonTapped() {
+        isFavourite.toggle()
+        let image = setImageForFavoriteButton()
+        addToFavoriteButton.setImage(image, for: .normal)
+        PersistenceManager.shared.saveToFavourite(for: name, with: isFavourite)
+    }
+    
+    private func setImageForFavoriteButton() -> UIImage {
+        return isFavourite ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+    }
+    
+    private func loadFavouriteStatus() {
+        isFavourite = PersistenceManager.shared.loadFavourite(for: name)
     }
 }

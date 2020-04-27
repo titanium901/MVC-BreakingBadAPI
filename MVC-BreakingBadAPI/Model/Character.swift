@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Character: Codable {
+struct Character: Codable, Hashable {
     let name: String
     let occupation: [String]
     let img: String
