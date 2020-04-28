@@ -20,6 +20,12 @@ class FavoritesVC: UIViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        favorites = PersistenceManager.shared.get()
+        tableView.reloadData()
+    }
+    
     func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true

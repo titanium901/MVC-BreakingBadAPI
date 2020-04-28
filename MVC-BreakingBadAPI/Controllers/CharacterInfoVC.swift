@@ -22,7 +22,7 @@ class CharacterInfoVC: UIViewController {
     let characterPortrayed = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
     let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
     
-    var character: [Character]!
+    var character: Character!
     var name: String!
     var isFavourite = false
     
@@ -56,8 +56,8 @@ class CharacterInfoVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case.success(let character):
-                print(character)
-                DispatchQueue.main.async { self.configureUIElements(with: character.first!) }
+                self.character = character.first!
+                DispatchQueue.main.async { self.configureUIElements(with: self.character) }
             case .failure(let error):
                 print(error)
             }
@@ -141,6 +141,12 @@ class CharacterInfoVC: UIViewController {
         let image = setImageForFavoriteButton()
         addToFavoriteButton.setImage(image, for: .normal)
         PersistenceManager.shared.saveToFavourite(for: name, with: isFavourite)
+        if isFavourite {
+            PersistenceManager.shared.save(character: character!)
+        } else {
+            PersistenceManager.shared.remove(character: character!)
+        }
+        
     }
     
     private func setImageForFavoriteButton() -> UIImage {
