@@ -24,32 +24,29 @@ class PersistenceManager {
     
     private var favorites: [Character]! = []
     
-    func saveToFavourite(for characterName: String, with status: Bool) {
-        userDefaults.set(status, forKey: characterName)
-    }
-    
     func loadFavourite(for characterName: String) -> Bool {
         return userDefaults.bool(forKey: characterName)
     }
-
-    func save(character: Character) {
-        favorites = self.get()
-        if favorites.contains(character) {
-            return
-        } else {
-            favorites.append(character)
-            userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
-        }
-    }
     
-    func remove(character: Character) {
+    func updateFavorites(with character: Character, isFavorite: Bool) {
+        userDefaults.set(isFavorite, forKey: character.nickname)
+
         favorites = self.get()
-        if favorites.contains(character) {
-            favorites.removeAll { $0 == character}
-            userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
+        if isFavorite {
+            if favorites.contains(character) {
+                return
+            } else {
+                favorites.append(character)
+            }
         } else {
-            return
+            if favorites.contains(character) {
+                favorites.removeAll { $0 == character}
+            } else {
+                return
+            }
         }
+        
+        userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
     }
 
     func get() -> [Character]! {
@@ -58,6 +55,7 @@ class PersistenceManager {
             userData = try? PropertyListDecoder().decode([Character].self, from: data)
             return userData!
         } else {
+            userData = []
             return userData
         }
     }

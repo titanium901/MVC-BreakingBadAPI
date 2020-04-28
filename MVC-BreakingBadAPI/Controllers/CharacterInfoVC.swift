@@ -41,7 +41,6 @@ class CharacterInfoVC: UIViewController {
         configureStackView()
         configureActivityIndicator()
         lauoutUI()
-        loadFavouriteStatus()
         configureaddToFavoriteButton()
         getCharacterInfo()
 }
@@ -73,6 +72,9 @@ class CharacterInfoVC: UIViewController {
         
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
+        
+        loadFavouriteStatus()
+        addToFavoriteButton.setImage(setImageForFavoriteButton(), for: .normal)
         addToFavoriteButton.isEnabled = true
         activityIndicator.stopAnimating()
     }
@@ -107,8 +109,6 @@ class CharacterInfoVC: UIViewController {
         
         addToFavoriteButton.isEnabled = false
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = setImageForFavoriteButton()
-        addToFavoriteButton.setImage(image, for: .normal)
     }
     
     private func lauoutUI() {
@@ -140,13 +140,7 @@ class CharacterInfoVC: UIViewController {
         isFavourite.toggle()
         let image = setImageForFavoriteButton()
         addToFavoriteButton.setImage(image, for: .normal)
-        PersistenceManager.shared.saveToFavourite(for: name, with: isFavourite)
-        if isFavourite {
-            PersistenceManager.shared.save(character: character!)
-        } else {
-            PersistenceManager.shared.remove(character: character!)
-        }
-        
+        PersistenceManager.shared.updateFavorites(with: character, isFavorite: isFavourite)
     }
     
     private func setImageForFavoriteButton() -> UIImage {
@@ -154,6 +148,6 @@ class CharacterInfoVC: UIViewController {
     }
     
     private func loadFavouriteStatus() {
-        isFavourite = PersistenceManager.shared.loadFavourite(for: name)
+        isFavourite = PersistenceManager.shared.loadFavourite(for: String(character.nickname))
     }
 }
