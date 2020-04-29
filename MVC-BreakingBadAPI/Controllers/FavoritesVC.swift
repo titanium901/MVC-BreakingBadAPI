@@ -31,6 +31,9 @@ class FavoritesVC: UIViewController {
                 self.view.bringSubviewToFront(self.tableView)
             }
         }
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: true)
+        }
     }
     
     func configureViewController() {
@@ -71,5 +74,37 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         let destVC = CharacterInfoVC(name: favorite.name.replacingOccurrences(of: " ", with: "+"))
         
         navigationController?.pushViewController(destVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = deleteActionAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    func deleteActionAction(at indexPath: IndexPath) -> UIContextualAction {
+        var character = favorites[indexPath.row]
+        
+        
+        let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
+            character.isFavorite?.toggle()
+            self.favorites[indexPath.row].isFavorite?.toggle()
+            self.favorites.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            if self.favorites.isEmpty {
+                self.showEmptyStateView(with: "No Favorites?\nAdd one on the search screen.", in: self.view)
+            }
+            
+            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            self.presentAlert(
+                title: "Bye, bye... ",
+                message: "\(character.name) 💩",
+                buttonTitle: "ОК"
+            )
+            completition(true)
+        }
+        
+        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
+        action.backgroundColor = .systemBackground
+        return action
     }
 }

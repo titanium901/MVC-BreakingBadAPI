@@ -31,6 +31,8 @@
 		CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */; };
 		CA91CCEF2459734000B3AB30 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEE2459734000B3AB30 /* UIViewController+Ext.swift */; };
 		CA91CCF1245973D500B3AB30 /* BBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */; };
+		CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */; };
+		CA91CCF52459D54100B3AB30 /* BBAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		CA91CCEE2459734000B3AB30 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBEmptyStateView.swift; sourceTree = "<group>"; };
+		CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertVC.swift; sourceTree = "<group>"; };
+		CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertContainerView.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +153,7 @@
 				CA91CCC3244DEBDD00B3AB30 /* CharacterInfoVC.swift */,
 				CA91CCD6244F25C900B3AB30 /* CharactersVC.swift */,
 				CA91CCC5244DEC0300B3AB30 /* FavoritesVC.swift */,
+				CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -181,7 +186,7 @@
 				CA91CCCA244DF4E800B3AB30 /* BBButton.swift */,
 				CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */,
 				CA91CCE82450817D00B3AB30 /* BBImage.swift */,
-				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
+				CA91CCF62459D54800B3AB30 /* Views */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -228,6 +233,15 @@
 				CA91CCE5245080E100B3AB30 /* BBTitleLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		CA91CCF62459D54800B3AB30 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
+				CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +361,7 @@
 				CA91CCEF2459734000B3AB30 /* UIViewController+Ext.swift in Sources */,
 				CA91CCD3244F1F6F00B3AB30 /* UIView+Ext.swift in Sources */,
 				CA91CCEB24508A3C00B3AB30 /* UITableView+Ext.swift in Sources */,
+				CA91CCF52459D54100B3AB30 /* BBAlertContainerView.swift in Sources */,
 				CA91CCE6245080E100B3AB30 /* BBTitleLabel.swift in Sources */,
 				CA91CCDC244F331F00B3AB30 /* NetworkManager.swift in Sources */,
 				CA91CCD9244F316400B3AB30 /* Character.swift in Sources */,
@@ -356,6 +371,7 @@
 				CA91CCDE244F34A200B3AB30 /* ErrorMessage.swift in Sources */,
 				CA91CCC2244DEBA900B3AB30 /* SearchVC.swift in Sources */,
 				CA91CCE02450322C00B3AB30 /* BBCell.swift in Sources */,
+				CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */,
 				CA91CCE92450817D00B3AB30 /* BBImage.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,

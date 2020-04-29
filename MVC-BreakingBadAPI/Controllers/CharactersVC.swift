@@ -11,7 +11,6 @@ import UIKit
 class CharactersVC: UIViewController {
     
     var characters: [Character] = []
-    var charFav: [Character] = []
     var isFavourite = false
     
     let tableView = UITableView()
@@ -28,6 +27,7 @@ class CharactersVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        backRowToNormalState()
     }
     
     func configureViewController() {
@@ -60,6 +60,13 @@ class CharactersVC: UIViewController {
         tableView.dataSource = self
         tableView.removeExcessCells()
         tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+    }
+    
+    func backRowToNormalState() {
+        tableView.setEditing(false, animated: true)
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: false)
+        }
     }
     
     func addFavoriteStatus(to characters : [Character]) -> [Character] {
@@ -105,16 +112,17 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let character = characters[indexPath.row]
+        let destVC = CharacterInfoVC(name: character.name.replacingOccurrences(of: " ", with: "+"))
         
-//        let delete = deleteAction(at: indexPath)
+        navigationController?.pushViewController(destVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let favorite = favoriteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [favorite])
     }
-    
-//    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-//
-//    }
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = characters[indexPath.row]

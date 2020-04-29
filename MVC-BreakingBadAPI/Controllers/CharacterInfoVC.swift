@@ -56,13 +56,13 @@ class CharacterInfoVC: UIViewController {
             switch result {
             case.success(let characters):
                 guard !characters.isEmpty else {
-                    self.characterNotFound()
+                    self.characterNotFound(message: "Не смогли найти такого персонажа - \n\(String(describing: self.name!))")
                     return
                 }
                 self.character = characters.first
                 DispatchQueue.main.async { self.configureUIElements(with: self.character) }
             case .failure(let error):
-                self.presentAlert(title: "Ошибка", message: "\(error.localizedDescription)", buttonTitle: "ОК")
+                self.characterNotFound(message: "\(error.localizedDescription)")
             }
         }
     }
@@ -140,10 +140,10 @@ class CharacterInfoVC: UIViewController {
         ])
     }
     
-    func characterNotFound() {
+    func characterNotFound(message: String) {
         presentAlert(
             title: "Ошибка",
-            message: "Не смогли найти такого персонажа \(String(describing: self.name!))",
+            message: message,
             buttonTitle: "ОК"
         )
         DispatchQueue.main.async {

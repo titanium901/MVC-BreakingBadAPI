@@ -18,9 +18,10 @@ extension UIViewController {
     
     func presentAlert(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let alertVC = BBAlertVC(title: title, message: message, buttonTitle: buttonTitle)
+            alertVC.modalPresentationStyle  = .overFullScreen
+            alertVC.modalTransitionStyle    = .crossDissolve
+            self.present(alertVC, animated: true)
         }
     }
 }
