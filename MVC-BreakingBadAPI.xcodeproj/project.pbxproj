@@ -142,6 +142,8 @@
 		CA91CCBD244DE87D00B3AB30 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
+				CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,7 +188,6 @@
 				CA91CCCA244DF4E800B3AB30 /* BBButton.swift */,
 				CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */,
 				CA91CCE82450817D00B3AB30 /* BBImage.swift */,
-				CA91CCF62459D54800B3AB30 /* Views */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -233,15 +234,6 @@
 				CA91CCE5245080E100B3AB30 /* BBTitleLabel.swift */,
 			);
 			path = Labels;
-			sourceTree = "<group>";
-		};
-		CA91CCF62459D54800B3AB30 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
-				CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

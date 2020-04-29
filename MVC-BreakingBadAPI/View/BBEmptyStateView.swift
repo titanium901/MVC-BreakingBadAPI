@@ -37,7 +37,6 @@ class BBEmptyStateView: UIView {
         messageLabel.numberOfLines = 3
         messageLabel.textColor = .secondaryLabel
         
-//        let labelCenterYConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -80 : -150
         let messageLabelCenterYConstraint = messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150)
         messageLabelCenterYConstraint.isActive = true
         
@@ -53,7 +52,6 @@ class BBEmptyStateView: UIView {
         logoImageView.image = Images.bbLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
-//        let logoBottomConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
         let logoImageViewBottomConstraint = logoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 40)
         logoImageViewBottomConstraint.isActive = true
         

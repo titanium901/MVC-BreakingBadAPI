@@ -39,9 +39,9 @@ class CharacterInfoVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureStackView()
-        configureActivityIndicator()
         lauoutUI()
         configureaddToFavoriteButton()
+        configureActivityIndicator()
         getCharacterInfo()
 }
 
@@ -96,6 +96,8 @@ class CharacterInfoVC: UIViewController {
     
     func configureActivityIndicator() {
         view.addSubview(activityIndicator)
+        view.bringSubviewToFront(activityIndicator)
+        
         activityIndicator.startAnimating()
         activityIndicator.style = .large
         activityIndicator.color = .systemOrange
