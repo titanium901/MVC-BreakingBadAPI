@@ -33,14 +33,14 @@ class PersistenceManager {
 
         favorites = self.get()
         if isFavorite {
-            if favorites.contains(character) {
+            if favorites.contains(where: { $0.nickname == character.nickname }) {
                 return
             } else {
                 favorites.append(character)
             }
         } else {
-            if favorites.contains(character) {
-                favorites.removeAll { $0 == character}
+            if favorites.contains(where: { $0.nickname == character.nickname }) {
+                favorites.removeAll { $0.nickname == character.nickname }
             } else {
                 return
             }

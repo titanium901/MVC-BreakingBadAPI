@@ -11,6 +11,8 @@ import UIKit
 class CharactersVC: UIViewController {
     
     var characters: [Character] = []
+    var charFav: [Character] = []
+    var isFavourite = false
     
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
@@ -61,6 +63,15 @@ class CharactersVC: UIViewController {
         tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
     }
     
+    func addFavoriteStatus(to characters : [Character]) -> [Character] {
+        var favCharacters: [Character] = []
+        for var character in characters {
+            character.isFavorite = false
+            favCharacters.append(character)
+        }
+        return favCharacters
+    }
+    
     func getAllCharacters() {
         NetworkManager.shared.getCharacters() { [weak self] result in
             guard let self = self else { return }
@@ -68,12 +79,13 @@ class CharactersVC: UIViewController {
             switch result {
             case.success(let characters):
                 self.characters = characters
+                self.characters = self.addFavoriteStatus(to: self.characters)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.view.bringSubviewToFront(self.tableView)
                     self.activityIndicator.stopAnimating()
                 }
-                print(characters)
+                print("SOS \("All")")
             case .failure(let error):
                 print(error)
             }
@@ -93,5 +105,29 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
 
         cell.set(character: character)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+//        let delete = deleteAction(at: indexPath)
+        let favorite = favoriteAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [favorite])
+    }
+    
+//    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
+//
+//    }
+    
+    func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
+        var character = characters[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, _) in
+            character.isFavorite?.toggle()
+            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            print("SOS \(character)")
+        }
+        
+        action.image = Images.unselectedHeart
+        action.backgroundColor = .systemBackground
+        return action
     }
 }

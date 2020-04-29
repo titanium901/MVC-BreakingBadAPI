@@ -16,4 +16,5 @@ struct Character: Codable, Hashable {
     let nickname: String
     let appearance: [Int]
     let portrayed: String
+    var isFavorite: Bool?
 }

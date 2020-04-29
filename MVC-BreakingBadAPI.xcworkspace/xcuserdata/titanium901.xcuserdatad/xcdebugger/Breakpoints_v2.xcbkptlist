@@ -52,5 +52,85 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "favoriteAction(at:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4 - 46fb63e6bc1d1705"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVC_BreakingBadAPI.CharactersVC.favoriteAction(at: Foundation.IndexPath) -&gt; __C.UIContextualAction"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "186">
+               </Location>
+               <Location
+                  uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4 - 3f183571ab62d4da"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIContextualAction, __C.UIView, (Swift.Bool) -&gt; ()) -&gt; () in MVC_BreakingBadAPI.CharactersVC.favoriteAction(at: Foundation.IndexPath) -&gt; __C.UIContextualAction"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "241">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6DC930EE-B63E-4352-A50F-FF0A6ABEB50D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "favoriteAction(at:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2CB13BA-E2F7-4354-AF3F-7115FCE23957"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/PersistenceManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "updateFavorites(with:isFavorite:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
