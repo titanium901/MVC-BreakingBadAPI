@@ -16,14 +16,21 @@ class FavoritesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        favorites = [.init(name: "MS White Mdjskh", occupation: ["MS White Mdjskh"], img: "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg", status: "eferer", nickname: "erferferf", appearance:[1], portrayed: "erferferfer")]
         configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         favorites = PersistenceManager.shared.get()
-        tableView.reloadData()
+        if favorites.isEmpty {
+            self.tableView.reloadData()
+            showEmptyStateView(with: "No Favorites?\nAdd one on the search screen.", in: view)
+        } else {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
+            }
+        }
     }
     
     func configureViewController() {
