@@ -22,7 +22,6 @@ class CharactersVC: UIViewController {
         configureViewController()
         configureTableView()
         configureActivityIndicator()
-//        characters = [.init(name: "MS White Mdjskh", occupation: ["MS White Mdjskh"], img: "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg", status: "eferer", nickname: "erferferf", appearance:[1], portrayed: "erferferfer")]
         getAllCharacters()
     }
     
@@ -85,9 +84,8 @@ class CharactersVC: UIViewController {
                     self.view.bringSubviewToFront(self.tableView)
                     self.activityIndicator.stopAnimating()
                 }
-                print("SOS \("All")")
             case .failure(let error):
-                print(error)
+                self.presentAlert(title: "Ошибка", message: "\(error.localizedDescription)", buttonTitle: "ОК")
             }
         }
     }
@@ -120,13 +118,22 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = characters[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, _) in
+
+        character.isFavorite = PersistenceManager.shared.loadFavourite(for: character.nickname)
+
+        let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
             character.isFavorite?.toggle()
+            self.characters[indexPath.row].isFavorite?.toggle()
             PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
-            print("SOS \(character)")
+            self.presentAlert(
+                title: "\(character.name)",
+                message: character.isFavorite! ? "♥︎" : "♡",
+                buttonTitle: "ОК"
+            )
+            completition(true)
         }
         
-        action.image = Images.unselectedHeart
+        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
         action.backgroundColor = .systemBackground
         return action
     }

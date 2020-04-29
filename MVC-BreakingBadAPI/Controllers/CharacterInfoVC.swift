@@ -54,11 +54,15 @@ class CharacterInfoVC: UIViewController {
         NetworkManager.shared.getCharacter(name: name) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case.success(let character):
-                self.character = character.first!
+            case.success(let characters):
+                guard !characters.isEmpty else {
+                    self.characterNotFound()
+                    return
+                }
+                self.character = characters.first
                 DispatchQueue.main.async { self.configureUIElements(with: self.character) }
             case .failure(let error):
-                print(error)
+                self.presentAlert(title: "Ошибка", message: "\(error.localizedDescription)", buttonTitle: "ОК")
             }
         }
     }
@@ -71,7 +75,7 @@ class CharacterInfoVC: UIViewController {
         characterAppearance.text = "\(character.appearance)"
         
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-        characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
+        characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
         
         loadFavouriteStatus()
         addToFavoriteButton.setImage(setImageForFavoriteButton(), for: .normal)
@@ -136,8 +140,22 @@ class CharacterInfoVC: UIViewController {
         ])
     }
     
+    func characterNotFound() {
+        presentAlert(
+            title: "Ошибка",
+            message: "Не смогли найти такого персонажа \(String(describing: self.name!))",
+            buttonTitle: "ОК"
+        )
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.characterImageView.isHidden = true
+            self.showEmptyStateView(with: "Пусто", in: self.view)
+        }
+    }
+    
     @objc func addButtonTapped() {
         isFavourite.toggle()
+        character.isFavorite = isFavourite
         let image = setImageForFavoriteButton()
         addToFavoriteButton.setImage(image, for: .normal)
         PersistenceManager.shared.updateFavorites(with: character, isFavorite: isFavourite)

@@ -68,7 +68,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-        let destVC = CharacterInfoVC(name: favorite.name)
+        let destVC = CharacterInfoVC(name: favorite.name.replacingOccurrences(of: " ", with: "+"))
         
         navigationController?.pushViewController(destVC, animated: true)
     }

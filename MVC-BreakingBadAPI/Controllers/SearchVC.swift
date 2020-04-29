@@ -38,7 +38,10 @@ class SearchVC: UIViewController {
     
     @objc func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
-        guard let name = characterTextField.text, !name.isEmpty else { return }
+        guard let name = characterTextField.text, !name.isEmpty else {
+            presentAlert(title: "Упс...", message: "Не знаю персонажей без имени(", buttonTitle: "ОК")
+            return
+        }
         let characterInfoVC = CharacterInfoVC(name: name.replacingOccurrences(of: " ", with: "+"))
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
