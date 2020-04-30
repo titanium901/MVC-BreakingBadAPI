@@ -23,8 +23,8 @@ class FavoritesVC: UIViewController {
         super.viewWillAppear(true)
         favorites = PersistenceManager.shared.get()
         if favorites.isEmpty {
-            self.tableView.reloadData()
-            showEmptyStateView(with: "No Favorites?\nAdd one on the search screen.", in: view)
+            self.tableView.reloadDataOnMainThread()
+            showEmptyStateView(with: EmptyScreen.empty, in: view)
         } else {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -91,12 +91,12 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
             self.favorites.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             if self.favorites.isEmpty {
-                self.showEmptyStateView(with: "No Favorites?\nAdd one on the search screen.", in: self.view)
+                self.showEmptyStateView(with: EmptyScreen.empty, in: self.view)
             }
             
             PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
             self.presentAlert(
-                title: "Bye, bye... ",
+                title: AlertTitle.bye,
                 message: "\(character.name) 💩",
                 buttonTitle: "ОК"
             )

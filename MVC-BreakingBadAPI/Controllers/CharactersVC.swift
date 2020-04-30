@@ -92,7 +92,7 @@ class CharactersVC: UIViewController {
                     self.activityIndicator.stopAnimating()
                 }
             case .failure(let error):
-                self.presentAlert(title: "Ошибка", message: "\(error.localizedDescription)", buttonTitle: "ОК")
+                self.presentAlert(title: AlertTitle.error, message: "\(error.localizedDescription)", buttonTitle: "ОК")
             }
         }
     }

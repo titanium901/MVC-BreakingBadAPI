@@ -56,7 +56,9 @@ class CharacterInfoVC: UIViewController {
             switch result {
             case.success(let characters):
                 guard !characters.isEmpty else {
-                    self.characterNotFound(message: "Не смогли найти такого персонажа - \n\(String(describing: self.name!))")
+                    self.characterNotFound(
+                        message: "Could not find such a character - \n\(self.name!.replacingOccurrences(of: "+", with: " "))"
+                    )
                     return
                 }
                 self.character = characters.first
@@ -144,14 +146,14 @@ class CharacterInfoVC: UIViewController {
     
     func characterNotFound(message: String) {
         presentAlert(
-            title: "Ошибка",
+            title: AlertTitle.error,
             message: message,
             buttonTitle: "ОК"
         )
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.characterImageView.isHidden = true
-            self.showEmptyStateView(with: "Пусто", in: self.view)
+            self.showEmptyStateView(with: "Empty", in: self.view)
         }
     }
     

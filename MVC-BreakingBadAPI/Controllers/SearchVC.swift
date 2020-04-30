@@ -39,10 +39,11 @@ class SearchVC: UIViewController {
     @objc func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
         guard let name = characterTextField.text, !name.isEmpty else {
-            presentAlert(title: "Упс...", message: "Не знаю персонажей без имени(", buttonTitle: "ОК")
+            presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }
-        let characterInfoVC = CharacterInfoVC(name: name.replacingOccurrences(of: " ", with: "+"))
+        
+        let characterInfoVC = CharacterInfoVC(name: makeStringForInfoVC(for: name))
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
@@ -67,6 +68,8 @@ class SearchVC: UIViewController {
     }
     
     func configureTextField() {
+        characterTextField.delegate = self
+        
         NSLayoutConstraint.activate([
             characterTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
             characterTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
@@ -95,5 +98,20 @@ class SearchVC: UIViewController {
             searchCharacterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func makeStringForInfoVC(for name: String) -> String {
+        return name.trimmingCharacters(in:
+            .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "+")
+            .lowercased()
+            .capitalized
+    }
+}
+
+extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        pushCharacterInfoVC()
+        return true
     }
 }

@@ -15,3 +15,17 @@ enum Images {
     static let heartIcon = UIImage(named: "heartIcon")
     static let unselectedHeart = UIImage(named: "unselectedHeart")
 }
+
+enum AlertTitle {
+    static let oops = "Oops..."
+    static let error = "Error"
+    static let bye = "Bye, bye... "
+}
+
+enum AlertMessage {
+    static let withoutName = "I do not know characters without a name 👀"
+}
+
+enum EmptyScreen {
+    static let empty = "No Favorites?\nAdd one on the search screen."
+}

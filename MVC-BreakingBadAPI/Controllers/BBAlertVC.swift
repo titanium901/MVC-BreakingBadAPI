@@ -23,9 +23,9 @@ class BBAlertVC: UIViewController {
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        self.alertTitle     = title
-        self.message        = message
-        self.buttonTitle    = buttonTitle
+        self.alertTitle = title
+        self.message = message
+        self.buttonTitle = buttonTitle
     }
     
     required init?(coder: NSCoder) {
@@ -64,10 +64,9 @@ class BBAlertVC: UIViewController {
         ])
     }
     
-    
     func configureActionButton() {
         containerView.addSubview(actionButton)
-        actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
+        actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -77,7 +76,6 @@ class BBAlertVC: UIViewController {
             actionButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-    
     
     func configureMessageLabel() {
         containerView.addSubview(messageLabel)
@@ -91,7 +89,6 @@ class BBAlertVC: UIViewController {
             messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -12)
         ])
     }
-    
     
     @objc func dismissVC() {
         dismiss(animated: true)

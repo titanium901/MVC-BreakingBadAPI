@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum PersistenceActionType {
-    case add, remove
-}
-
 enum Keys {
     static let favorites = "favorites"
 }
@@ -33,17 +29,11 @@ class PersistenceManager {
 
         favorites = self.get()
         if isFavorite {
-            if favorites.contains(where: { $0.nickname == character.nickname }) {
-                return
-            } else {
-                favorites.append(character)
-            }
+            guard !favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            favorites.append(character)
         } else {
-            if favorites.contains(where: { $0.nickname == character.nickname }) {
-                favorites.removeAll { $0.nickname == character.nickname }
-            } else {
-                return
-            }
+            guard favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            favorites.removeAll { $0.nickname == character.nickname }
         }
         
         userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
