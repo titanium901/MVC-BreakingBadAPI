@@ -26,6 +26,8 @@ class CharacterInfoVC: UIViewController {
     var name: String!
     var isFavourite = false
     
+    var isViewDidLoad = false
+    
     init(name: String) {
         super.init(nibName: nil, bundle: nil)
         self.name = name
@@ -37,6 +39,7 @@ class CharacterInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isViewDidLoad = true
         view.backgroundColor = .systemBackground
         configureStackView()
         lauoutUI()
@@ -48,6 +51,8 @@ class CharacterInfoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        checkViewDidLoad()
     }
     
     func getCharacterInfo() {
@@ -155,6 +160,14 @@ class CharacterInfoVC: UIViewController {
             self.characterImageView.isHidden = true
             self.showEmptyStateView(with: "Empty", in: self.view)
         }
+    }
+    
+    func checkViewDidLoad() {
+        if !isViewDidLoad {
+            loadFavouriteStatus()
+            addToFavoriteButton.setImage(setImageForFavoriteButton(), for: .normal)
+        }
+        isViewDidLoad = false
     }
     
     @objc func addButtonTapped() {
