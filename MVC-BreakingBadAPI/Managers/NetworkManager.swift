@@ -6,6 +6,7 @@
 //  Copyright © 2020 Iurii Popov. All rights reserved.
 //
 
+// foundation будет достаточно
 import UIKit
 
 class NetworkManager {
@@ -16,15 +17,18 @@ class NetworkManager {
     
     func getCharacters(completed: @escaping (Result<[Character], BBError>) -> Void) {
         let endpoint = baseUrl + "characters"
-        
+
+        // раз url задается внутри сервиса,
+        // нет смысла проверять его валидность
+        // let url = URL(string: endpoint)!
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidData))
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let _ = error {
+
+            if let _ = error { // что это? if error != nil
                 completed(.failure(.unableToComplete))
                 return
             }
@@ -77,6 +81,7 @@ class NetworkManager {
             }
             
             do {
+                // создание и конфиг декодера явно дублируется
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let character = try decoder.decode([Character].self, from: data)

@@ -37,6 +37,7 @@ class BBTextField: UITextField {
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
+        // хардкод, это же просто общий филд
         placeholder = "Enter a Character Name"
     }
 }

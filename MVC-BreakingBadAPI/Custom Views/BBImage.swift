@@ -23,6 +23,7 @@ class BBImage: UIImageView {
     private func configure() {
         layer.cornerRadius = 10
         clipsToBounds = true
+        // хардкод
         image = placeholderImage
         contentMode = .scaleAspectFit
         backgroundColor = .systemBackground

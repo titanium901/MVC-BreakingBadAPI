@@ -31,7 +31,8 @@ class BBEmptyStateView: UIView {
         configureMessageLabel()
         configureLogoImageView()
     }
-    
+
+    // лучше разделять верстку и конфигурацию
     private func configureMessageLabel() {
         addSubview(messageLabel)
         messageLabel.numberOfLines = 3

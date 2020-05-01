@@ -23,9 +23,11 @@ class CharacterInfoVC: UIViewController {
     let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
     
     var character: Character!
+    // имя чего? почему отдельно от модели?
     var name: String!
     var isFavourite = false
-    
+
+    // явно костылище
     var isViewDidLoad = false
     
     init(name: String) {
@@ -54,7 +56,8 @@ class CharacterInfoVC: UIViewController {
         
         checkViewDidLoad()
     }
-    
+
+    // нетфоркинга не должно быть в контроллере
     func getCharacterInfo() {
         NetworkManager.shared.getCharacter(name: name) { [weak self] result in
             guard let self = self else { return }
@@ -177,11 +180,13 @@ class CharacterInfoVC: UIViewController {
         addToFavoriteButton.setImage(image, for: .normal)
         PersistenceManager.shared.updateFavorites(with: character, isFavorite: isFavourite)
     }
-    
+
+    // метод ничего не сетает
     private func setImageForFavoriteButton() -> UIImage {
         return isFavourite ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
     }
-    
+
+    // этим явно должна заниматься модель
     private func loadFavouriteStatus() {
         isFavourite = PersistenceManager.shared.loadFavourite(for: String(character.nickname))
     }

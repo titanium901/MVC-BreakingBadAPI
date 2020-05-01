@@ -83,7 +83,8 @@ class CharactersVC: UIViewController {
             self.tableView.deselectRow(at: index, animated: false)
         }
     }
-    
+
+    // тоже похоже на бизнес логику
     func addFavoriteStatus(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
@@ -92,7 +93,8 @@ class CharactersVC: UIViewController {
         }
         return favCharacters
     }
-    
+
+    // и этого тут не должно быть
     func getAllCharacters() {
         NetworkManager.shared.getCharacters() { [weak self] result in
             guard let self = self else { return }

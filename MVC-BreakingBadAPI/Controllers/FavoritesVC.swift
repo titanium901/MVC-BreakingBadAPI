@@ -80,7 +80,8 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         let delete = deleteActionAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
+
+    // странное название
     func deleteActionAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = favorites[indexPath.row]
         

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// можно внести внутрь PersistenceManager
 enum Keys {
     static let favorites = "favorites"
 }
@@ -15,11 +15,14 @@ enum Keys {
 class PersistenceManager {
     
     static let shared = PersistenceManager()
+    // не заприватил init
     
     private let userDefaults = UserDefaults.standard
-    
+
+    // что за unwrap?
     private var favorites: [Character]! = []
-    
+
+    // по названию непонятно почему метод возвращает Bool
     func loadFavourite(for characterName: String) -> Bool {
         return userDefaults.bool(forKey: characterName)
     }
@@ -28,7 +31,10 @@ class PersistenceManager {
         userDefaults.set(isFavorite, forKey: character.nickname)
 
         favorites = self.get()
+        // можно сделать два метода отдельных
+        // добавление и удаление из избранного
         if isFavorite {
+            // можно вынести метод проверки если в избранном
             guard !favorites.contains(where: { $0.nickname == character.nickname }) else { return }
             favorites.append(character)
         } else {
@@ -39,8 +45,10 @@ class PersistenceManager {
         userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
     }
 
+    // что за unwrap?
+    // название не говорит о том что возаращается
     func get() -> [Character]! {
-        var userData: [Character]!
+        var userData: [Character]! // совсем не нужный массив, можно без него обойтись
         if let data = userDefaults.value(forKey: Keys.favorites) as? Data {
             userData = try? PropertyListDecoder().decode([Character].self, from: data)
             return userData!
