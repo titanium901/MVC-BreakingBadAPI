@@ -33,6 +33,7 @@
 		CA91CCF1245973D500B3AB30 /* BBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */; };
 		CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */; };
 		CA91CCF52459D54100B3AB30 /* BBAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */; };
+		CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBEmptyStateView.swift; sourceTree = "<group>"; };
 		CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertVC.swift; sourceTree = "<group>"; };
 		CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertContainerView.swift; sourceTree = "<group>"; };
+		CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataSource.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +199,7 @@
 			children = (
 				CA91CCCF244F1BAF00B3AB30 /* Constans.swift */,
 				CA91CCDD244F34A200B3AB30 /* ErrorMessage.swift */,
+				CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
+				CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
