@@ -29,6 +29,7 @@ class FavoritesVC: UIViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.view.bringSubviewToFront(self.tableView)
+                self.view.bringSubviewToFront(self.view)
             }
         }
         if let index = self.tableView.indexPathForSelectedRow {
