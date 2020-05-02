@@ -30,7 +30,9 @@ class SearchVC: UIViewController {
         characterTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
+
+    // метод на самом деле не только создает но и устаналивает
+    // нейминг не отражает этого
     func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
@@ -38,6 +40,7 @@ class SearchVC: UIViewController {
     
     @objc func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
+        // валидацию можно вынести
         guard let name = characterTextField.text, !name.isEmpty else {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
@@ -77,7 +80,9 @@ class SearchVC: UIViewController {
             characterTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
+    // не забывай про инкапсуляцию
+    // это все приватное
     func configureShowAllCharacteButton() {
         showAllCharacteButton.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
         
@@ -99,7 +104,7 @@ class SearchVC: UIViewController {
             searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
     func makeStringForInfoVC(for name: String) -> String {
         return name.trimmingCharacters(in:
             .whitespacesAndNewlines)
