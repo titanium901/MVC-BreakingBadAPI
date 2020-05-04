@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "88F708709FB9CCCF22BAB6DD8AF51347"
+               BlueprintIdentifier = "DCB7DD2623F72E8D4968F29EC9BEA1F0"
                BuildableName = "Pods_MVC_BreakingBadAPI.framework"
                BlueprintName = "Pods-MVC-BreakingBadAPI"
                ReferencedContainer = "container:Pods.xcodeproj">

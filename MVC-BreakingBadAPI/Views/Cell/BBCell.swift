@@ -39,6 +39,7 @@ class BBCell: UITableViewCell {
     
     private func configure() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
+        characterImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let heightAnchor: CGFloat = 40
         let trailingAnchor: CGFloat = -20

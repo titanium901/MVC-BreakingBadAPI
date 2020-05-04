@@ -21,7 +21,7 @@ class FavoritesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        favorites = PersistenceManager.shared.get()
+        favorites = PersistenceManager.shared.getFavorites()
         if favorites.isEmpty {
             self.tableView.reloadDataOnMainThread()
             showEmptyStateView(with: EmptyScreen.empty, in: view)
@@ -37,12 +37,12 @@ class FavoritesVC: UIViewController {
         }
     }
     
-    func configureViewController() {
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         view.addSubview(tableView)
         
         tableView.backgroundColor = .systemBackground
@@ -72,17 +72,17 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-        let destVC = CharacterInfoVC(name: favorite.name.replacingOccurrences(of: " ", with: "+"))
+        let destVC = CharacterInfoVC(userNameInput: favorite.name.replacingOccurrences(of: " ", with: "+"))
         
         navigationController?.pushViewController(destVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = deleteActionAction(at: indexPath)
+        let delete = deleteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
-    func deleteActionAction(at indexPath: IndexPath) -> UIContextualAction {
+    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = favorites[indexPath.row]
         
         

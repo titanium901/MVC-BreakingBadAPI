@@ -17,4 +17,14 @@ struct Character: Codable, Hashable {
     let appearance: [Int]
     let portrayed: String
     var isFavorite: Bool?
+    
+    var characters: [Character]?
+    
+    mutating func loadFavouriteStatus() {
+        isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: String(nickname))
+    }
+    
+    mutating func addFavoriteStatus(){
+        isFavorite = false
+    }
 }
