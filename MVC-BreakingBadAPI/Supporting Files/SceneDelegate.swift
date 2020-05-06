@@ -18,10 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = BBTabBarController()
+        let tabBar = BBTabBarController()
+        window?.rootViewController = tabBar
         window?.makeKeyAndVisible()
         
         configureNavigationBar()
+
+        
+        NetworkManager.shared.getCharacters { (characters, success) in
+            if success == true {
+                let searchVC = tabBar.viewControllers?[0].children.first as? SearchVC
+                searchVC?.characters = characters
+            }
+        }
     }
     
     func configureNavigationBar() {

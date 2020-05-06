@@ -6,4 +6,5 @@ target 'MVC-BreakingBadAPI' do
   use_frameworks!
 
   pod 'SDWebImage', '~> 5.0'
+  pod 'Alamofire', '~> 5.1'
 end

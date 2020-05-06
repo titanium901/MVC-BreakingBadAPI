@@ -122,9 +122,8 @@
 			children = (
 				CA91CCDA244F330A00B3AB30 /* Managers */,
 				CA91CCBC244DE86F00B3AB30 /* Model */,
-				CA91CCBD244DE87D00B3AB30 /* View */,
+				CA91CCBD244DE87D00B3AB30 /* Views */,
 				CA91CCBE244DE88A00B3AB30 /* Controllers */,
-				CA91CCC7244DEC3000B3AB30 /* Custom Views */,
 				CA91CCCE244F1B8D00B3AB30 /* Utilities */,
 				CA91CCD1244F1F4C00B3AB30 /* Extension */,
 				CA91CCBF244DE89F00B3AB30 /* Supporting Files */,
@@ -141,13 +140,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		CA91CCBD244DE87D00B3AB30 /* View */ = {
+		CA91CCBD244DE87D00B3AB30 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
-				CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */,
+				CA91CCE12450323000B3AB30 /* Cell */,
+				CA91CD03245D8FB200B3AB30 /* Images */,
+				CA91CD04245D8FBF00B3AB30 /* TextFields */,
+				CA91CD05245D8FC900B3AB30 /* Buttons */,
+				CA91CCE4245080C500B3AB30 /* Labels */,
+				CA91CCC7244DEC3000B3AB30 /* Custom Views */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CA91CCBE244DE88A00B3AB30 /* Controllers */ = {
@@ -184,12 +187,9 @@
 		CA91CCC7244DEC3000B3AB30 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				CA91CCE4245080C500B3AB30 /* Labels */,
-				CA91CCE12450323000B3AB30 /* Cell */,
+				CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */,
+				CA91CCF42459D54100B3AB30 /* BBAlertContainerView.swift */,
 				CA91CCC8244DEC6200B3AB30 /* BBTabBarController.swift */,
-				CA91CCCA244DF4E800B3AB30 /* BBButton.swift */,
-				CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */,
-				CA91CCE82450817D00B3AB30 /* BBImage.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -237,6 +237,30 @@
 				CA91CCE5245080E100B3AB30 /* BBTitleLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		CA91CD03245D8FB200B3AB30 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				CA91CCE82450817D00B3AB30 /* BBImage.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		CA91CD04245D8FBF00B3AB30 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				CA91CCCC244DF4FF00B3AB30 /* BBTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		CA91CD05245D8FC900B3AB30 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				CA91CCCA244DF4E800B3AB30 /* BBButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,10 +338,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

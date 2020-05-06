@@ -19,9 +19,7 @@ class BBTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        
+    private func configure() {        
         layer.cornerRadius = 10
         layer.borderWidth = 2
         layer.borderColor = UIColor.systemGray4.cgColor
@@ -37,6 +35,10 @@ class BBTextField: UITextField {
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
-        placeholder = "Enter a Character Name"
+    }
+    
+     func checkTextIsNotEmpty() -> Bool {
+        guard let text = self.text, !text.isEmpty else { return false }
+        return true
     }
 }

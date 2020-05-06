@@ -8,13 +8,22 @@
 
 import UIKit
 
-class CharactersVC: UIViewController {
+class CharactersVC: UIViewController, NetworkManagerDelegate {
     
     enum Section { case main }
     
-    var characters: [Character] = []
+    var characters: [Character] = [] {
+        didSet {
+            self.characters = self.addFavoriteStatus(to: self.characters)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
+                self.activityIndicator.stopAnimating()
+            }
+            updateData(on: characters)
+        }
+    }
     var filteredCharacters: [Character] = []
-    var isFavourite = false
     var isSearching = false
     
     let tableView = UITableView()
@@ -27,7 +36,6 @@ class CharactersVC: UIViewController {
         configureSearchController()
         configureTableView()
         configureActivityIndicator()
-        getAllCharacters()
         configureDataSource()
     }
     
@@ -37,19 +45,22 @@ class CharactersVC: UIViewController {
         backRowToNormalState()
     }
     
-    func configureViewController() {
+    func catchError(erorr: Error) {
+        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
+    }
+    
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "All BB Characters"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func configureActivityIndicator() {
+    private func configureActivityIndicator() {
         tableView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.style = .large
         activityIndicator.color = .systemOrange
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-
 
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -57,7 +68,7 @@ class CharactersVC: UIViewController {
         ])
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         view.addSubview(tableView)
         
         tableView.backgroundColor = .systemBackground
@@ -69,7 +80,7 @@ class CharactersVC: UIViewController {
         tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
     }
     
-    func configureSearchController() {
+    private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Search for a character name"
@@ -77,43 +88,16 @@ class CharactersVC: UIViewController {
         navigationItem.searchController = searchController
     }
     
-    func backRowToNormalState() {
-        tableView.setEditing(false, animated: true)
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: false)
-        }
-    }
-    
-    func addFavoriteStatus(to characters : [Character]) -> [Character] {
+    private func addFavoriteStatus(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
-            character.isFavorite = false
+            character.addFavoriteStatus()
             favCharacters.append(character)
         }
         return favCharacters
     }
     
-    func getAllCharacters() {
-        NetworkManager.shared.getCharacters() { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case.success(let characters):
-                self.characters = characters
-                self.characters = self.addFavoriteStatus(to: self.characters)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.view.bringSubviewToFront(self.tableView)
-                    self.activityIndicator.stopAnimating()
-                }
-                self.updateData(on: characters)
-            case .failure(let error):
-                self.presentAlert(title: AlertTitle.error, message: "\(error.localizedDescription)", buttonTitle: "ОК")
-            }
-        }
-    }
-    
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = CustomDataSource<Section, Character>(tableView: tableView, cellProvider: { (tableView, indexPath, character) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
             cell.set(character: character)
@@ -121,7 +105,14 @@ class CharactersVC: UIViewController {
         })
     }
     
-    func updateData(on characters: [Character]) {
+    private func backRowToNormalState() {
+        tableView.setEditing(false, animated: true)
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: false)
+        }
+    }
+    
+    private func updateData(on characters: [Character]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)
@@ -150,7 +141,8 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
-        let destVC = CharacterInfoVC(name: character.name.replacingOccurrences(of: " ", with: "+"))
+        let destVC = CharacterInfoVC(userNameInput: character.name.replacingOccurrences(of: " ", with: "+"))
+        destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
     }
@@ -163,7 +155,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = characters[indexPath.row]
 
-        character.isFavorite = PersistenceManager.shared.loadFavourite(for: character.nickname)
+        character.isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: character.nickname)
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
             character.isFavorite?.toggle()
