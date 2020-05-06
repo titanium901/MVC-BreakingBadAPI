@@ -9,12 +9,11 @@
 import UIKit
 import SDWebImage
 
-class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
+class CharacterInfoVC: UIViewController {
     
     let stackView = UIStackView()
     let characterImageView = BBImage(frame: .zero)
     let addToFavoriteButton = UIButton(frame: .zero)
-    let activityIndicator = UIActivityIndicatorView()
     
     let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
     let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
@@ -24,7 +23,6 @@ class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
     
     var character: Character!
     var userNameInput: String!
-    let network = NetworkCharacterManager()
     
     init(userNameInput: String) {
         super.init(nibName: nil, bundle: nil)
@@ -41,36 +39,18 @@ class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
         configureStackView()
         lauoutUI()
         configureaddToFavoriteButton()
-        configureActivityIndicator()
-        getCharacterInfo()
 }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        guard character != nil else { return }
-        setImageForFavoriteButton()
-    }
-    
-    private func getCharacterInfo() {
-        network.delegate = self
-        network.getCharacterByName(name: userNameInput)
-    }
-    
-    func characterDataRedy() {
-        guard let character = network.characterObject else {
-            self.characterNotFound(
-                message: "Could not find such a character - \n\(self.userNameInput!.replacingOccurrences(of: "+", with: " "))"
-            )
+        guard character != nil else {
+            characterNotFound(message: userNameInput)
             return
         }
-        self.character = character
-        DispatchQueue.main.async { self.configureUIElements(with: self.character) }
-    }
-    
-    func catchError(erorr: Error) {
-        characterNotFound(message: erorr.localizedDescription)
+        configureUIElements(with: character)
+        setImageForFavoriteButton()
     }
     
     private func configureUIElements(with character: Character) {
@@ -83,22 +63,13 @@ class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
         
-        self.character.loadFavouriteStatus()
-        
         setImageForFavoriteButton()
         addToFavoriteButton.isEnabled = true
-        activityIndicator.stopAnimating()
     }
     
     private func configureStackView() {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-    }
-    
-    private func configureActivityIndicator() {
-        activityIndicator.startAnimating()
-        activityIndicator.style = .large
-        activityIndicator.color = .systemOrange
     }
     
     private func configureaddToFavoriteButton() {
@@ -107,13 +78,11 @@ class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
     }
     
     private func lauoutUI() {
-        view.addSubviews(characterImageView, stackView, addToFavoriteButton, activityIndicator)
-        view.bringSubviewToFront(activityIndicator)
+        view.addSubviews(characterImageView, stackView, addToFavoriteButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)
@@ -137,21 +106,17 @@ class CharacterInfoVC: UIViewController, NetworkManagerDelegate {
             addToFavoriteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             addToFavoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50),
-            
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     private func characterNotFound(message: String) {
         presentAlert(
             title: AlertTitle.error,
-            message: message,
+            message: message + " - not found",
             buttonTitle: "ОК"
         )
         DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
             self.characterImageView.isHidden = true
             self.showEmptyStateView(with: "Empty", in: self.view)
         }

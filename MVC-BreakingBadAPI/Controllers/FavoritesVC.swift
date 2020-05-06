@@ -61,14 +61,12 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         return favorites.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
         let favorite = favorites[indexPath.row]
         cell.set(character: favorite)
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
@@ -84,7 +82,6 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = favorites[indexPath.row]
-        
         
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
             character.isFavorite?.toggle()

@@ -12,14 +12,24 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     
     enum Section { case main }
     
-    var characters: [Character] = []
+    var characters: [Character] = [] {
+        didSet {
+            self.characters = self.addFavoriteStatus(to: self.characters)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
+                self.activityIndicator.stopAnimating()
+            }
+            updateData(on: characters)
+        }
+    }
     var filteredCharacters: [Character] = []
     var isSearching = false
     
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
     var dataSource: CustomDataSource<Section, Character>!
-    let network = NetworkCharacterManager()
+//    let network = NetworkCharacterManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +37,9 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         configureSearchController()
         configureTableView()
         configureActivityIndicator()
-        getAllCharacters()
+//        getAllCharacters()
         configureDataSource()
+        print("SOS \(characters)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,20 +48,9 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         backRowToNormalState()
     }
     
-    private func getAllCharacters() {
-        network.delegate = self
-        network.getCharacters()
-    }
-    
     func characterDataRedy() {
-        characters = network.charactersObject ?? []
+//        characters = network.charactersObject ?? []
         characters = addFavoriteStatus(to: characters)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.view.bringSubviewToFront(self.tableView)
-            self.activityIndicator.stopAnimating()
-        }
-        updateData(on: characters)
     }
     
     func catchError(erorr: Error) {
@@ -151,6 +151,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
         let activeArray = isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC(userNameInput: character.name.replacingOccurrences(of: " ", with: "+"))
+        destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
     }

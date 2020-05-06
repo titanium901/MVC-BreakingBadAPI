@@ -14,6 +14,13 @@ class SearchVC: UIViewController {
     let characterTextField = BBTextField()
     let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
     let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
+    
+    var characters: [Character]? {
+        didSet {
+            searchCharacterButton.isHidden = false
+            showAllCharacteButton.isHidden = false
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +50,10 @@ class SearchVC: UIViewController {
             return
         }
         let characterInfoVC = CharacterInfoVC(userNameInput: makeStringForInfoVC(for: characterTextField.text!))
+        if let characters = characters?.filter({ $0.name == characterTextField.text! }), !characters.isEmpty {
+            characterInfoVC.character = characters.first
+        }
+
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
@@ -50,6 +61,8 @@ class SearchVC: UIViewController {
         characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()
+        guard let characters = characters else { return }
+        charactersListVC.characters = characters
         navigationController?.pushViewController(charactersListVC, animated: true)
     }
     
@@ -63,10 +76,12 @@ class SearchVC: UIViewController {
     }
     
     private func configureShowAllCharacteButton() {
+        showAllCharacteButton.isHidden = true
         showAllCharacteButton.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
     }
     
     private func configureSearchCharacterButton() {
+        searchCharacterButton.isHidden = true
         searchCharacterButton.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
     }
     
@@ -99,7 +114,6 @@ class SearchVC: UIViewController {
             searchCharacterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
     }
     
     private func makeStringForInfoVC(for name: String) -> String {
@@ -115,5 +129,11 @@ extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         pushCharacterInfoVC()
         return true
+    }
+}
+
+extension SearchVC: NetworkManagerDelegate {
+    func catchError(erorr: Error) {
+        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }
