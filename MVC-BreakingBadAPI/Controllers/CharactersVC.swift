@@ -29,7 +29,6 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
     var dataSource: CustomDataSource<Section, Character>!
-//    let network = NetworkCharacterManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +36,13 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         configureSearchController()
         configureTableView()
         configureActivityIndicator()
-//        getAllCharacters()
         configureDataSource()
-        print("SOS \(characters)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         backRowToNormalState()
-    }
-    
-    func characterDataRedy() {
-//        characters = network.charactersObject ?? []
-        characters = addFavoriteStatus(to: characters)
     }
     
     func catchError(erorr: Error) {
@@ -69,7 +61,6 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         activityIndicator.style = .large
         activityIndicator.color = .systemOrange
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-
 
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
