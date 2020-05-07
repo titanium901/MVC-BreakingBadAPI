@@ -15,6 +15,7 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     var characters: [Character] = [] {
         didSet {
             self.characters = self.addFavoriteStatus(to: self.characters)
+            // зачем async
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.view.bringSubviewToFront(self.tableView)
@@ -175,6 +176,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// Можно сделать отдельную модель Searcher
 extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {

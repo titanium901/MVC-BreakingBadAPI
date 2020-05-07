@@ -22,6 +22,7 @@ class CharacterInfoVC: UIViewController {
     let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
     
     var character: Character!
+    // можно завернуть в модель
     var userNameInput: String!
     
     init(userNameInput: String) {
@@ -66,7 +67,15 @@ class CharacterInfoVC: UIViewController {
         setImageForFavoriteButton()
         addToFavoriteButton.isEnabled = true
     }
-    
+
+//    var stackView = with(UIStackView()) {
+//        $0.add
+//    }
+//    lazy var stackView: UIStackView = {
+//        let stackView = UIStackView()
+//        config...
+//        return stackView
+//    }()
     private func configureStackView() {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
@@ -116,6 +125,7 @@ class CharacterInfoVC: UIViewController {
             message: message + " - not found",
             buttonTitle: "ОК"
         )
+        // зачем async?
         DispatchQueue.main.async {
             self.characterImageView.isHidden = true
             self.showEmptyStateView(with: "Empty", in: self.view)

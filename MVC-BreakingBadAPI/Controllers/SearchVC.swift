@@ -45,6 +45,7 @@ class SearchVC: UIViewController {
     
     @objc func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
+        let input = characterTextField.text
         guard characterTextField.checkTextIsNotEmpty() else {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return

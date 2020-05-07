@@ -13,6 +13,8 @@ protocol NetworkManagerDelegate {
     func catchError(erorr: Error)
 }
 
+// NetworkManager по названию абстрактная шутка,
+// а в реализации используется только для получения персонажей
 class NetworkManager: NSObject {
     
     static let shared = NetworkManager()

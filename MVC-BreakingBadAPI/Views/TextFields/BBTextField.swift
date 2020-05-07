@@ -36,7 +36,8 @@ class BBTextField: UITextField {
         returnKeyType = .go
         clearButtonMode = .whileEditing
     }
-    
+
+    // property
      func checkTextIsNotEmpty() -> Bool {
         guard let text = self.text, !text.isEmpty else { return false }
         return true
