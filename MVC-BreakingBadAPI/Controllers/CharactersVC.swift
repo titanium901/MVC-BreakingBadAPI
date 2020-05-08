@@ -107,8 +107,8 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     
     private func backRowToNormalState() {
         tableView.setEditing(false, animated: true)
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: false)
+        if let index = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: index, animated: false)
         }
     }
     

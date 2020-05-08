@@ -23,7 +23,7 @@ class FavoritesVC: UIViewController {
         super.viewWillAppear(true)
         favorites = PersistenceManager.shared.getFavorites()
         if favorites.isEmpty {
-            self.tableView.reloadDataOnMainThread()
+            tableView.reloadDataOnMainThread()
             showEmptyStateView(with: EmptyScreen.empty, in: view)
         } else {
             DispatchQueue.main.async {
@@ -32,8 +32,8 @@ class FavoritesVC: UIViewController {
                 self.view.bringSubviewToFront(self.view)
             }
         }
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: true)
+        if let index = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: index, animated: true)
         }
     }
     

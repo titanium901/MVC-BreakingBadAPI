@@ -116,10 +116,9 @@ class CharacterInfoVC: UIViewController {
             message: message + " - not found",
             buttonTitle: "ОК"
         )
-        DispatchQueue.main.async {
-            self.characterImageView.isHidden = true
-            self.showEmptyStateView(with: "Empty", in: self.view)
-        }
+        
+        characterImageView.isHidden = true
+        showEmptyStateView(with: "Empty", in: view)
     }
     
     @objc func addDeleteFavoriteButtonTapped() {
@@ -130,7 +129,7 @@ class CharacterInfoVC: UIViewController {
     }
     
     private func setImageForFavoriteButton() {
-        self.character.loadFavouriteStatus()
+        character.loadFavouriteStatus()
         addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
     }
 
