@@ -11,15 +11,51 @@ import SDWebImage
 
 class CharacterInfoVC: UIViewController {
     
-    private let stackView = UIStackView()
-    private let characterImageView = BBImage(frame: .zero)
-    private let addToFavoriteButton = UIButton(frame: .zero)
-    
-    private let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    private let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    private let characterStatus = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    private let characterPortrayed = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    private let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    private lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemBackground
+        return imageView
+    }()
+    private lazy var characterName: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var characterNickname: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .systemOrange)
+        return label
+    }()
+    private lazy var characterStatus: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var characterPortrayed: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .systemOrange)
+        return label
+    }()
+    private lazy var characterAppearance: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var addToFavoriteButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
+        button.isEnabled = false
+        return button
+    }()
     
     var character: Character!
     private var userNameInput: String!
@@ -36,9 +72,7 @@ class CharacterInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configureStackView()
         lauoutUI()
-        configureaddToFavoriteButton()
 }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -67,22 +101,17 @@ class CharacterInfoVC: UIViewController {
         addToFavoriteButton.isEnabled = true
     }
     
-    private func configureStackView() {
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-    }
-    
-    private func configureaddToFavoriteButton() {
-        addToFavoriteButton.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
-        addToFavoriteButton.isEnabled = false
-    }
-    
     private func lauoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        characterName.translatesAutoresizingMaskIntoConstraints = false
+        characterNickname.translatesAutoresizingMaskIntoConstraints = false
+        characterStatus.translatesAutoresizingMaskIntoConstraints = false
+        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
+        characterAppearance.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)

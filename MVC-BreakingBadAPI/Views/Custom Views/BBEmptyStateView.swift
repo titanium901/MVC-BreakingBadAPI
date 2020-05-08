@@ -10,8 +10,18 @@ import UIKit
 
 class BBEmptyStateView: UIView {
     
-    private let messageLabel = BBTitleLabel(textAlignment: .center, fontSize: 28)
-    private let logoImageView = UIImageView()
+    private lazy var messageLabel: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        label.numberOfLines = 3
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.bbLogo
+        return imageView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,24 +38,14 @@ class BBEmptyStateView: UIView {
     }
     
     private func configure() {
-        configureMessageLabel()
-        configureLogoImageView()
-        configureLauoutUI()
-    }
-    
-    private func configureMessageLabel() {
         addSubview(messageLabel)
-        messageLabel.numberOfLines = 3
-        messageLabel.textColor = .secondaryLabel
-    }
-    
-    private func configureLogoImageView() {
         addSubview(logoImageView)
-        logoImageView.image = Images.bbLogo
+        configureLauoutUI()
     }
     
     private func configureLauoutUI() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let logoImageViewBottomConstraint = logoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 40)
         logoImageViewBottomConstraint.isActive = true

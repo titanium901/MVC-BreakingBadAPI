@@ -10,13 +10,23 @@ import UIKit
 
 class FavoritesVC: UIViewController {
     
-    private let tableView = UITableView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemBackground
+        tableView.frame = view.bounds
+        tableView.rowHeight = 200
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.removeExcessCells()
+        tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+        return tableView
+    }()
     private var favorites: [Character] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureTableView()
+        view.addSubview(tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,18 +48,6 @@ class FavoritesVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    private func configureTableView() {
-        view.addSubview(tableView)
-        
-        tableView.backgroundColor = .systemBackground
-        tableView.frame = view.bounds
-        tableView.rowHeight = 200
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.removeExcessCells()
-        tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
     }
 }
 

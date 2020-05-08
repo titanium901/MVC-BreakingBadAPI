@@ -10,10 +10,30 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    private let logoImageView = UIImageView()
-    private let characterTextField = BBTextField()
-    private let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
-    private let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.bbLogo
+        return imageView
+    }()
+    private lazy var characterTextField: UITextField = {
+        let textField = UITextField()
+        textField.applyBBStyle()
+        textField.placeholder = "Enter a Character Name"
+        textField.delegate = self
+        return textField
+    }()
+    private lazy var searchCharacterButton: UIButton = {
+        let button = UIButton()
+        button.applyBBStyle(title: "Search", backgroundColor: .orange)
+        button.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
+        return button
+    }()
+    private lazy var showAllCharacteButton: UIButton = {
+        let button = UIButton()
+        button.applyBBStyle(title: "Show All Characters", backgroundColor: .black)
+        button.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
+        return button
+    }()
     
     var characters: [Character]? {
         didSet {
@@ -24,10 +44,6 @@ class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLogoImageView()
-        configureTextField()
-        configureShowAllCharacteButton()
-        configureSearchCharacterButton()
         configureLauoutUI()
         createAndSetDismissKeyboardTapGesture()
     }
@@ -45,10 +61,11 @@ class SearchVC: UIViewController {
     
     @objc private func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
-        guard characterTextField.checkTextIsNotEmpty() else {
-            presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
-            return
-        }
+        // to do
+//        guard characterTextField.checkTextIsNotEmpty() else {
+//            presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
+//            return
+//        }
         let characterInfoVC = CharacterInfoVC(userNameInput: makeStringForInfoVC(for: characterTextField.text!))
         if let characters = characters?.filter({ $0.name == characterTextField.text! }), !characters.isEmpty {
             characterInfoVC.character = characters.first
@@ -64,25 +81,6 @@ class SearchVC: UIViewController {
         guard let characters = characters else { return }
         charactersListVC.characters = characters
         navigationController?.pushViewController(charactersListVC, animated: true)
-    }
-    
-    private func configureLogoImageView() {
-        logoImageView.image = Images.bbLogo
-    }
-    
-    private func configureTextField() {
-        characterTextField.placeholder = "Enter a Character Name"
-        characterTextField.delegate = self
-    }
-    
-    private func configureShowAllCharacteButton() {
-        showAllCharacteButton.isHidden = true
-        showAllCharacteButton.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
-    }
-    
-    private func configureSearchCharacterButton() {
-        searchCharacterButton.isHidden = true
-        searchCharacterButton.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
     }
     
     private func configureLauoutUI() {
