@@ -14,7 +14,8 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     
     var characters: [Character] = [] {
         didSet {
-            self.characters = self.addFavoriteStatus(to: self.characters)
+            characters = addFavoriteStatus(to: characters)
+            // вот тут пока хз
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.view.bringSubviewToFront(self.tableView)

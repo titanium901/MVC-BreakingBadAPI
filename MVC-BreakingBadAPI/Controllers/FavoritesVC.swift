@@ -26,11 +26,9 @@ class FavoritesVC: UIViewController {
             tableView.reloadDataOnMainThread()
             showEmptyStateView(with: EmptyScreen.empty, in: view)
         } else {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-                self.view.bringSubviewToFront(self.view)
-            }
+            tableView.reloadDataOnMainThread()
+            view.bringSubviewToFront(tableView)
+            view.bringSubviewToFront(view)
         }
         if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
