@@ -10,16 +10,16 @@ import UIKit
 
 class BBAlertVC: UIViewController {
     
-    let containerView = BBAlertContainerView()
-    let titleLabel = BBTitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel = BBTitleLabel(textAlignment: .center, fontSize: 14)
-    let actionButton = BBButton(backgroundColor: .systemOrange, title: "ОК")
+    private let containerView = BBAlertContainerView()
+    private let titleLabel = BBTitleLabel(textAlignment: .center, fontSize: 20)
+    private let messageLabel = BBTitleLabel(textAlignment: .center, fontSize: 14)
+    private let actionButton = BBButton(backgroundColor: .systemOrange, title: "ОК")
     
-    var alertTitle: String?
-    var message: String?
-    var buttonTitle: String?
+    private var alertTitle: String?
+    private var message: String?
+    private var buttonTitle: String?
     
-    let padding: CGFloat = 20
+    private let padding: CGFloat = 20
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
@@ -85,7 +85,7 @@ class BBAlertVC: UIViewController {
         ])
     }
     
-    @objc func dismissVC() {
+    @objc private func dismissVC() {
         dismiss(animated: true)
     }
 }

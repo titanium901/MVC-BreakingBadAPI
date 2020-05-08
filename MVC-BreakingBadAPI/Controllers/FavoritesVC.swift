@@ -10,8 +10,8 @@ import UIKit
 
 class FavoritesVC: UIViewController {
     
-    let tableView = UITableView()
-    var favorites: [Character] = []
+    private let tableView = UITableView()
+    private var favorites: [Character] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()

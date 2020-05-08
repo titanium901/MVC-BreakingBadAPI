@@ -9,7 +9,8 @@
 import UIKit
 
 class BBImage: UIImageView {
-    let placeholderImage = Images.placeholder
+    
+    private let placeholderImage = Images.placeholder
     
     override init(frame: CGRect) {
         super.init(frame: frame)

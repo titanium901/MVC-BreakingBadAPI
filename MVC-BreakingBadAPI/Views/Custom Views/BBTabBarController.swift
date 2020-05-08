@@ -16,7 +16,7 @@ class BBTabBarController: UITabBarController {
         viewControllers = [createSearchNC(), createFavoritesNC()]
     }
     
-    func createSearchNC() -> UINavigationController {
+    private func createSearchNC() -> UINavigationController {
         let searchVC = SearchVC()
         searchVC.title = "Search"
         searchVC.view.backgroundColor = .systemBackground
@@ -25,7 +25,7 @@ class BBTabBarController: UITabBarController {
         return UINavigationController(rootViewController: searchVC)
     }
     
-    func createFavoritesNC() -> UINavigationController {
+    private func createFavoritesNC() -> UINavigationController {
         let favoritiesVC = FavoritesVC()
         favoritiesVC.title = "Favorities"
         favoritiesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)

@@ -17,11 +17,11 @@ class NetworkManager: NSObject {
     
     static let shared = NetworkManager()
     
-    let jsonDecoder = JSONDecoder()
+    private let jsonDecoder = JSONDecoder()
     
-    var characterObject: Character?
-    var error: Error?
-    var delegate: NetworkManagerDelegate?
+    private var characterObject: Character?
+    private var error: Error?
+    private var delegate: NetworkManagerDelegate?
     
     func getCharacters(completionHandler: @escaping ([Character], Bool?) -> Void) {
         AF.request("https://www.breakingbadapi.com/api/characters", method: .get).responseJSON { (response) in

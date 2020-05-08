@@ -11,18 +11,18 @@ import SDWebImage
 
 class CharacterInfoVC: UIViewController {
     
-    let stackView = UIStackView()
-    let characterImageView = BBImage(frame: .zero)
-    let addToFavoriteButton = UIButton(frame: .zero)
+    private let stackView = UIStackView()
+    private let characterImageView = BBImage(frame: .zero)
+    private let addToFavoriteButton = UIButton(frame: .zero)
     
-    let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    let characterStatus = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    let characterPortrayed = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
+    private let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
+    private let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
+    private let characterStatus = BBTitleLabel(textAlignment: .center, fontSize: 26)
+    private let characterPortrayed = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
+    private let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
     
     var character: Character!
-    var userNameInput: String!
+    private var userNameInput: String!
     
     init(userNameInput: String) {
         super.init(nibName: nil, bundle: nil)
@@ -121,7 +121,7 @@ class CharacterInfoVC: UIViewController {
         showEmptyStateView(with: "Empty", in: view)
     }
     
-    @objc func addDeleteFavoriteButtonTapped() {
+    @objc private func addDeleteFavoriteButtonTapped() {
         character.isFavorite?.toggle()
         let image = imageForFavoriteButton()
         addToFavoriteButton.setImage(image, for: .normal)

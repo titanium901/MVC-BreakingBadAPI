@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CharactersVC: UIViewController, NetworkManagerDelegate {
+class CharactersVC: UIViewController {
     
     enum Section { case main }
     
@@ -24,12 +24,12 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
             updateData(on: characters)
         }
     }
-    var filteredCharacters: [Character] = []
-    var isSearching = false
+    private var filteredCharacters: [Character] = []
+    private var isSearching = false
     
-    let tableView = UITableView()
-    let activityIndicator = UIActivityIndicatorView()
-    var dataSource: CustomDataSource<Section, Character>!
+    private let tableView = UITableView()
+    private let activityIndicator = UIActivityIndicatorView()
+    private var dataSource: CustomDataSource<Section, Character>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +44,6 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         backRowToNormalState()
-    }
-    
-    func catchError(erorr: Error) {
-        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
     
     private func configureViewController() {
@@ -118,6 +114,13 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+    }
+}
+
+extension CharactersVC: NetworkManagerDelegate {
+    
+    func catchError(erorr: Error) {
+        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }
 

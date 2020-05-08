@@ -12,11 +12,11 @@ import SDWebImage
 class BBCell: UITableViewCell {
     
     static let reuseID = "BBCell"
-    let characterImageView = BBImage(frame: .zero)
-    let characterName = BBTitleLabel(textAlignment: .left, fontSize: 26)
-    let characterNickname = BBTitleLabel(textAlignment: .left, fontSize: 24, textColor: .systemOrange)
-    let characterStatus = BBTitleLabel(textAlignment: .left, fontSize: 22)
-    let characterPortrayed = BBTitleLabel(textAlignment: .left, fontSize: 20, textColor: .systemOrange)
+    private let characterImageView = BBImage(frame: .zero)
+    private let characterName = BBTitleLabel(textAlignment: .left, fontSize: 26)
+    private let characterNickname = BBTitleLabel(textAlignment: .left, fontSize: 24, textColor: .systemOrange)
+    private let characterStatus = BBTitleLabel(textAlignment: .left, fontSize: 22)
+    private let characterPortrayed = BBTitleLabel(textAlignment: .left, fontSize: 20, textColor: .systemOrange)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

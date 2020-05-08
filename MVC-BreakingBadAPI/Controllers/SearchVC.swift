@@ -10,10 +10,10 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    let logoImageView = UIImageView()
-    let characterTextField = BBTextField()
-    let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
-    let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
+    private let logoImageView = UIImageView()
+    private let characterTextField = BBTextField()
+    private let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
+    private let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
     
     var characters: [Character]? {
         didSet {
@@ -43,7 +43,7 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func pushCharacterInfoVC() {
+    @objc private func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
         guard characterTextField.checkTextIsNotEmpty() else {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
@@ -57,7 +57,7 @@ class SearchVC: UIViewController {
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
-    @objc func pushCharactersListVC() {
+    @objc private func pushCharactersListVC() {
         characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()
