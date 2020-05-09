@@ -53,38 +53,27 @@ class CharacterInfoVC: UIViewController {
     private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
-        button.isEnabled = false
         return button
     }()
     
-    var character: Character!
-    private var userNameInput: String!
-    
-    init(userNameInput: String) {
-        super.init(nibName: nil, bundle: nil)
-        self.userNameInput = userNameInput
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private let characterData = CharacterDataModel()
+    var character: Character! {
+        didSet {
+            configureUIElements(with: character)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        characterData.delegate = self
+        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
         lauoutUI()
 }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        guard character != nil else {
-            characterNotFound(message: userNameInput)
-            return
-        }
-        configureUIElements(with: character)
-        setImageForFavoriteButton()
     }
     
     private func configureUIElements(with character: Character) {
@@ -97,8 +86,7 @@ class CharacterInfoVC: UIViewController {
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
         
-        setImageForFavoriteButton()
-        addToFavoriteButton.isEnabled = true
+        addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
     }
     
     private func lauoutUI() {
@@ -112,7 +100,7 @@ class CharacterInfoVC: UIViewController {
         characterStatus.translatesAutoresizingMaskIntoConstraints = false
         characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
         characterAppearance.translatesAutoresizingMaskIntoConstraints = false
-        
+
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)
         stackView.addArrangedSubview(characterStatus)
@@ -152,17 +140,20 @@ class CharacterInfoVC: UIViewController {
     
     @objc private func addDeleteFavoriteButtonTapped() {
         character.isFavorite?.toggle()
-        let image = imageForFavoriteButton()
+        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
         addToFavoriteButton.setImage(image, for: .normal)
+        //to do
         PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
     }
-    
-    private func setImageForFavoriteButton() {
-        character.loadFavouriteStatus()
-        addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
-    }
+}
 
-    private func imageForFavoriteButton() -> UIImage {
-        return character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+extension CharacterInfoVC: DataModelDelegate {
+    func notRecieveCharacter() {
+        characterNotFound(message: SearchValidRequest.shared.validText)
+    }
+    
+    func didRecieveCharacter(character: Character) {
+        self.character = character
+        self.character.loadFavouriteStatus()
     }
 }

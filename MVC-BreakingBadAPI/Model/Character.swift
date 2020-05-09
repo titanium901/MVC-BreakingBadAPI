@@ -27,4 +27,13 @@ struct Character: Codable, Hashable {
     mutating func addFavoriteStatus(){
         isFavorite = false
     }
+    
+    mutating func loadCharacter(by name: String) {
+        NetworkCharacterManager.shared.getCharacter(name: name) { (character, success) in
+            if success == true {
+                
+            }
+        }
+    }
 }
+

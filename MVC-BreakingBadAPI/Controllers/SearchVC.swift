@@ -62,7 +62,8 @@ class SearchVC: UIViewController {
             return
         }
         
-        let characterInfoVC = CharacterInfoVC(userNameInput: input.searchValidText)
+        SearchValidRequest.shared.validText = input.searchValidText
+        let characterInfoVC = CharacterInfoVC()
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
@@ -113,6 +114,7 @@ extension SearchVC: UITextFieldDelegate {
 }
 
 extension SearchVC: NetworkManagerDelegate {
+    
     func catchError(erorr: Error) {
         presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }

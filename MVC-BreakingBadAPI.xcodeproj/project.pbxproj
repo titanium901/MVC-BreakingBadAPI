@@ -33,6 +33,8 @@
 		CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */; };
 		CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */; };
 		CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06824669EE30018D96E /* TextChecker.swift */; };
+		CAB2B06D2466BF740018D96E /* CharacterDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */; };
+		CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertVC.swift; sourceTree = "<group>"; };
 		CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataSource.swift; sourceTree = "<group>"; };
 		CAB2B06824669EE30018D96E /* TextChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextChecker.swift; sourceTree = "<group>"; };
+		CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataModel.swift; sourceTree = "<group>"; };
+		CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchValidRequest.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +139,8 @@
 			children = (
 				CA91CCD8244F316400B3AB30 /* Character.swift */,
 				CAB2B06824669EE30018D96E /* TextChecker.swift */,
+				CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */,
+				CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				CA91CCCD244DF4FF00B3AB30 /* UITextField+Ext.swift in Sources */,
 				CA91CCEF2459734000B3AB30 /* UIViewController+Ext.swift in Sources */,
 				CA91CCD3244F1F6F00B3AB30 /* UIView+Ext.swift in Sources */,
+				CAB2B06D2466BF740018D96E /* CharacterDataModel.swift in Sources */,
 				CA91CCEB24508A3C00B3AB30 /* UITableView+Ext.swift in Sources */,
 				CA91CCE6245080E100B3AB30 /* UILabel+Ext.swift in Sources */,
 				CA91CCDC244F331F00B3AB30 /* NetworkManager.swift in Sources */,
@@ -361,6 +368,7 @@
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,
 				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
+				CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
 				CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */,

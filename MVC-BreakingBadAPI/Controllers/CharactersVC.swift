@@ -118,6 +118,10 @@ class CharactersVC: UIViewController {
 }
 
 extension CharactersVC: NetworkManagerDelegate {
+    func dataReady(character: Character) {
+        print("SOS \(character)")
+    }
+    
     
     func catchError(erorr: Error) {
         presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
@@ -145,7 +149,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
-        let destVC = CharacterInfoVC(userNameInput: character.name.replacingOccurrences(of: " ", with: "+"))
+        let destVC = CharacterInfoVC()
         destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
