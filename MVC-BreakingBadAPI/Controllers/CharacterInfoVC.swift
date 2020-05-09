@@ -59,6 +59,7 @@ class CharacterInfoVC: UIViewController {
     private let characterData = CharacterDataModel()
     var character: Character! {
         didSet {
+            character.loadFavouriteStatus()
             configureUIElements(with: character)
         }
     }
@@ -66,9 +67,22 @@ class CharacterInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        characterData.delegate = self
-        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
+        //
+        //вариант получения через делегат с использованием CharacterDataModel
+        //
+//        characterData.delegate = self
+//        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
         lauoutUI()
+        //
+        //вариант через Charactera
+        //
+        Character.loadCharacter(by: SearchValidRequest.shared.validName) { (char) in
+            guard let char = char else {
+                self.characterNotFound(message: SearchValidRequest.shared.validName)
+                return
+            }
+            self.character = char
+        }
 }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,11 +163,10 @@ class CharacterInfoVC: UIViewController {
 
 extension CharacterInfoVC: CharacterDataModelDelegate {
     func notRecieveCharacter() {
-        characterNotFound(message: SearchValidRequest.shared.validText)
+        characterNotFound(message: SearchValidRequest.shared.validName)
     }
     
     func didRecieveCharacter(character: Character) {
         self.character = character
-        self.character.loadFavouriteStatus()
     }
 }

@@ -28,10 +28,10 @@ struct Character: Codable, Hashable {
         isFavorite = false
     }
     
-    mutating func loadCharacter(by name: String) {
-        NetworkCharacterManager.shared.getCharacter(name: name) { (character, success) in
+    static func loadCharacter(by name: String, completion: @escaping (Character?) -> Void) {
+        NetworkCharacterManager.shared.getCharacter(name: name) { (characters, success) in
             if success == true {
-                
+                completion(characters.first ?? nil)
             }
         }
     }

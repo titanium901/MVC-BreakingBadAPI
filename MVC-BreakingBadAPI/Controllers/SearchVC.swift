@@ -62,7 +62,7 @@ class SearchVC: UIViewController {
             return
         }
         
-        SearchValidRequest.shared.validText = input.searchValidText
+        SearchValidRequest.shared.validName = input.searchValidText
         let characterInfoVC = CharacterInfoVC()
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }

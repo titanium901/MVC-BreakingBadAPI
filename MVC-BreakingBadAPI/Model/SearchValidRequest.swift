@@ -12,5 +12,5 @@ class SearchValidRequest {
     static let shared = SearchValidRequest()
     private init() {}
     
-    var validText: String!
+    var validName: String!
 }
