@@ -147,7 +147,7 @@ class CharacterInfoVC: UIViewController {
     }
 }
 
-extension CharacterInfoVC: DataModelDelegate {
+extension CharacterInfoVC: CharacterDataModelDelegate {
     func notRecieveCharacter() {
         characterNotFound(message: SearchValidRequest.shared.validText)
     }

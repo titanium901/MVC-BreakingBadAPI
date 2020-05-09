@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol DataModelDelegate: class {
+protocol CharacterDataModelDelegate: class {
     func didRecieveCharacter(character: Character)
     func notRecieveCharacter()
 }
 
 class CharacterDataModel {
-    weak var delegate: DataModelDelegate?
+    weak var delegate: CharacterDataModelDelegate?
     
     func loadCharacter(by name: String) {
         NetworkCharacterManager.shared.getCharacter(name: name) { (character, success) in
