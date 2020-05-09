@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NetworkManager.shared.getCharacters { (characters, success) in
             if success == true {
                 let searchVC = tabBar.viewControllers?[0].children.first as? SearchVC
-                searchVC?.characters = characters
+//                searchVC?.characters = characters
             }
         }
     }

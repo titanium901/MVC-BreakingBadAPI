@@ -34,13 +34,6 @@ class SearchVC: UIViewController {
         button.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
         return button
     }()
-    
-    var characters: [Character]? {
-        didSet {
-            searchCharacterButton.isHidden = false
-            showAllCharacteButton.isHidden = false
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,16 +54,15 @@ class SearchVC: UIViewController {
     
     @objc private func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
-        // to do
-//        guard characterTextField.checkTextIsNotEmpty() else {
-//            presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
-//            return
-//        }
-        let characterInfoVC = CharacterInfoVC(userNameInput: makeStringForInfoVC(for: characterTextField.text!))
-        if let characters = characters?.filter({ $0.name == characterTextField.text! }), !characters.isEmpty {
-            characterInfoVC.character = characters.first
+        guard let text = characterTextField.text else { return }
+        var input = TextChecker(text: text)
+        input.checkUserInput()
+        if !input.isValid {
+            presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
+            return
         }
-
+        
+        let characterInfoVC = CharacterInfoVC(userNameInput: input.searchValidText)
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
@@ -78,8 +70,6 @@ class SearchVC: UIViewController {
         characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()
-        guard let characters = characters else { return }
-        charactersListVC.characters = characters
         navigationController?.pushViewController(charactersListVC, animated: true)
     }
     
@@ -112,14 +102,6 @@ class SearchVC: UIViewController {
             searchCharacterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-    private func makeStringForInfoVC(for name: String) -> String {
-        return name.trimmingCharacters(in:
-            .whitespacesAndNewlines)
-            .replacingOccurrences(of: " ", with: "+")
-            .lowercased()
-            .capitalized
     }
 }
 
