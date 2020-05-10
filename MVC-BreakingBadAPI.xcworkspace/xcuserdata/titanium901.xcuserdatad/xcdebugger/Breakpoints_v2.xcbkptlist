@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC6A6DA9-AB07-444A-A8C4-932BDB05E07A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/FavoritesVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "747160E1-855A-4D64-A604-F979D01D3008"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -142,10 +126,10 @@
             filePath = "MVC-BreakingBadAPI/Managers/PersistenceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "PersistenceManager"
-            landmarkType = "3">
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "updateFavorites(with:isFavorite:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "4770A282-D537-43D8-B1C6-F7185BF22A66 - 17881a43733b27c4"
