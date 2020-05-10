@@ -37,10 +37,8 @@ class CharactersVC: UIViewController {
     
     private var characters: [Character] = [] {
         didSet {
-            characters = Character.addFavoriteStatusToAll(to: characters)
-            
-            tableView.reloadData()
-            view.bringSubviewToFront(self.tableView)
+            tableView.reloadDataOnMainThread()
+            view.bringSubviewToFront(tableView)
             activityIndicator.stopAnimating()
             updateData(on: characters)
         }
@@ -61,6 +59,17 @@ class CharactersVC: UIViewController {
         backRowToNormalState()
     }
     
+    private func loadAllCharacters() {
+        Character.loadAllCharacters { characters in
+            guard let characters = characters else {
+                self.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+                return
+            }
+            self.characters = characters
+            self.characters = Character.addFavoriteStatusToAll(to: characters)
+        }
+    }
+    
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "All BB Characters"
@@ -70,7 +79,6 @@ class CharactersVC: UIViewController {
     private func layoutUI() {
         view.addSubview(tableView)
         tableView.addSubview(activityIndicator)
-        
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -85,16 +93,6 @@ class CharactersVC: UIViewController {
         searchController.searchBar.placeholder = "Search for a character name"
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
-    }
-    
-    private func loadAllCharacters() {
-        Character.loadAllCharacters { characters in
-            guard let characters = characters else {
-                self.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
-                return
-            }
-            self.characters = characters
-        }
     }
     
     private func configureDataSource() {
@@ -118,15 +116,6 @@ class CharactersVC: UIViewController {
     }
 }
 
-extension CharactersVC: NetworkManagerDelegate {
-    func dataReady(character: Character) {
-    }
-
-    func catchError(erorr: Error) {
-        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
-    }
-}
-
 extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -140,7 +129,6 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
         let character = characters[indexPath.row]
-
         cell.set(character: character)
         return cell
     }
@@ -161,13 +149,12 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = characters[indexPath.row]
-
-        character.isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: character.nickname)
+        character.loadFavouriteStatus()
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
             character.isFavorite?.toggle()
-            self.characters[indexPath.row].isFavorite?.toggle()
-            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            character.updateFavoriteStatusInDB()
+ 
             self.presentAlert(
                 title: "\(character.name)",
                 message: character.isFavorite! ? "♥︎" : "♡",
@@ -185,15 +172,25 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
 extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            filteredCharacters.removeAll()
+        guard let text = searchController.searchBar.text else { return }
+        
+        var input = TextChecker(text: text)
+        input.checkUserInput()
+        if !input.isValid {
+           filteredCharacters.removeAll()
             updateData(on: characters)
-            isSearching = false
+            isSearching = input.isValid
             return
         }
         
-        isSearching = true
-        filteredCharacters = characters.filter { $0.name.lowercased().contains(filter.lowercased()) }
+        isSearching = input.isValid
+        filteredCharacters = Character.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
+    }
+}
+
+extension CharactersVC: NetworkManagerDelegate {
+    func catchError(erorr: Error) {
+        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }

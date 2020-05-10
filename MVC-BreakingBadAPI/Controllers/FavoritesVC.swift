@@ -31,18 +31,16 @@ class FavoritesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        favorites = PersistenceManager.shared.getFavorites()
-        if favorites.isEmpty {
-            tableView.reloadDataOnMainThread()
+        favorites = FavoriteList.loadFavorites()
+        guard !favorites.isEmpty else {
             showEmptyStateView(with: EmptyScreen.empty, in: view)
-        } else {
-            tableView.reloadDataOnMainThread()
-            view.bringSubviewToFront(tableView)
-            view.bringSubviewToFront(view)
+            return
         }
-        if let index = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: index, animated: true)
-        }
+        
+        tableView.reloadDataOnMainThread()
+        view.bringSubviewToFront(tableView)
+        view.bringSubviewToFront(view)
+        if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: true) }
     }
     
     private func configureViewController() {
@@ -66,8 +64,9 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-        let destVC = CharacterInfoVC()
         
+        let destVC = CharacterInfoVC()
+        destVC.character = favorite
         navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -81,14 +80,11 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
             character.isFavorite?.toggle()
-            self.favorites[indexPath.row].isFavorite?.toggle()
             self.favorites.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            if self.favorites.isEmpty {
-                self.showEmptyStateView(with: EmptyScreen.empty, in: self.view)
-            }
+            if self.favorites.isEmpty { self.showEmptyStateView(with: EmptyScreen.empty, in: self.view) }
             
-            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            character.updateFavoriteStatusInDB()
             self.presentAlert(
                 title: AlertTitle.bye,
                 message: "\(character.name) 💩",

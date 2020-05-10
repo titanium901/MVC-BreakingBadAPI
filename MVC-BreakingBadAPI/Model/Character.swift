@@ -26,6 +26,10 @@ struct Character: Codable, Hashable {
         isFavorite = false
     }
     
+    func updateFavoriteStatusInDB() {
+        PersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
+    }
+
     static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
@@ -49,6 +53,10 @@ struct Character: Codable, Hashable {
                 completion(characters)
             }
         }
+    }
+    
+    static func filterCharactersByName(characters: [Character], name: String) -> [Character] {
+        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
     }
 }
 

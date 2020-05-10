@@ -18,7 +18,7 @@ class PersistenceManager {
     
     static let shared = PersistenceManager()
     
-    private let userDefaults = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
     
     private var favorites: [Character] = []
     
@@ -29,7 +29,7 @@ class PersistenceManager {
     func updateFavorites(with character: Character, isFavorite: Bool) {
         userDefaults.set(isFavorite, forKey: character.nickname)
 
-        favorites = self.getFavorites()
+        favorites = FavoriteList.loadFavorites()
         if isFavorite {
             guard !favorites.contains(where: { $0.nickname == character.nickname }) else { return }
             favorites.append(character)
@@ -39,13 +39,5 @@ class PersistenceManager {
         }
         
         userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
-    }
-
-    func getFavorites() -> [Character] {
-        if let data = userDefaults.value(forKey: Keys.favorites) as? Data {
-            return try! PropertyListDecoder().decode([Character].self, from: data)
-        } else {
-            return[]
-        }
     }
 }

@@ -59,7 +59,6 @@ class CharacterInfoVC: UIViewController {
     private let characterData = CharacterDataModel()
     var character: Character! {
         didSet {
-            character.loadFavouriteStatus()
             configureUIElements(with: character)
         }
     }
@@ -85,12 +84,14 @@ class CharacterInfoVC: UIViewController {
     }
     
     private func loadCharacter() {
-        Character.loadCharacter(by: SearchValidRequest.shared.validName) { (char) in
+        guard character == nil else { return }
+        Character.loadCharacter(by: SearchValidRequest.shared.validName) { char in
             guard let char = char else {
                 self.characterNotFound(message: SearchValidRequest.shared.validName)
                 return
             }
             self.character = char
+            self.character.loadFavouriteStatus()
         }
     }
     
@@ -98,8 +99,7 @@ class CharacterInfoVC: UIViewController {
         character.isFavorite?.toggle()
         let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
         addToFavoriteButton.setImage(image, for: .normal)
-        //to do
-        PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+        character.updateFavoriteStatusInDB()
     }
     
     private func configureUIElements(with character: Character) {

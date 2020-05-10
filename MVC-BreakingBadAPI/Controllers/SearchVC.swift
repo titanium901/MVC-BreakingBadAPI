@@ -114,7 +114,6 @@ extension SearchVC: UITextFieldDelegate {
 }
 
 extension SearchVC: NetworkManagerDelegate {
-    
     func catchError(erorr: Error) {
         presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
