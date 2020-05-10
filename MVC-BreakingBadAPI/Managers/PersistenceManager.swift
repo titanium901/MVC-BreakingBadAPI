@@ -9,22 +9,13 @@
 import Foundation
 
 class PersistenceManager {
-    
-    enum Keys {
-        static let favorites = "favorites"
-    }
-    
     private init() {}
     
+    enum Keys { static let favorites = "favorites" }
     static let shared = PersistenceManager()
-    
     let userDefaults = UserDefaults.standard
     
     private var favorites: [Character] = []
-    
-    func loadFavouriteStatus(for characterName: String) -> Bool {
-        return userDefaults.bool(forKey: characterName)
-    }
     
     func updateFavorites(with character: Character, isFavorite: Bool) {
         userDefaults.set(isFavorite, forKey: character.nickname)

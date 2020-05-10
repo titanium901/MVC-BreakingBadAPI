@@ -19,9 +19,9 @@ struct Character: Codable, Hashable {
     var isFavorite: Bool?
     
     mutating func loadFavouriteStatus() {
-        isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: String(nickname))
+        isFavorite = PersistenceManager.shared.userDefaults.bool(forKey: self.nickname)
     }
-    
+
     mutating func addFavoriteStatus(){
         isFavorite = false
     }
