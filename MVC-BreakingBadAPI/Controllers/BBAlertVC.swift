@@ -59,7 +59,7 @@ class BBAlertVC: UIViewController {
         configureTitleLabel()
         configureActionButton()
         configureMessageLabel()
-        configureLauoutUI()
+        configureLayoutUI()
     }
     
     private func configureTitleLabel() {
@@ -74,7 +74,7 @@ class BBAlertVC: UIViewController {
         actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
     }
     
-    private func configureLauoutUI() {
+    private func configureLayoutUI() {
         view.addSubview(containerView)
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         

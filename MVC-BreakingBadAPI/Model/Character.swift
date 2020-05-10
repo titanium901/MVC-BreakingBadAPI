@@ -18,8 +18,6 @@ struct Character: Codable, Hashable {
     let portrayed: String
     var isFavorite: Bool?
     
-    var characters: [Character]?
-    
     mutating func loadFavouriteStatus() {
         isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: String(nickname))
     }
@@ -28,10 +26,27 @@ struct Character: Codable, Hashable {
         isFavorite = false
     }
     
+    static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
+        var favCharacters: [Character] = []
+        for var character in characters {
+            character.addFavoriteStatus()
+            favCharacters.append(character)
+        }
+        return favCharacters
+    }
+    
     static func loadCharacter(by name: String, completion: @escaping (Character?) -> Void) {
         NetworkCharacterManager.shared.getCharacter(name: name) { (characters, success) in
             if success == true {
                 completion(characters.first ?? nil)
+            }
+        }
+    }
+    
+    static func loadAllCharacters(completion: @escaping ([Character]?) -> Void) {
+        NetworkCharactersManager.shared.getCharacters { (characters, success) in
+            if success == true {
+                completion(characters)
             }
         }
     }

@@ -26,7 +26,7 @@ class BBEmptyStateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        lauoutUI()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ class BBEmptyStateView: UIView {
         addSubview(logoImageView)
     }
     
-    private func lauoutUI() {
+    private func layoutUI() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         

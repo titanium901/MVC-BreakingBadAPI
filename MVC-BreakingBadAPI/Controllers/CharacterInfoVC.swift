@@ -72,10 +72,19 @@ class CharacterInfoVC: UIViewController {
         //
 //        characterData.delegate = self
 //        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
-        lauoutUI()
+        layoutUI()
         //
         //вариант через Charactera
         //
+        loadCharacter()
+}
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func loadCharacter() {
         Character.loadCharacter(by: SearchValidRequest.shared.validName) { (char) in
             guard let char = char else {
                 self.characterNotFound(message: SearchValidRequest.shared.validName)
@@ -83,11 +92,14 @@ class CharacterInfoVC: UIViewController {
             }
             self.character = char
         }
-}
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    @objc private func addDeleteFavoriteButtonTapped() {
+        character.isFavorite?.toggle()
+        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+        addToFavoriteButton.setImage(image, for: .normal)
+        //to do
+        PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
     }
     
     private func configureUIElements(with character: Character) {
@@ -103,7 +115,7 @@ class CharacterInfoVC: UIViewController {
         addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
     }
     
-    private func lauoutUI() {
+    private func layoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,14 +162,6 @@ class CharacterInfoVC: UIViewController {
         
         characterImageView.isHidden = true
         showEmptyStateView(with: "Empty", in: view)
-    }
-    
-    @objc private func addDeleteFavoriteButtonTapped() {
-        character.isFavorite?.toggle()
-        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
-        addToFavoriteButton.setImage(image, for: .normal)
-        //to do
-        PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
     }
 }
 
