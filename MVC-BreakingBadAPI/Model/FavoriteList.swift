@@ -10,13 +10,17 @@ import Foundation
 
 struct FavoriteList {
     
-    static var favorites: [Character] = []
+    static var favorites: [Character] = loadFavorites() {
+        didSet {
+            NotificationCenter.default.post(name: .FavoritesBadgeChange, object: nil)
+        }
+    }
     
-    static func loadFavorites() {
+    static func loadFavorites() -> [Character] {
         if let data = PersistenceManager.shared.userDefaults.value(forKey: PersistenceManager.Keys.favorites) as? Data {
-            favorites =  try! PropertyListDecoder().decode([Character].self, from: data)
+            return try! PropertyListDecoder().decode([Character].self, from: data)
         } else {
-            favorites = []
+            return []
         }
     }
 }

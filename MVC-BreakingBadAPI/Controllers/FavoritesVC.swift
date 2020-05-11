@@ -30,7 +30,6 @@ class FavoritesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        FavoriteList.loadFavorites()
         guard !FavoriteList.favorites.isEmpty else {
             showEmptyStateView(with: EmptyScreen.empty, in: view)
             return

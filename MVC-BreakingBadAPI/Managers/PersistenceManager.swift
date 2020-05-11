@@ -17,7 +17,6 @@ class PersistenceManager {
     
     func updateFavorites(with character: Character, isFavorite: Bool) {
         userDefaults.set(isFavorite, forKey: character.nickname)
-        FavoriteList.loadFavorites()
         if isFavorite {
             guard !FavoriteList.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
             FavoriteList.favorites.append(character)

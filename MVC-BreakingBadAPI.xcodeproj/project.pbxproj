@@ -38,6 +38,7 @@
 		CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */; };
 		CAB2B0752466E7CA0018D96E /* NetworkCharactersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */; };
 		CAB2B079246809240018D96E /* FavoriteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B078246809240018D96E /* FavoriteList.swift */; };
+		CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B07A24694F880018D96E /* Notification+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharacterManager.swift; sourceTree = "<group>"; };
 		CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharactersManager.swift; sourceTree = "<group>"; };
 		CAB2B078246809240018D96E /* FavoriteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteList.swift; sourceTree = "<group>"; };
+		CAB2B07A24694F880018D96E /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +222,7 @@
 				CA91CCCC244DF4FF00B3AB30 /* UITextField+Ext.swift */,
 				CA91CCCA244DF4E800B3AB30 /* UIButton+Ext.swift */,
 				CA91CCE5245080E100B3AB30 /* UILabel+Ext.swift */,
+				CAB2B07A24694F880018D96E /* Notification+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
+				CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,
 				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
 				CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */,

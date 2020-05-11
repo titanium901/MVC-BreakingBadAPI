@@ -9,11 +9,19 @@
 import UIKit
 
 class BBTabBarController: UITabBarController {
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
+    let favoritiesVC = FavoritesVC()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = .systemOrange
         viewControllers = [createSearchNC(), createFavoritesNC()]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBadge), name: .FavoritesBadgeChange, object: nil)
     }
     
     private func createSearchNC() -> UINavigationController {
@@ -26,10 +34,18 @@ class BBTabBarController: UITabBarController {
     }
     
     private func createFavoritesNC() -> UINavigationController {
-        let favoritiesVC = FavoritesVC()
         favoritiesVC.title = "Favorities"
         favoritiesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        setFavoritesBadgeValue()
         
         return UINavigationController(rootViewController: favoritiesVC)
+    }
+    
+    @objc func updateBadge(notification: NSNotification) {
+        setFavoritesBadgeValue()
+    }
+    
+    private func setFavoritesBadgeValue() {
+        favoritiesVC.tabBarItem.badgeValue = FavoriteList.favorites.count == 0 ? nil : "\(FavoriteList.favorites.count)"
     }
 }
