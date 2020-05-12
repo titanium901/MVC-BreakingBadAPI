@@ -25,6 +25,13 @@ class CharacterInfoVC: UIViewController {
         imageView.backgroundColor = .systemBackground
         return imageView
     }()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.startAnimating()
+        activity.style = .large
+        activity.color = .systemOrange
+        return activity
+    }()
     private lazy var characterName: UILabel = {
         let label = UILabel()
         label.applyBBStyle(textColor: .label)
@@ -60,6 +67,7 @@ class CharacterInfoVC: UIViewController {
     var character: Character! {
         didSet {
             configureUIElements(with: character)
+            activityIndicator.stopAnimating()
         }
     }
     
@@ -116,8 +124,9 @@ class CharacterInfoVC: UIViewController {
     }
     
     private func layoutUI() {
-        view.addSubviews(characterImageView, stackView, addToFavoriteButton)
+        view.addSubviews(characterImageView, stackView, addToFavoriteButton, activityIndicator)
         
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +158,10 @@ class CharacterInfoVC: UIViewController {
             addToFavoriteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             addToFavoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50)
+            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -160,6 +172,7 @@ class CharacterInfoVC: UIViewController {
             buttonTitle: "ОК"
         )
         
+        activityIndicator.stopAnimating()
         characterImageView.isHidden = true
         showEmptyStateView(with: "Empty", in: view)
     }
