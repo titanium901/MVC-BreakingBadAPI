@@ -165,12 +165,14 @@ class CharacterInfoVC: UIViewController {
     }
 }
 
-extension CharacterInfoVC: CharacterDataModelDelegate {
-    func notRecieveCharacter() {
-        characterNotFound(message: SearchValidRequest.shared.validName)
-    }
-    
-    func didRecieveCharacter(character: Character) {
-        self.character = character
-    }
-}
+//вариант получения через делегат с использованием CharacterDataModel
+
+//extension CharacterInfoVC: CharacterDataModelDelegate {
+//    func notRecieveCharacter() {
+//        characterNotFound(message: SearchValidRequest.shared.validName)
+//    }
+//
+//    func didRecieveCharacter(character: Character) {
+//        self.character = character
+//    }
+//}

@@ -12,7 +12,7 @@ struct FavoriteList {
     
     static var favorites: [Character] = loadFavorites() {
         didSet {
-            NotificationCenter.default.post(name: .FavoritesBadgeChange, object: nil)
+            NotificationFavoriteBadge.post()
         }
     }
     
