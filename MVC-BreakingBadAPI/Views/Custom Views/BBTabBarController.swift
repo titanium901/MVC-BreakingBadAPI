@@ -21,7 +21,7 @@ class BBTabBarController: UITabBarController {
         UITabBar.appearance().tintColor = .systemOrange
         viewControllers = [createSearchNC(), createFavoritesNC()]
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateBadge), name: .FavoritesBadgeChange, object: nil)
+        NotificationFavoriteBadge.addObserver(with: #selector(updateBadge))
     }
     
     private func createSearchNC() -> UINavigationController {
