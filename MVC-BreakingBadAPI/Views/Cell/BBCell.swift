@@ -12,11 +12,34 @@ import SDWebImage
 class BBCell: UITableViewCell {
     
     static let reuseID = "BBCell"
-    let characterImageView = BBImage(frame: .zero)
-    let characterName = BBTitleLabel(textAlignment: .left, fontSize: 26)
-    let characterNickname = BBTitleLabel(textAlignment: .left, fontSize: 24, textColor: .systemOrange)
-    let characterStatus = BBTitleLabel(textAlignment: .left, fontSize: 22)
-    let characterPortrayed = BBTitleLabel(textAlignment: .left, fontSize: 20, textColor: .systemOrange)
+    private lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemBackground
+        return imageView
+    }()
+    private lazy var characterName: UILabel = {
+        let label = UILabel()
+        label.applyBBStyleForBBCell(textColor: .label, fontSize: 26)
+        return label
+    }()
+    private lazy var characterNickname: UILabel = {
+        let label = UILabel()
+        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 24)
+        return label
+    }()
+    private lazy var characterStatus: UILabel = {
+        let label = UILabel()
+        label.applyBBStyleForBBCell(textColor: .label, fontSize: 22)
+        return label
+    }()
+    private lazy var characterPortrayed: UILabel = {
+        let label = UILabel()
+        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 20)
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,6 +63,10 @@ class BBCell: UITableViewCell {
     private func configure() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
+        characterName.translatesAutoresizingMaskIntoConstraints = false
+        characterNickname.translatesAutoresizingMaskIntoConstraints = false
+        characterStatus.translatesAutoresizingMaskIntoConstraints = false
+        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
         
         let heightAnchor: CGFloat = 40
         let trailingAnchor: CGFloat = -20

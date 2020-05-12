@@ -14,249 +14,9 @@
             filePath = "MVC-BreakingBadAPI/Controllers/SearchVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "pushCharacterInfoVC()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "favoriteAction(at:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4 - 46fb63e6bc1d1705"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MVC_BreakingBadAPI.CharactersVC.favoriteAction(at: Foundation.IndexPath) -&gt; __C.UIContextualAction"
-                  moduleName = "MVC-BreakingBadAPI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "111"
-                  endingLineNumber = "111"
-                  offsetFromSymbolStart = "186">
-               </Location>
-               <Location
-                  uuid = "BC573BFD-C5A6-41A9-B2DA-8183ED2988D4 - 3f183571ab62d4da"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIContextualAction, __C.UIView, (Swift.Bool) -&gt; ()) -&gt; () in MVC_BreakingBadAPI.CharactersVC.favoriteAction(at: Foundation.IndexPath) -&gt; __C.UIContextualAction"
-                  moduleName = "MVC-BreakingBadAPI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "111"
-                  endingLineNumber = "111"
-                  offsetFromSymbolStart = "241">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6DC930EE-B63E-4352-A50F-FF0A6ABEB50D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "favoriteAction(at:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FC6A6DA9-AB07-444A-A8C4-932BDB05E07A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/FavoritesVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D139FB90-7267-43F7-92C7-9946344CC91E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "favoriteAction(at:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CBE7D6E3-8137-41F6-A1AE-310B199B8722"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "favoriteAction(at:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0F7FBECB-C993-4B74-B877-023AB7B8225A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "tableView(_:trailingSwipeActionsConfigurationForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CBDE7F25-E88C-4C88-A32E-BCFCE3A94626"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "updateSearchResults(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C3919B8B-A443-492F-A83F-720BDEE009DA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "favoriteAction(at:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3FA05A74-0A3A-4869-ABD3-7EF103DF9C2E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "tableView(_:canEditRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "943E88D4-5EA5-4A01-80D8-9EAC1F25E71E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "68F818F4-C594-4FE8-9B20-1EB8F6E84793"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "408A0A00-B0F5-46FD-B6A0-2A88FFC113D9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "04223C41-8A16-4170-A07A-ED9F3F7FC6C4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "tableView(_:canEditRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -279,33 +39,129 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CAD7808F-6C97-44E6-BF1A-6379F93BDC3E"
+            uuid = "4EFD223D-1B9A-41E1-8D04-50D2A51ED32B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/SearchVC.swift"
+            filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "pushCharacterInfoVC()"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "addDeleteFavoriteButtonTapped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "45A36594-1230-46A5-82E2-D96EEAF46AC3"
+            uuid = "3267111E-5D3A-4276-957F-459CE680484C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVC-BreakingBadAPI/Controllers/SearchVC.swift"
+            filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "pushCharacterInfoVC()"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "character"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5DD45BAE-5439-447D-AE96-3771B1C9F6BF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "loadCharacter()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5DD45BAE-5439-447D-AE96-3771B1C9F6BF - 2a869124286de5d3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVC_BreakingBadAPI.CharacterInfoVC.(loadCharacter in _60C3220988DD2799F1D3E4EAD8867B93)() -&gt; ()"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "87"
+                  endingLineNumber = "87"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "5DD45BAE-5439-447D-AE96-3771B1C9F6BF - 61c8c542629bcc75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;MVC_BreakingBadAPI.Character&gt;) -&gt; () in MVC_BreakingBadAPI.CharacterInfoVC.(loadCharacter in _60C3220988DD2799F1D3E4EAD8867B93)() -&gt; ()"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "156">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4770A282-D537-43D8-B1C6-F7185BF22A66"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVC-BreakingBadAPI/Managers/PersistenceManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "updateFavorites(with:isFavorite:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4770A282-D537-43D8-B1C6-F7185BF22A66 - 17881a43733b27c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVC_BreakingBadAPI.PersistenceManager.__allocating_init() -&gt; MVC_BreakingBadAPI.PersistenceManager"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Managers/PersistenceManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "17">
+               </Location>
+               <Location
+                  uuid = "4770A282-D537-43D8-B1C6-F7185BF22A66 - 257acafc5a95ac2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVC_BreakingBadAPI.PersistenceManager.() -&gt; MVC_BreakingBadAPI.PersistenceManager(in _7438FDE0A723D8DB8D3FBE4E14B0D259).init() -&gt; MVC_BreakingBadAPI.PersistenceManager"
+                  moduleName = "MVC-BreakingBadAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titanium901/Desktop/TUTULevelAp/MVC-BreakingBadAPI/MVC-BreakingBadAPI/Managers/PersistenceManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -10,25 +10,34 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    let logoImageView = UIImageView()
-    let characterTextField = BBTextField()
-    let searchCharacterButton = BBButton(backgroundColor: .orange, title: "Search")
-    let showAllCharacteButton = BBButton(backgroundColor: .black, title: "Show All Characters")
-    
-    var characters: [Character]? {
-        didSet {
-            searchCharacterButton.isHidden = false
-            showAllCharacteButton.isHidden = false
-        }
-    }
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.bbLogo
+        return imageView
+    }()
+    private lazy var characterTextField: UITextField = {
+        let textField = UITextField()
+        textField.applyBBStyle()
+        textField.placeholder = "Enter a Character Name"
+        textField.delegate = self
+        return textField
+    }()
+    private lazy var searchCharacterButton: UIButton = {
+        let button = UIButton()
+        button.applyBBStyle(title: "Search", backgroundColor: .orange)
+        button.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
+        return button
+    }()
+    private lazy var showAllCharacteButton: UIButton = {
+        let button = UIButton()
+        button.applyBBStyle(title: "Show All Characters", backgroundColor: .black)
+        button.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLogoImageView()
-        configureTextField()
-        configureShowAllCharacteButton()
-        configureSearchCharacterButton()
-        configureLauoutUI()
+        configureLayoutUI()
         createAndSetDismissKeyboardTapGesture()
     }
     
@@ -43,49 +52,29 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func pushCharacterInfoVC() {
+    @objc private func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
-        guard characterTextField.checkTextIsNotEmpty() else {
+        guard let text = characterTextField.text else { return }
+        var input = TextChecker(text: text)
+        input.checkUserInput()
+        if !input.isValid {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }
-        let characterInfoVC = CharacterInfoVC(userNameInput: makeStringForInfoVC(for: characterTextField.text!))
-        if let characters = characters?.filter({ $0.name == characterTextField.text! }), !characters.isEmpty {
-            characterInfoVC.character = characters.first
-        }
-
+        
+        SearchValidRequest.shared.validName = input.searchValidText
+        let characterInfoVC = CharacterInfoVC()
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
-    @objc func pushCharactersListVC() {
+    @objc private func pushCharactersListVC() {
         characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()
-        guard let characters = characters else { return }
-        charactersListVC.characters = characters
         navigationController?.pushViewController(charactersListVC, animated: true)
     }
     
-    private func configureLogoImageView() {
-        logoImageView.image = Images.bbLogo
-    }
-    
-    private func configureTextField() {
-        characterTextField.placeholder = "Enter a Character Name"
-        characterTextField.delegate = self
-    }
-    
-    private func configureShowAllCharacteButton() {
-        showAllCharacteButton.isHidden = true
-        showAllCharacteButton.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
-    }
-    
-    private func configureSearchCharacterButton() {
-        searchCharacterButton.isHidden = true
-        searchCharacterButton.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
-    }
-    
-    private func configureLauoutUI() {
+    private func configureLayoutUI() {
         view.addSubviews(logoImageView, characterTextField, showAllCharacteButton, searchCharacterButton)
         showAllCharacteButton.translatesAutoresizingMaskIntoConstraints = false
         searchCharacterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -114,14 +103,6 @@ class SearchVC: UIViewController {
             searchCharacterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-    private func makeStringForInfoVC(for name: String) -> String {
-        return name.trimmingCharacters(in:
-            .whitespacesAndNewlines)
-            .replacingOccurrences(of: " ", with: "+")
-            .lowercased()
-            .capitalized
     }
 }
 

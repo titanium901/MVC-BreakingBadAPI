@@ -10,16 +10,37 @@ import UIKit
 
 class BBAlertVC: UIViewController {
     
-    let containerView = BBAlertContainerView()
-    let titleLabel = BBTitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel = BBTitleLabel(textAlignment: .center, fontSize: 14)
-    let actionButton = BBButton(backgroundColor: .systemOrange, title: "ОК")
+    private lazy var containerView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = 16
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.white.cgColor
+        return view
+    }()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var messageLabel: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .orange)
+        label.numberOfLines = 4
+        return label
+    }()
+    private lazy var actionButton: UIButton = {
+        let button = UIButton()
+        button.applyBBStyle(title: "OK", backgroundColor: .orange)
+        button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+        return button
+    }()
     
-    var alertTitle: String?
-    var message: String?
-    var buttonTitle: String?
+    private var alertTitle: String?
+    private var message: String?
+    private var buttonTitle: String?
     
-    let padding: CGFloat = 20
+    private let padding: CGFloat = 20
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
@@ -38,29 +59,29 @@ class BBAlertVC: UIViewController {
         configureTitleLabel()
         configureActionButton()
         configureMessageLabel()
-        configureLauoutUI()
+        configureLayoutUI()
     }
     
     private func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
     }
     
-    private func configureActionButton() {
-        actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
-    }
-    
     private func configureMessageLabel() {
         messageLabel.text = message ?? "Unable to complete request"
-        messageLabel.numberOfLines = 4
     }
     
-    private func configureLauoutUI() {
+    private func configureActionButton() {
+        actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
+    }
+    
+    private func configureLayoutUI() {
         view.addSubview(containerView)
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
@@ -85,7 +106,7 @@ class BBAlertVC: UIViewController {
         ])
     }
     
-    @objc func dismissVC() {
+    @objc private func dismissVC() {
         dismiss(animated: true)
     }
 }

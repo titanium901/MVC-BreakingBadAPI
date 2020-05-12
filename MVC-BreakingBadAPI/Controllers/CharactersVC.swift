@@ -8,35 +8,49 @@
 
 import UIKit
 
-class CharactersVC: UIViewController, NetworkManagerDelegate {
+class CharactersVC: UIViewController {
     
     enum Section { case main }
     
-    var characters: [Character] = [] {
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemBackground
+        tableView.frame = view.bounds
+        tableView.rowHeight = 200
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.removeExcessCells()
+        tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+        return tableView
+    }()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.startAnimating()
+        activity.style = .large
+        activity.color = .systemOrange
+        return activity
+    }()
+    
+    private var filteredCharacters: [Character] = []
+    private var isSearching = false
+    private var dataSource: CustomDataSource<Section, Character>!
+    
+    private var characters: [Character] = [] {
         didSet {
-            self.characters = self.addFavoriteStatus(to: self.characters)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-                self.activityIndicator.stopAnimating()
-            }
+            tableView.reloadDataOnMainThread()
+            view.bringSubviewToFront(tableView)
+            activityIndicator.stopAnimating()
             updateData(on: characters)
         }
     }
-    var filteredCharacters: [Character] = []
-    var isSearching = false
-    
-    let tableView = UITableView()
-    let activityIndicator = UIActivityIndicatorView()
-    var dataSource: CustomDataSource<Section, Character>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureSearchController()
-        configureTableView()
-        configureActivityIndicator()
+        layoutUI()
         configureDataSource()
+        loadAllCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,8 +59,15 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         backRowToNormalState()
     }
     
-    func catchError(erorr: Error) {
-        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
+    private func loadAllCharacters() {
+        Character.loadAllCharacters { characters in
+            guard let characters = characters else {
+                self.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+                return
+            }
+            self.characters = characters
+            self.characters = Character.addFavoriteStatusToAll(to: characters)
+        }
     }
     
     private func configureViewController() {
@@ -55,29 +76,15 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureActivityIndicator() {
+    private func layoutUI() {
+        view.addSubview(tableView)
         tableView.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        activityIndicator.style = .large
-        activityIndicator.color = .systemOrange
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-    }
-    
-    private func configureTableView() {
-        view.addSubview(tableView)
-        
-        tableView.backgroundColor = .systemBackground
-        tableView.frame = view.bounds
-        tableView.rowHeight = 200
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.removeExcessCells()
-        tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
     }
     
     private func configureSearchController() {
@@ -86,15 +93,6 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
         searchController.searchBar.placeholder = "Search for a character name"
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
-    }
-    
-    private func addFavoriteStatus(to characters : [Character]) -> [Character] {
-        var favCharacters: [Character] = []
-        for var character in characters {
-            character.addFavoriteStatus()
-            favCharacters.append(character)
-        }
-        return favCharacters
     }
     
     private func configureDataSource() {
@@ -107,9 +105,7 @@ class CharactersVC: UIViewController, NetworkManagerDelegate {
     
     private func backRowToNormalState() {
         tableView.setEditing(false, animated: true)
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: false)
-        }
+        if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: false) }
     }
     
     private func updateData(on characters: [Character]) {
@@ -133,7 +129,6 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
         let character = characters[indexPath.row]
-
         cell.set(character: character)
         return cell
     }
@@ -141,7 +136,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
-        let destVC = CharacterInfoVC(userNameInput: character.name.replacingOccurrences(of: " ", with: "+"))
+        let destVC = CharacterInfoVC()
         destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
@@ -154,13 +149,12 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var character = characters[indexPath.row]
-
-        character.isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: character.nickname)
+        character.loadFavouriteStatus()
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
             character.isFavorite?.toggle()
-            self.characters[indexPath.row].isFavorite?.toggle()
-            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            character.updateFavoriteStatusInDB()
+ 
             self.presentAlert(
                 title: "\(character.name)",
                 message: character.isFavorite! ? "♥︎" : "♡",
@@ -178,15 +172,25 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
 extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            filteredCharacters.removeAll()
+        guard let text = searchController.searchBar.text else { return }
+        
+        var input = TextChecker(text: text)
+        input.checkUserInput()
+        if !input.isValid {
+           filteredCharacters.removeAll()
             updateData(on: characters)
-            isSearching = false
+            isSearching = input.isValid
             return
         }
         
-        isSearching = true
-        filteredCharacters = characters.filter { $0.name.lowercased().contains(filter.lowercased()) }
+        isSearching = input.isValid
+        filteredCharacters = Character.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
+    }
+}
+
+extension CharactersVC: NetworkManagerDelegate {
+    func catchError(erorr: Error) {
+        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }

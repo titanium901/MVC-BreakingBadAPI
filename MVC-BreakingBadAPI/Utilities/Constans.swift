@@ -24,6 +24,7 @@ enum AlertTitle {
 
 enum AlertMessage {
     static let withoutName = "I do not know characters without a name 👀"
+    static let somethingWrong = "Something Wrong, try later"
 }
 
 enum EmptyScreen {

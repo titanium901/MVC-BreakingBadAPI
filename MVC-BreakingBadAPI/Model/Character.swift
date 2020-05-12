@@ -18,13 +18,45 @@ struct Character: Codable, Hashable {
     let portrayed: String
     var isFavorite: Bool?
     
-    var characters: [Character]?
-    
     mutating func loadFavouriteStatus() {
-        isFavorite = PersistenceManager.shared.loadFavouriteStatus(for: String(nickname))
+        isFavorite = PersistenceManager.shared.userDefaults.bool(forKey: self.nickname)
     }
-    
+
     mutating func addFavoriteStatus(){
         isFavorite = false
     }
+    
+    func updateFavoriteStatusInDB() {
+        PersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
+    }
+
+    static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
+        var favCharacters: [Character] = []
+        for var character in characters {
+            character.addFavoriteStatus()
+            favCharacters.append(character)
+        }
+        return favCharacters
+    }
+    
+    static func loadCharacter(by name: String, completion: @escaping (Character?) -> Void) {
+        NetworkCharacterManager.shared.getCharacter(name: name) { (characters, success) in
+            if success == true {
+                completion(characters.first ?? nil)
+            }
+        }
+    }
+    
+    static func loadAllCharacters(completion: @escaping ([Character]?) -> Void) {
+        NetworkCharactersManager.shared.getCharacters { (characters, success) in
+            if success == true {
+                completion(characters)
+            }
+        }
+    }
+    
+    static func filterCharactersByName(characters: [Character], name: String) -> [Character] {
+        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
+    }
 }
+

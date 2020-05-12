@@ -9,43 +9,22 @@
 import Foundation
 
 class PersistenceManager {
-    
-    enum Keys {
-        static let favorites = "favorites"
-    }
-    
     private init() {}
     
+    enum Keys { static let favorites = "favorites" }
     static let shared = PersistenceManager()
-    
-    private let userDefaults = UserDefaults.standard
-    
-    private var favorites: [Character] = []
-    
-    func loadFavouriteStatus(for characterName: String) -> Bool {
-        return userDefaults.bool(forKey: characterName)
-    }
+    let userDefaults = UserDefaults.standard
     
     func updateFavorites(with character: Character, isFavorite: Bool) {
         userDefaults.set(isFavorite, forKey: character.nickname)
-
-        favorites = self.getFavorites()
         if isFavorite {
-            guard !favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            favorites.append(character)
+            guard !FavoriteList.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            FavoriteList.favorites.append(character)
         } else {
-            guard favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            favorites.removeAll { $0.nickname == character.nickname }
+            guard FavoriteList.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            FavoriteList.favorites.removeAll { $0.nickname == character.nickname }
         }
         
-        userDefaults.set(try? PropertyListEncoder().encode(favorites), forKey: Keys.favorites)
-    }
-
-    func getFavorites() -> [Character] {
-        if let data = userDefaults.value(forKey: Keys.favorites) as? Data {
-            return try! PropertyListDecoder().decode([Character].self, from: data)
-        } else {
-            return[]
-        }
+        userDefaults.set(try? PropertyListEncoder().encode(FavoriteList.favorites), forKey: Keys.favorites)
     }
 }

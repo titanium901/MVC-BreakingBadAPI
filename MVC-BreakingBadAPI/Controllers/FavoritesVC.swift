@@ -10,41 +10,8 @@ import UIKit
 
 class FavoritesVC: UIViewController {
     
-    let tableView = UITableView()
-    var favorites: [Character] = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureViewController()
-        configureTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        favorites = PersistenceManager.shared.getFavorites()
-        if favorites.isEmpty {
-            self.tableView.reloadDataOnMainThread()
-            showEmptyStateView(with: EmptyScreen.empty, in: view)
-        } else {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-                self.view.bringSubviewToFront(self.view)
-            }
-        }
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: true)
-        }
-    }
-    
-    private func configureViewController() {
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    private func configureTableView() {
-        view.addSubview(tableView)
-        
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
         tableView.frame = view.bounds
         tableView.rowHeight = 200
@@ -52,26 +19,52 @@ class FavoritesVC: UIViewController {
         tableView.dataSource = self
         tableView.removeExcessCells()
         tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+        return tableView
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureViewController()
+        view.addSubview(tableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        guard !FavoriteList.favorites.isEmpty else {
+            showEmptyStateView(with: EmptyScreen.empty, in: view)
+            return
+        }
+        
+        tableView.reloadDataOnMainThread()
+        view.bringSubviewToFront(tableView)
+        view.bringSubviewToFront(view)
+        if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: true) }
+    }
+    
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
 extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favorites.count
+        return FavoriteList.favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
-        let favorite = favorites[indexPath.row]
+        let favorite = FavoriteList.favorites[indexPath.row]
         cell.set(character: favorite)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favorite = favorites[indexPath.row]
-        let destVC = CharacterInfoVC(userNameInput: favorite.name.replacingOccurrences(of: " ", with: "+"))
+        let favorite = FavoriteList.favorites[indexPath.row]
         
+        let destVC = CharacterInfoVC()
+        destVC.character = favorite
         navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -81,18 +74,15 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = favorites[indexPath.row]
+        var character = FavoriteList.favorites[indexPath.row]
         
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
             character.isFavorite?.toggle()
-            self.favorites[indexPath.row].isFavorite?.toggle()
-            self.favorites.remove(at: indexPath.row)
+            FavoriteList.favorites.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            if self.favorites.isEmpty {
-                self.showEmptyStateView(with: EmptyScreen.empty, in: self.view)
-            }
+            if FavoriteList.favorites.isEmpty { self.showEmptyStateView(with: EmptyScreen.empty, in: self.view) }
             
-            PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
+            character.updateFavoriteStatusInDB()
             self.presentAlert(
                 title: AlertTitle.bye,
                 message: "\(character.name) 💩",

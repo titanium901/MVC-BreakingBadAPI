@@ -11,46 +11,95 @@ import SDWebImage
 
 class CharacterInfoVC: UIViewController {
     
-    let stackView = UIStackView()
-    let characterImageView = BBImage(frame: .zero)
-    let addToFavoriteButton = UIButton(frame: .zero)
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    private lazy var characterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemBackground
+        return imageView
+    }()
+    private lazy var characterName: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var characterNickname: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .systemOrange)
+        return label
+    }()
+    private lazy var characterStatus: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var characterPortrayed: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .systemOrange)
+        return label
+    }()
+    private lazy var characterAppearance: UILabel = {
+        let label = UILabel()
+        label.applyBBStyle(textColor: .label)
+        return label
+    }()
+    private lazy var addToFavoriteButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
-    let characterName = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    let characterNickname = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    let characterStatus = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    let characterPortrayed = BBTitleLabel(textAlignment: .center, fontSize: 26, textColor: .systemOrange)
-    let characterAppearance = BBTitleLabel(textAlignment: .center, fontSize: 26)
-    
-    var character: Character!
-    var userNameInput: String!
-    
-    init(userNameInput: String) {
-        super.init(nibName: nil, bundle: nil)
-        self.userNameInput = userNameInput
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private let characterData = CharacterDataModel()
+    var character: Character! {
+        didSet {
+            configureUIElements(with: character)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configureStackView()
-        lauoutUI()
-        configureaddToFavoriteButton()
+        //
+        //вариант получения через делегат с использованием CharacterDataModel
+        //
+//        characterData.delegate = self
+//        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
+        layoutUI()
+        //
+        //вариант через Charactera
+        //
+        loadCharacter()
 }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        guard character != nil else {
-            characterNotFound(message: userNameInput)
-            return
+    }
+    
+    private func loadCharacter() {
+        guard character == nil else { return }
+        Character.loadCharacter(by: SearchValidRequest.shared.validName) { char in
+            guard let char = char else {
+                self.characterNotFound(message: SearchValidRequest.shared.validName)
+                return
+            }
+            self.character = char
+            self.character.loadFavouriteStatus()
         }
-        configureUIElements(with: character)
-        setImageForFavoriteButton()
+    }
+    
+    @objc private func addDeleteFavoriteButtonTapped() {
+        character.isFavorite?.toggle()
+        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+        addToFavoriteButton.setImage(image, for: .normal)
+        character.updateFavoriteStatusInDB()
     }
     
     private func configureUIElements(with character: Character) {
@@ -63,27 +112,21 @@ class CharacterInfoVC: UIViewController {
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
         
-        setImageForFavoriteButton()
-        addToFavoriteButton.isEnabled = true
+        addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
     }
     
-    private func configureStackView() {
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-    }
-    
-    private func configureaddToFavoriteButton() {
-        addToFavoriteButton.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
-        addToFavoriteButton.isEnabled = false
-    }
-    
-    private func lauoutUI() {
+    private func layoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        characterName.translatesAutoresizingMaskIntoConstraints = false
+        characterNickname.translatesAutoresizingMaskIntoConstraints = false
+        characterStatus.translatesAutoresizingMaskIntoConstraints = false
+        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
+        characterAppearance.translatesAutoresizingMaskIntoConstraints = false
+
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)
         stackView.addArrangedSubview(characterStatus)
@@ -116,25 +159,20 @@ class CharacterInfoVC: UIViewController {
             message: message + " - not found",
             buttonTitle: "ОК"
         )
-        DispatchQueue.main.async {
-            self.characterImageView.isHidden = true
-            self.showEmptyStateView(with: "Empty", in: self.view)
-        }
-    }
-    
-    @objc func addDeleteFavoriteButtonTapped() {
-        character.isFavorite?.toggle()
-        let image = imageForFavoriteButton()
-        addToFavoriteButton.setImage(image, for: .normal)
-        PersistenceManager.shared.updateFavorites(with: character, isFavorite: character.isFavorite!)
-    }
-    
-    private func setImageForFavoriteButton() {
-        self.character.loadFavouriteStatus()
-        addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
-    }
-
-    private func imageForFavoriteButton() -> UIImage {
-        return character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+        
+        characterImageView.isHidden = true
+        showEmptyStateView(with: "Empty", in: view)
     }
 }
+
+//вариант получения через делегат с использованием CharacterDataModel
+
+//extension CharacterInfoVC: CharacterDataModelDelegate {
+//    func notRecieveCharacter() {
+//        characterNotFound(message: SearchValidRequest.shared.validName)
+//    }
+//
+//    func didRecieveCharacter(character: Character) {
+//        self.character = character
+//    }
+//}
