@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Эта штука явно не должна быть синглтоном
 class SearchValidRequest {
     static let shared = SearchValidRequest()
     private init() {}

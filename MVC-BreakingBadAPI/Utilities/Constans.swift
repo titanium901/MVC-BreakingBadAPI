@@ -8,6 +8,7 @@
 
 import UIKit
 
+// в дальнейшем легче будет подключить swiftgen
 enum Images {
     static let bbLogo = UIImage(named: "bbLogo")
     static let placeholder = UIImage(named: "placeholder")

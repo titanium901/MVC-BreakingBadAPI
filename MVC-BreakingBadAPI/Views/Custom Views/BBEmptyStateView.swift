@@ -42,7 +42,8 @@ class BBEmptyStateView: UIView {
         addSubview(messageLabel)
         addSubview(logoImageView)
     }
-    
+
+    // Старайся именовать методы одинаково, можно закрыть протоколом
     private func layoutUI() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.translatesAutoresizingMaskIntoConstraints = false

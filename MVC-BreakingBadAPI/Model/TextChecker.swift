@@ -8,6 +8,25 @@
 
 import Foundation
 
+//typealias SearchRequestValidator = (String) -> String?
+//enum TextChecker {
+//    static var validator: SearchRequestValidator {
+//        return { text in
+//            return text
+//        }
+//    }
+//}
+
+//func validateSearchRequest(text: String) -> String? {
+//
+//}
+
+//struct TextChecker {
+//    func validateSearchRequest(text: String) -> String? {
+//
+//    }
+//}
+
 struct TextChecker {
     
     var text: String

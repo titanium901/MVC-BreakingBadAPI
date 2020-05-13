@@ -9,5 +9,6 @@
 import Foundation
 
 extension Notification.Name {
+    // static let favoritesBadgeChange
     static let FavoritesBadgeChange = NSNotification.Name("badgeChange")
 }

@@ -93,6 +93,7 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
+        // капчеринг self -> утечка памяти
         Character.loadCharacter(by: SearchValidRequest.shared.validName) { char in
             guard let char = char else {
                 self.characterNotFound(message: SearchValidRequest.shared.validName)
@@ -125,7 +126,14 @@ class CharacterInfoVC: UIViewController {
     
     private func layoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton, activityIndicator)
-        
+
+        // если быть ленивым то
+        // [activityIndicator,
+        //  stackView,
+        //  ....
+        // ].forEach {
+        //     $0.translatesAutoresizingMaskIntoConstraints = false
+        // }
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.translatesAutoresizingMaskIntoConstraints = false

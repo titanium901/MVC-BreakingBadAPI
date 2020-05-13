@@ -14,11 +14,18 @@ class BBTabBarController: UITabBarController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // лучше подругому придумать как найти нужный таб бар
+    // например заюзать enum и искать потом по индексу
     let favoritiesVC = FavoritesVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // опасная штука, так как меняет цвет всех таб баров
+        // в контроллере экзепляра
+        // если нужно именно задать стиль для всего приложения
+        // этой штуке место в AppDelegate
         UITabBar.appearance().tintColor = .systemOrange
+        // странно делать createFavoritesNC() когда контроллер уже создан
         viewControllers = [createSearchNC(), createFavoritesNC()]
 
         NotificationFavoriteBadge.addObserver(with: #selector(updateBadge), observer: self)

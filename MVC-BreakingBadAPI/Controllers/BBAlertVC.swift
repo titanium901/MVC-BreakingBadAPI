@@ -35,7 +35,9 @@ class BBAlertVC: UIViewController {
         button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         return button
     }()
-    
+
+    // Можно в модель запаковать
+    // тогда три метода configure.. в один
     private var alertTitle: String?
     private var message: String?
     private var buttonTitle: String?

@@ -13,6 +13,7 @@ protocol CharacterDataModelDelegate: class {
     func notRecieveCharacter()
 }
 
+// Название не говорит о сути и перекликается с Character
 class CharacterDataModel {
     weak var delegate: CharacterDataModelDelegate?
     

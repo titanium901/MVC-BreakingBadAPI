@@ -34,7 +34,7 @@ class FavoritesVC: UIViewController {
             showEmptyStateView(with: EmptyScreen.empty, in: view)
             return
         }
-        
+        // каша вызовов
         tableView.reloadDataOnMainThread()
         view.bringSubviewToFront(tableView)
         view.bringSubviewToFront(view)

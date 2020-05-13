@@ -17,7 +17,9 @@ extension UILabel {
         textAlignment = .center
         font = UIFont.systemFont(ofSize: 26, weight: .bold)
     }
-    
+
+    // может быть лучше сделать без параметров методы
+    // а параметры устанавливать при конфиге
     func applyBBStyleForBBCell(textColor: UIColor, fontSize: CGFloat) {
         self.textColor = textColor
         textAlignment = .center

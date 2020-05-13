@@ -16,6 +16,7 @@ struct Character: Codable, Hashable {
     let nickname: String
     let appearance: [Int]
     let portrayed: String
+    // не понял зачем тебе в итоге это поле
     var isFavorite: Bool?
     
     mutating func loadFavouriteStatus() {
@@ -30,6 +31,7 @@ struct Character: Codable, Hashable {
         PersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
     }
 
+    // static func addFavoriteStatus(to characters: [Character]) -> [Character] {
     static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
@@ -38,7 +40,8 @@ struct Character: Codable, Hashable {
         }
         return favCharacters
     }
-    
+
+    // Эти методы можно положить в Characters
     static func loadCharacter(by name: String, completion: @escaping (Character?) -> Void) {
         NetworkCharacterManager.shared.getCharacter(name: name) { (characters, success) in
             if success == true {

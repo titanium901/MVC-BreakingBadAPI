@@ -32,7 +32,7 @@ class CharactersVC: UIViewController {
     }()
     
     private var filteredCharacters: [Character] = []
-    private var isSearching = false
+    private var isSearching = false // Костыль
     private var dataSource: CustomDataSource<Section, Character>!
     
     private var characters: [Character] = [] {
@@ -86,7 +86,8 @@ class CharactersVC: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
+
+    // имя метода не соответствует реализации
     private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
@@ -94,7 +95,10 @@ class CharactersVC: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }
-    
+
+    // имя метода не соответствует реализации
+    // setupDataSource() или лучше
+    // private func createDataSource() -> UITableViewDiffableDataSource<SectionType, ItemType>
     private func configureDataSource() {
         dataSource = CustomDataSource<Section, Character>(tableView: tableView, cellProvider: { (tableView, indexPath, character) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
@@ -109,6 +113,7 @@ class CharactersVC: UIViewController {
     }
     
     private func updateData(on characters: [Character]) {
+        // что тут происходит? почему async?
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)

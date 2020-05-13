@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Общий менеджер рулит только избранным?
 class PersistenceManager {
     private init() {}
     

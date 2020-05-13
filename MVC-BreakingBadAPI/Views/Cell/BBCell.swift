@@ -9,6 +9,22 @@
 import UIKit
 import SDWebImage
 
+// есть еще более локаничный способ создания вьюх
+
+//public func update<A>(_ a: A, _ fs: ((inout A) -> Void)...) -> A {
+//  var a = a
+//  fs.forEach { f in f(&a) }
+//  return a
+//}
+
+//private let characterImageView = update(UIImageView()) {
+//    $0.layer.cornerRadius = 10
+//    $0.clipsToBounds = true
+//    $0.contentMode = .scaleAspectFit
+//    $0.backgroundColor = .systemBackground
+//}
+
+
 class BBCell: UITableViewCell {
     
     static let reuseID = "BBCell"
@@ -55,11 +71,16 @@ class BBCell: UITableViewCell {
         characterNickname.text = character.nickname
         characterStatus.text = character.status
         characterPortrayed.text = character.portrayed
-        
+
+        // Эту строчку можно один раз задать при объявлении characterImageView
         characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
     }
-    
+
+    // слишком общее название
+    // скорее addSubviews или setupSubviews
+    // в других местах тоже проверь
+    // можно закрыть протоколом
     private func configure() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
         characterImageView.translatesAutoresizingMaskIntoConstraints = false

@@ -9,7 +9,8 @@
 import UIKit
 
 extension UITableView {
-    
+
+    // зачем такая штука?
     func reloadDataOnMainThread() {
         DispatchQueue.main.async { self.reloadData() }
     }

@@ -9,10 +9,16 @@
 import Foundation
 import Alamofire
 
+// можно отказаться от синглтонов
 class NetworkCharacterManager: NetworkManager {
-    
+
     static let shared = NetworkCharacterManager()
-    
+
+//    func getCharacter(
+//        name: String,
+//        completionHandler: @escaping (Result<[Character], Error>) -> Void
+//    ) {
+//    }
     func getCharacter(name: String, completionHandler: @escaping ([Character], Bool?) -> Void) {
         AF.request("https://www.breakingbadapi.com/api/characters?name=\(name)", method: .get).responseJSON { (response) in
             switch response.result {

@@ -55,19 +55,23 @@ class SearchVC: UIViewController {
     @objc private func pushCharacterInfoVC() {
         characterTextField.resignFirstResponder()
         guard let text = characterTextField.text else { return }
+        // очень подозрительное название переменной
         var input = TextChecker(text: text)
         input.checkUserInput()
         if !input.isValid {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }
-        
+
+        // эту строчку вообще не понял
         SearchValidRequest.shared.validName = input.searchValidText
         let characterInfoVC = CharacterInfoVC()
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
     @objc private func pushCharactersListVC() {
+        // эту можно обернуть в метод так как не понятно зачем она вызывается
+        // еще и дублируется
         characterTextField.resignFirstResponder()
         
         let charactersListVC = CharactersVC()

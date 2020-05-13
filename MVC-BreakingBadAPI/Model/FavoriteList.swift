@@ -9,7 +9,8 @@
 import Foundation
 
 struct FavoriteList {
-    
+
+    // тогда уж лучше синглтон
     static var favorites: [Character] = loadFavorites() {
         didSet {
             NotificationFavoriteBadge.post()
@@ -19,7 +20,9 @@ struct FavoriteList {
     static func loadFavorites() -> [Character] {
         if let data = PersistenceManager.shared.userDefaults.value(forKey: PersistenceManager.Keys.favorites) as? Data {
             return try! PropertyListDecoder().decode([Character].self, from: data)
-        } else {
+        }
+        // return []
+        else {
             return []
         }
     }
