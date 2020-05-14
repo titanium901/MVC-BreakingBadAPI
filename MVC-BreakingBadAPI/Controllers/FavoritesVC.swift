@@ -35,7 +35,7 @@ class FavoritesVC: UIViewController {
             return
         }
         
-        tableView.reloadDataOnMainThread()
+        tableView.reloadData()
         view.bringSubviewToFront(tableView)
         view.bringSubviewToFront(view)
         if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: true) }
