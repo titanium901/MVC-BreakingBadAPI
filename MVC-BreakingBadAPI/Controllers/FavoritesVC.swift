@@ -35,15 +35,19 @@ class FavoritesVC: UIViewController {
             return
         }
         
-        tableView.reloadData()
-        view.bringSubviewToFront(tableView)
-        view.bringSubviewToFront(view)
+        layoutScreenIfHaveFavorite()
         if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: true) }
     }
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func layoutScreenIfHaveFavorite() {
+        tableView.reloadData()
+        view.bringSubviewToFront(tableView)
+        view.bringSubviewToFront(view)
     }
 }
 
