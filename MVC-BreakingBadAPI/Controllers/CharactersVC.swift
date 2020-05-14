@@ -43,7 +43,7 @@ class CharactersVC: UIViewController {
     
     private var characters: [Character] = [] {
         didSet {
-            tableView.reloadDataOnMainThread()
+            tableView.reloadData()
             view.bringSubviewToFront(tableView)
             activityIndicator.stopAnimating()
             updateData(on: characters)
@@ -110,7 +110,7 @@ class CharactersVC: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)
-        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
