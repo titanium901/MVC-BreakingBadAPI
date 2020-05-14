@@ -55,7 +55,7 @@ class CharactersVC: UIViewController {
         configureViewController()
         navigationItem.searchController = searchController
         layoutUI()
-        configureDataSource()
+        dataSource = createDataSource()
         loadAllCharacters()
     }
     
@@ -66,13 +66,13 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        Character.loadAllCharacters { characters in
+        Character.loadAllCharacters { [weak self] characters in
             guard let characters = characters else {
-                self.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+                self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
                 return
             }
-            self.characters = characters
-            self.characters = Character.addFavoriteStatusToAll(to: characters)
+            self?.characters = characters
+            self?.characters = Character.addFavoriteStatusToAll(to: characters)
         }
     }
     
@@ -93,11 +93,13 @@ class CharactersVC: UIViewController {
         ])
     }
     
-    private func configureDataSource() {
-        dataSource = CustomDataSource<Section, Character>(tableView: tableView, cellProvider: { (tableView, indexPath, character) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
-            cell.set(character: character)
-            return cell
+    private func createDataSource() -> CustomDataSource<Section, Character> {
+        CustomDataSource<Section, Character>(
+            tableView: tableView,
+            cellProvider: { tableView, indexPath, character -> UITableViewCell? in
+                let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
+                cell.set(character: character)
+                return cell
         })
     }
     
