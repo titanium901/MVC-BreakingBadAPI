@@ -62,11 +62,14 @@ class BBCell: UITableViewCell {
     
     private func configure() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
-        characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        characterName.translatesAutoresizingMaskIntoConstraints = false
-        characterNickname.translatesAutoresizingMaskIntoConstraints = false
-        characterStatus.translatesAutoresizingMaskIntoConstraints = false
-        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
+        
+        [characterImageView,
+         characterName,
+         characterNickname,
+         characterStatus,
+         characterPortrayed].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         let heightAnchor: CGFloat = 40
         let trailingAnchor: CGFloat = -20

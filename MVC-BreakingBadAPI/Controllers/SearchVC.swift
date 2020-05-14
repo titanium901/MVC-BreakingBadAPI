@@ -76,10 +76,13 @@ class SearchVC: UIViewController {
     
     private func configureLayoutUI() {
         view.addSubviews(logoImageView, characterTextField, showAllCharacteButton, searchCharacterButton)
-        showAllCharacteButton.translatesAutoresizingMaskIntoConstraints = false
-        searchCharacterButton.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        characterTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        [logoImageView,
+         characterTextField,
+         showAllCharacteButton,
+         searchCharacterButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),

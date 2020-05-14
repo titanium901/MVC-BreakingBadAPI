@@ -36,17 +36,13 @@ class BBAlertVC: UIViewController {
         return button
     }()
     
-    private var alertTitle: String?
-    private var message: String?
-    private var buttonTitle: String?
+    private var alert: BBAlert?
     
     private let padding: CGFloat = 20
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        self.alertTitle = title
-        self.message = message
-        self.buttonTitle = buttonTitle
+        self.alert = BBAlert(alertTitle: title, message: message, buttonTitle: buttonTitle)
     }
     
     required init?(coder: NSCoder) {
@@ -56,32 +52,26 @@ class BBAlertVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        configureTitleLabel()
-        configureActionButton()
-        configureMessageLabel()
+        configureAlert()
         configureLayoutUI()
     }
     
-    private func configureTitleLabel() {
-        titleLabel.text = alertTitle ?? "Something went wrong"
-    }
-    
-    private func configureMessageLabel() {
-        messageLabel.text = message ?? "Unable to complete request"
-    }
-    
-    private func configureActionButton() {
-        actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
+    private func configureAlert() {
+        titleLabel.text = alert?.alertTitle ?? "Something went wrong"
+        messageLabel.text = alert?.message ?? "Unable to complete request"
+        actionButton.setTitle(alert?.buttonTitle ?? "OK", for: .normal)
     }
     
     private func configureLayoutUI() {
         view.addSubview(containerView)
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        [containerView,
+         titleLabel,
+         actionButton,
+         messageLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),

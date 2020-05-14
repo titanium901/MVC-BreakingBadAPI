@@ -93,13 +93,13 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
-        Character.loadCharacter(by: SearchValidRequest.shared.validName) { char in
+        Character.loadCharacter(by: SearchValidRequest.shared.validName) { [weak self] char in
             guard let char = char else {
-                self.characterNotFound(message: SearchValidRequest.shared.validName)
+                self?.characterNotFound(message: SearchValidRequest.shared.validName)
                 return
             }
-            self.character = char
-            self.character.loadFavouriteStatus()
+            self?.character = char
+            self?.character.loadFavouriteStatus()
         }
     }
     
@@ -126,15 +126,14 @@ class CharacterInfoVC: UIViewController {
     private func layoutUI() {
         view.addSubviews(characterImageView, stackView, addToFavoriteButton, activityIndicator)
         
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        characterName.translatesAutoresizingMaskIntoConstraints = false
-        characterNickname.translatesAutoresizingMaskIntoConstraints = false
-        characterStatus.translatesAutoresizingMaskIntoConstraints = false
-        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
-        characterAppearance.translatesAutoresizingMaskIntoConstraints = false
+        [characterImageView,
+         stackView,
+         addToFavoriteButton,
+         activityIndicator
+            ].forEach {
+                $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
 
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)

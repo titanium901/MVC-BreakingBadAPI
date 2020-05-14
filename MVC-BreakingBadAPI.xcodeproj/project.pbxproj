@@ -40,6 +40,7 @@
 		CAB2B079246809240018D96E /* FavoriteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B078246809240018D96E /* FavoriteList.swift */; };
 		CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B07A24694F880018D96E /* Notification+Ext.swift */; };
 		CAE34EDF246A94E800DEAB16 /* NotificationFavoriteBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */; };
+		CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE0246D730E00DEAB16 /* BBAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		CAB2B078246809240018D96E /* FavoriteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteList.swift; sourceTree = "<group>"; };
 		CAB2B07A24694F880018D96E /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFavoriteBadge.swift; sourceTree = "<group>"; };
+		CAE34EE0246D730E00DEAB16 /* BBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlert.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +155,7 @@
 				CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */,
 				CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */,
 				CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */,
+				CAE34EE0246D730E00DEAB16 /* BBAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
 				CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
+				CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
 				CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */,
 				CAB2B079246809240018D96E /* FavoriteList.swift in Sources */,
