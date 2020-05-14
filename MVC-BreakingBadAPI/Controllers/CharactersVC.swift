@@ -30,9 +30,15 @@ class CharactersVC: UIViewController {
         activity.color = .systemOrange
         return activity
     }()
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a character name"
+        searchController.obscuresBackgroundDuringPresentation = false
+        return searchController
+    }()
     
     private var filteredCharacters: [Character] = []
-    private var isSearching = false
     private var dataSource: CustomDataSource<Section, Character>!
     
     private var characters: [Character] = [] {
@@ -47,7 +53,7 @@ class CharactersVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureSearchController()
+        navigationItem.searchController = searchController
         layoutUI()
         configureDataSource()
         loadAllCharacters()
@@ -85,14 +91,6 @@ class CharactersVC: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-    }
-    
-    private func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a character name"
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
     }
     
     private func configureDataSource() {
@@ -134,7 +132,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = isSearching ? filteredCharacters : characters
+        let activeArray = SearchValidRequest.shared.isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC()
         destVC.character = character
@@ -179,11 +177,11 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         if !input.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
-            isSearching = input.isValid
+            SearchValidRequest.shared.isSearching = input.isValid
             return
         }
         
-        isSearching = input.isValid
+        SearchValidRequest.shared.isSearching = input.isValid
         filteredCharacters = Character.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
     }

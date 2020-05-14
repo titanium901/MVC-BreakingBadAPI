@@ -13,4 +13,5 @@ class SearchValidRequest {
     private init() {}
     
     var validName: String!
+    var isSearching = false
 }
