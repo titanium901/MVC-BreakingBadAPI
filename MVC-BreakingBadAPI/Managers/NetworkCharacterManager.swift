@@ -11,9 +11,7 @@ import Alamofire
 
 class NetworkCharacterManager {
     
-    static let shared = NetworkCharacterManager()
-    
-    func getCharacter(name: String, completionHandler: @escaping (Result<[Character], Error>) -> Void) {
+    static func getCharacter(name: String, completionHandler: @escaping (Result<[Character], Error>) -> Void) {
         AF.request("https://www.breakingbadapi.com/api/characters?name=\(name)", method: .get).responseJSON { response in
             switch response.result {
             case .success:

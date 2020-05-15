@@ -11,7 +11,7 @@ import Foundation
 struct Characters {
     
     static func loadAllCharacters(completion: @escaping ([Character]?, Error?) -> Void) {
-        NetworkCharactersManager.shared.getCharacters { result in
+        NetworkCharactersManager.getCharacters { result in
             switch result {
             case .success(let characters):
                 completion(characters, nil)

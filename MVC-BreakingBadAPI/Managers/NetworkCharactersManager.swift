@@ -10,10 +10,8 @@ import Foundation
 import Alamofire
 
 class NetworkCharactersManager {
-    
-    static let shared = NetworkCharactersManager()
 
-    func getCharacters(completionHandler: @escaping (Result<[Character], Error>) -> Void) {
+    static func getCharacters(completionHandler: @escaping (Result<[Character], Error>) -> Void) {
         AF.request("https://www.breakingbadapi.com/api/characters", method: .get).responseJSON { response in
             switch response.result {
             case .success:

@@ -36,7 +36,7 @@ struct Character: Codable, Hashable {
     }
     
     static func loadCharacter(by name: String, completion: @escaping (Character?, Error?) -> Void) {
-        NetworkCharacterManager.shared.getCharacter(name: name) { result in
+        NetworkCharacterManager.getCharacter(name: name) { result in
             switch result {
             case .success(let characters):
                 completion(characters.first, nil)
