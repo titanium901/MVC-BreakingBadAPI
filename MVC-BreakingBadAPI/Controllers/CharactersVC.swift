@@ -139,7 +139,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = SearchingCharacters.shared.isSearching ? filteredCharacters : characters
+        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC()
         destVC.character = character
@@ -184,11 +184,11 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         if !input.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
-            SearchingCharacters.shared.isSearching = input.isValid
+            SearchingCharacters.isSearching = input.isValid
             return
         }
         
-        SearchingCharacters.shared.isSearching = input.isValid
+        SearchingCharacters.isSearching = input.isValid
         filteredCharacters = Characters.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
     }

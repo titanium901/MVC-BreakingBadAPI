@@ -9,8 +9,5 @@
 import Foundation
 
 class SearchingCharacters {
-    static let shared = SearchingCharacters()
-    private init() {}
-    
-    var isSearching = false
+    static var isSearching = false
 }
