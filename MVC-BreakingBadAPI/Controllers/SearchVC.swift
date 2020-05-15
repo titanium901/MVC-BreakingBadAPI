@@ -53,23 +53,19 @@ class SearchVC: UIViewController {
     }
     
     @objc private func pushCharacterInfoVC() {
-        characterTextField.resignFirstResponder()
         guard let text = characterTextField.text else { return }
-        var input = TextChecker(text: text)
-        input.checkUserInput()
-        if !input.isValid {
+        var textChecker = TextChecker(text: text)
+        textChecker.checkUserInput()
+        if !textChecker.isValid {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }
         
-        SearchValidRequest.shared.validName = input.searchValidText
         let characterInfoVC = CharacterInfoVC()
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     
     @objc private func pushCharactersListVC() {
-        characterTextField.resignFirstResponder()
-        
         let charactersListVC = CharactersVC()
         navigationController?.pushViewController(charactersListVC, animated: true)
     }

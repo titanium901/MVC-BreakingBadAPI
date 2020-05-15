@@ -93,9 +93,9 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
-        Character.loadCharacter(by: SearchValidRequest.shared.validName) { [weak self] char in
+        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char in
             guard let char = char else {
-                self?.characterNotFound(message: SearchValidRequest.shared.validName)
+                self?.characterNotFound(message: TextChecker.searchValidText)
                 return
             }
             self?.character = char

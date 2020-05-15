@@ -12,6 +12,5 @@ class SearchValidRequest {
     static let shared = SearchValidRequest()
     private init() {}
     
-    var validName: String!
     var isSearching = false
 }
