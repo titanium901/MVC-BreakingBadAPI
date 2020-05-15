@@ -10,43 +10,34 @@ import UIKit
 
 class BBAlertVC: UIViewController {
     
-    private lazy var containerView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 16
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.white.cgColor
-        return view
-    }()
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle(textColor: .label)
-        return label
-    }()
-    private lazy var messageLabel: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle(textColor: .orange)
-        label.numberOfLines = 4
-        return label
-    }()
-    private lazy var actionButton: UIButton = {
-        let button = UIButton()
-        button.applyBBStyle(title: "OK", backgroundColor: .orange)
-        button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
-        return button
-    }()
+    private let containerView = update(UIView()) {
+        $0.backgroundColor = .systemBackground
+        $0.layer.cornerRadius = 16
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.white.cgColor
+    }
+    private let titleLabel = update(UILabel()) {
+        $0.applyBBStyle()
+    }
+    private let messageLabel = update(UILabel()) {
+        $0.applyBBStyle()
+        $0.textColor = .orange
+        $0.numberOfLines = 4
+    }
+    private let actionButton = update(UIButton()) {
+        $0.applyBBStyle()
+        $0.setTitle("OK", for: .normal)
+        $0.backgroundColor = .orange
+        $0.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+    }
     
-    private var alertTitle: String?
-    private var message: String?
-    private var buttonTitle: String?
+    private var alert: BBAlert?
     
     private let padding: CGFloat = 20
     
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        self.alertTitle = title
-        self.message = message
-        self.buttonTitle = buttonTitle
+        self.alert = BBAlert(alertTitle: title, message: message, buttonTitle: buttonTitle)
     }
     
     required init?(coder: NSCoder) {
@@ -56,32 +47,26 @@ class BBAlertVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        configureTitleLabel()
-        configureActionButton()
-        configureMessageLabel()
-        configureLayoutUI()
+        configureAlert()
+        layoutUI()
     }
     
-    private func configureTitleLabel() {
-        titleLabel.text = alertTitle ?? "Something went wrong"
+    private func configureAlert() {
+        titleLabel.text = alert?.alertTitle ?? "Something went wrong"
+        messageLabel.text = alert?.message ?? "Unable to complete request"
+        actionButton.setTitle(alert?.buttonTitle ?? "OK", for: .normal)
     }
     
-    private func configureMessageLabel() {
-        messageLabel.text = message ?? "Unable to complete request"
-    }
-    
-    private func configureActionButton() {
-        actionButton.setTitle(buttonTitle ?? "OK", for: .normal)
-    }
-    
-    private func configureLayoutUI() {
+    private func layoutUI() {
         view.addSubview(containerView)
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        [containerView,
+         titleLabel,
+         actionButton,
+         messageLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),

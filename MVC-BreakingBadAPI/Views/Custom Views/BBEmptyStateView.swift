@@ -10,22 +10,18 @@ import UIKit
 
 class BBEmptyStateView: UIView {
     
-    private lazy var messageLabel: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle(textColor: .label)
-        label.numberOfLines = 3
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Images.bbLogo
-        return imageView
-    }()
+    private let messageLabel = update(UILabel()) {
+        $0.applyBBStyle()
+        $0.numberOfLines = 3
+        $0.textColor = .secondaryLabel
+    }
+    private let logoImageView = update(UIImageView()) {
+        $0.image = Images.bbLogo
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        addSubviews()
         layoutUI()
     }
     
@@ -38,7 +34,7 @@ class BBEmptyStateView: UIView {
         messageLabel.text = message
     }
     
-    private func configure() {
+    private func addSubviews() {
         addSubview(messageLabel)
         addSubview(logoImageView)
     }

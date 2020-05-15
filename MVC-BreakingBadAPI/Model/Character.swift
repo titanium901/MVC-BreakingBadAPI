@@ -19,44 +19,31 @@ struct Character: Codable, Hashable {
     var isFavorite: Bool?
     
     mutating func loadFavouriteStatus() {
-        isFavorite = PersistenceManager.shared.userDefaults.bool(forKey: self.nickname)
-    }
-
-    mutating func addFavoriteStatus(){
-        isFavorite = false
+        isFavorite = FavoritePersistenceManager.shared.userDefaults.bool(forKey: self.nickname)
     }
     
     func updateFavoriteStatusInDB() {
-        PersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
+        FavoritePersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
     }
 
-    static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
+    static func addFavoriteStatus(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
-            character.addFavoriteStatus()
+            character.isFavorite = false
             favCharacters.append(character)
         }
         return favCharacters
     }
     
-    static func loadCharacter(by name: String, completion: @escaping (Character?) -> Void) {
-        NetworkCharacterManager.shared.getCharacter(name: name) { (characters, success) in
-            if success == true {
-                completion(characters.first ?? nil)
+    static func loadCharacter(by name: String, completion: @escaping (Character?, Error?) -> Void) {
+        NetworkCharacterManager.getCharacter(name: name) { result in
+            switch result {
+            case .success(let characters):
+                completion(characters.first, nil)
+            case.failure(let error):
+                completion(nil, error)
             }
         }
-    }
-    
-    static func loadAllCharacters(completion: @escaping ([Character]?) -> Void) {
-        NetworkCharactersManager.shared.getCharacters { (characters, success) in
-            if success == true {
-                completion(characters)
-            }
-        }
-    }
-    
-    static func filterCharactersByName(characters: [Character], name: String) -> [Character] {
-        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
     }
 }
 

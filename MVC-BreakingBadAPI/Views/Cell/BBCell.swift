@@ -12,38 +12,36 @@ import SDWebImage
 class BBCell: UITableViewCell {
     
     static let reuseID = "BBCell"
-    private lazy var characterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemBackground
-        return imageView
-    }()
-    private lazy var characterName: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .label, fontSize: 26)
-        return label
-    }()
-    private lazy var characterNickname: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 24)
-        return label
-    }()
-    private lazy var characterStatus: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .label, fontSize: 22)
-        return label
-    }()
-    private lazy var characterPortrayed: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 20)
-        return label
-    }()
+    
+    private let characterImageView = update(UIImageView()) {
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .systemBackground
+        $0.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+    }
+    private let characterName = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+    }
+    private let characterNickname = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.textColor = .orange
+        $0.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+    }
+    private let characterStatus = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+    }
+    private let characterPortrayed = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.textColor = .orange
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
@@ -55,18 +53,19 @@ class BBCell: UITableViewCell {
         characterNickname.text = character.nickname
         characterStatus.text = character.status
         characterPortrayed.text = character.portrayed
-        
-        characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
     }
     
-    private func configure() {
+    private func layoutUI() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
-        characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        characterName.translatesAutoresizingMaskIntoConstraints = false
-        characterNickname.translatesAutoresizingMaskIntoConstraints = false
-        characterStatus.translatesAutoresizingMaskIntoConstraints = false
-        characterPortrayed.translatesAutoresizingMaskIntoConstraints = false
+        
+        [characterImageView,
+         characterName,
+         characterNickname,
+         characterStatus,
+         characterPortrayed].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         let heightAnchor: CGFloat = 40
         let trailingAnchor: CGFloat = -20

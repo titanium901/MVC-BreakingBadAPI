@@ -8,18 +8,21 @@
 
 import Foundation
 
-struct FavoriteList {
+class FavoriteList {
     
-    static var favorites: [Character] = loadFavorites() {
+    static var shared = FavoriteList()
+    
+    var favorites: [Character] = loadFavorites() {
         didSet {
             NotificationFavoriteBadge.post()
         }
     }
     
-    static func loadFavorites() -> [Character] {
-        if let data = PersistenceManager.shared.userDefaults.value(forKey: PersistenceManager.Keys.favorites) as? Data {
+    private static func loadFavorites() -> [Character] {
+        if let data = FavoritePersistenceManager.shared.userDefaults.value(forKey: FavoritePersistenceManager.Keys.favorites) as? Data {
             return try! PropertyListDecoder().decode([Character].self, from: data)
-        } else {
+        }
+        else {
             return []
         }
     }

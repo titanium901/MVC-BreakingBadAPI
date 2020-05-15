@@ -30,14 +30,20 @@ class CharactersVC: UIViewController {
         activity.color = .systemOrange
         return activity
     }()
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a character name"
+        searchController.obscuresBackgroundDuringPresentation = false
+        return searchController
+    }()
     
     private var filteredCharacters: [Character] = []
-    private var isSearching = false
     private var dataSource: CustomDataSource<Section, Character>!
     
     private var characters: [Character] = [] {
         didSet {
-            tableView.reloadDataOnMainThread()
+            tableView.reloadData()
             view.bringSubviewToFront(tableView)
             activityIndicator.stopAnimating()
             updateData(on: characters)
@@ -47,9 +53,9 @@ class CharactersVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureSearchController()
+        navigationItem.searchController = searchController
         layoutUI()
-        configureDataSource()
+        dataSource = createDataSource()
         loadAllCharacters()
     }
     
@@ -60,13 +66,19 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        Character.loadAllCharacters { characters in
-            guard let characters = characters else {
-                self.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+        Characters.loadAllCharacters { [weak self] characters, error in
+            guard error == nil else {
+                self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
+                self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
+                self?.activityIndicator.stopAnimating()
                 return
             }
-            self.characters = characters
-            self.characters = Character.addFavoriteStatusToAll(to: characters)
+            guard let characters = characters else {
+                self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+                return
+            }
+            self?.characters = characters
+            self?.characters = Character.addFavoriteStatus(to: characters)
         }
     }
     
@@ -87,19 +99,13 @@ class CharactersVC: UIViewController {
         ])
     }
     
-    private func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a character name"
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-    }
-    
-    private func configureDataSource() {
-        dataSource = CustomDataSource<Section, Character>(tableView: tableView, cellProvider: { (tableView, indexPath, character) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
-            cell.set(character: character)
-            return cell
+    private func createDataSource() -> CustomDataSource<Section, Character> {
+        CustomDataSource<Section, Character>(
+            tableView: tableView,
+            cellProvider: { tableView, indexPath, character -> UITableViewCell? in
+                let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
+                cell.set(character: character)
+                return cell
         })
     }
     
@@ -112,7 +118,7 @@ class CharactersVC: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters)
-        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -134,7 +140,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = isSearching ? filteredCharacters : characters
+        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC()
         destVC.character = character
@@ -174,23 +180,17 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         
-        var input = TextChecker(text: text)
-        input.checkUserInput()
-        if !input.isValid {
+        var textChecker = TextChecker(text: text)
+        textChecker.checkUserInput()
+        if !textChecker.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
-            isSearching = input.isValid
+            SearchingCharacters.isSearching = textChecker.isValid
             return
         }
         
-        isSearching = input.isValid
-        filteredCharacters = Character.filterCharactersByName(characters: characters, name: input.text)
+        SearchingCharacters.isSearching = textChecker.isValid
+        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
         updateData(on: filteredCharacters)
-    }
-}
-
-extension CharactersVC: NetworkManagerDelegate {
-    func catchError(erorr: Error) {
-        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }

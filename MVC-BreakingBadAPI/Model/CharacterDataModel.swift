@@ -7,24 +7,25 @@
 //
 
 import Foundation
+//Пока просто оставлю, как пример для себя как ходить в сеть не через модель
 
 protocol CharacterDataModelDelegate: class {
     func didRecieveCharacter(character: Character)
     func notRecieveCharacter()
 }
 
-class CharacterDataModel {
+class DataModel {
     weak var delegate: CharacterDataModelDelegate?
     
     func loadCharacter(by name: String) {
-        NetworkCharacterManager.shared.getCharacter(name: name) { (character, success) in
-            if success == true {
-                guard !character.isEmpty else {
-                    self.delegate?.notRecieveCharacter()
-                    return
-                }
-                self.delegate?.didRecieveCharacter(character: character.first!)
-            }
-        }
+//        NetworkCharacterManager.shared.getCharacter(name: name) { (character, success) in
+//            if success == true {
+//                guard !character.isEmpty else {
+//                    self.delegate?.notRecieveCharacter()
+//                    return
+//                }
+//                self.delegate?.didRecieveCharacter(character: character.first!)
+//            }
+//        }
     }
 }

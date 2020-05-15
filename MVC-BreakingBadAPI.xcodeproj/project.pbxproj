@@ -22,24 +22,25 @@
 		CA91CCD3244F1F6F00B3AB30 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCD2244F1F6F00B3AB30 /* UIView+Ext.swift */; };
 		CA91CCD7244F25C900B3AB30 /* CharactersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCD6244F25C900B3AB30 /* CharactersVC.swift */; };
 		CA91CCD9244F316400B3AB30 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCD8244F316400B3AB30 /* Character.swift */; };
-		CA91CCDC244F331F00B3AB30 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCDB244F331F00B3AB30 /* NetworkManager.swift */; };
-		CA91CCDE244F34A200B3AB30 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCDD244F34A200B3AB30 /* ErrorMessage.swift */; };
 		CA91CCE02450322C00B3AB30 /* BBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCDF2450322C00B3AB30 /* BBCell.swift */; };
 		CA91CCE6245080E100B3AB30 /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCE5245080E100B3AB30 /* UILabel+Ext.swift */; };
 		CA91CCEB24508A3C00B3AB30 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEA24508A3C00B3AB30 /* UITableView+Ext.swift */; };
-		CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */; };
+		CA91CCED24570D1800B3AB30 /* FavoritePersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEC24570D1800B3AB30 /* FavoritePersistenceManager.swift */; };
 		CA91CCEF2459734000B3AB30 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCEE2459734000B3AB30 /* UIViewController+Ext.swift */; };
 		CA91CCF1245973D500B3AB30 /* BBEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */; };
 		CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */; };
 		CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */; };
 		CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06824669EE30018D96E /* TextChecker.swift */; };
 		CAB2B06D2466BF740018D96E /* CharacterDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */; };
-		CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */; };
+		CAB2B06F2466C36B0018D96E /* SearchingCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */; };
 		CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */; };
 		CAB2B0752466E7CA0018D96E /* NetworkCharactersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */; };
 		CAB2B079246809240018D96E /* FavoriteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B078246809240018D96E /* FavoriteList.swift */; };
 		CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B07A24694F880018D96E /* Notification+Ext.swift */; };
 		CAE34EDF246A94E800DEAB16 /* NotificationFavoriteBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */; };
+		CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE0246D730E00DEAB16 /* BBAlert.swift */; };
+		CAE34EE3246EB2FA00DEAB16 /* PublicFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */; };
+		CAE34EE5246EC29600DEAB16 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE4246EC29600DEAB16 /* Characters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,24 +62,25 @@
 		CA91CCD2244F1F6F00B3AB30 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		CA91CCD6244F25C900B3AB30 /* CharactersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersVC.swift; sourceTree = "<group>"; };
 		CA91CCD8244F316400B3AB30 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
-		CA91CCDB244F331F00B3AB30 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		CA91CCDD244F34A200B3AB30 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		CA91CCDF2450322C00B3AB30 /* BBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBCell.swift; sourceTree = "<group>"; };
 		CA91CCE5245080E100B3AB30 /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		CA91CCEA24508A3C00B3AB30 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
-		CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		CA91CCEC24570D1800B3AB30 /* FavoritePersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePersistenceManager.swift; sourceTree = "<group>"; };
 		CA91CCEE2459734000B3AB30 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		CA91CCF0245973D500B3AB30 /* BBEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBEmptyStateView.swift; sourceTree = "<group>"; };
 		CA91CCF22459D50700B3AB30 /* BBAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlertVC.swift; sourceTree = "<group>"; };
 		CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataSource.swift; sourceTree = "<group>"; };
 		CAB2B06824669EE30018D96E /* TextChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextChecker.swift; sourceTree = "<group>"; };
 		CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataModel.swift; sourceTree = "<group>"; };
-		CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchValidRequest.swift; sourceTree = "<group>"; };
+		CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingCharacters.swift; sourceTree = "<group>"; };
 		CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharacterManager.swift; sourceTree = "<group>"; };
 		CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharactersManager.swift; sourceTree = "<group>"; };
 		CAB2B078246809240018D96E /* FavoriteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteList.swift; sourceTree = "<group>"; };
 		CAB2B07A24694F880018D96E /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFavoriteBadge.swift; sourceTree = "<group>"; };
+		CAE34EE0246D730E00DEAB16 /* BBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlert.swift; sourceTree = "<group>"; };
+		CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunc.swift; sourceTree = "<group>"; };
+		CAE34EE4246EC29600DEAB16 /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,11 +150,13 @@
 			isa = PBXGroup;
 			children = (
 				CA91CCD8244F316400B3AB30 /* Character.swift */,
+				CAE34EE4246EC29600DEAB16 /* Characters.swift */,
 				CAB2B078246809240018D96E /* FavoriteList.swift */,
 				CAB2B06824669EE30018D96E /* TextChecker.swift */,
 				CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */,
-				CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */,
+				CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */,
 				CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */,
+				CAE34EE0246D730E00DEAB16 /* BBAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +187,7 @@
 			children = (
 				CA91CCA8244DD69400B3AB30 /* AppDelegate.swift */,
 				CA91CCAA244DD69400B3AB30 /* SceneDelegate.swift */,
+				CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */,
 				CA91CCB6244DD69600B3AB30 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -210,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				CA91CCCF244F1BAF00B3AB30 /* Constans.swift */,
-				CA91CCDD244F34A200B3AB30 /* ErrorMessage.swift */,
 				CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */,
 			);
 			path = Utilities;
@@ -233,10 +237,9 @@
 		CA91CCDA244F330A00B3AB30 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				CA91CCDB244F331F00B3AB30 /* NetworkManager.swift */,
 				CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */,
 				CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */,
-				CA91CCEC24570D1800B3AB30 /* PersistenceManager.swift */,
+				CA91CCEC24570D1800B3AB30 /* FavoritePersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -370,12 +373,10 @@
 				CAB2B06D2466BF740018D96E /* CharacterDataModel.swift in Sources */,
 				CA91CCEB24508A3C00B3AB30 /* UITableView+Ext.swift in Sources */,
 				CA91CCE6245080E100B3AB30 /* UILabel+Ext.swift in Sources */,
-				CA91CCDC244F331F00B3AB30 /* NetworkManager.swift in Sources */,
 				CA91CCD9244F316400B3AB30 /* Character.swift in Sources */,
 				CA91CCD0244F1BAF00B3AB30 /* Constans.swift in Sources */,
 				CA91CCCB244DF4E800B3AB30 /* UIButton+Ext.swift in Sources */,
 				CA91CCD7244F25C900B3AB30 /* CharactersVC.swift in Sources */,
-				CA91CCDE244F34A200B3AB30 /* ErrorMessage.swift in Sources */,
 				CA91CCC2244DEBA900B3AB30 /* SearchVC.swift in Sources */,
 				CA91CCE02450322C00B3AB30 /* BBCell.swift in Sources */,
 				CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */,
@@ -383,9 +384,12 @@
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
 				CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,
-				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
-				CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */,
+				CA91CCED24570D1800B3AB30 /* FavoritePersistenceManager.swift in Sources */,
+				CAE34EE3246EB2FA00DEAB16 /* PublicFunc.swift in Sources */,
+				CAB2B06F2466C36B0018D96E /* SearchingCharacters.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
+				CAE34EE5246EC29600DEAB16 /* Characters.swift in Sources */,
+				CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
 				CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */,
 				CAB2B079246809240018D96E /* FavoriteList.swift in Sources */,
