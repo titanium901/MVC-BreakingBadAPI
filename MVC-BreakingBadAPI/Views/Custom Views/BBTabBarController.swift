@@ -45,7 +45,7 @@ class BBTabBarController: UITabBarController {
     }
     
     @objc func updateBadge(notification: NSNotification) {
-        setFavoritesBadgeValue()
+//        setFavoritesBadgeValue()
     }
     
     private func setFavoritesBadgeValue() {

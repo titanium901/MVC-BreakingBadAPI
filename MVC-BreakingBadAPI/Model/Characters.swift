@@ -10,10 +10,13 @@ import Foundation
 
 struct Characters {
     
-    static func loadAllCharacters(completion: @escaping ([Character]?) -> Void) {
-        NetworkCharactersManager.shared.getCharacters { (characters, success) in
-            if success == true {
-                completion(characters)
+    static func loadAllCharacters(completion: @escaping ([Character]?, Error?) -> Void) {
+        NetworkCharactersManager.shared.getCharacters { result in
+            switch result {
+            case .success(let characters):
+                completion(characters, nil)
+            case.failure(let error):
+                completion(nil, error)
             }
         }
     }

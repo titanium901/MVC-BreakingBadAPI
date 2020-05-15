@@ -66,7 +66,12 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        Characters.loadAllCharacters { [weak self] characters in
+        Characters.loadAllCharacters { [weak self] characters, error in
+            guard error == nil else {
+                self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
+                self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
+                self?.activityIndicator.stopAnimating()
+                return }
             guard let characters = characters else {
                 self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
                 return
@@ -186,11 +191,5 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         SearchingCharacters.shared.isSearching = input.isValid
         filteredCharacters = Characters.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
-    }
-}
-
-extension CharactersVC: NetworkManagerDelegate {
-    func catchError(erorr: Error) {
-        presentAlert(title: AlertTitle.error, message: erorr.localizedDescription, buttonTitle: "OK")
     }
 }

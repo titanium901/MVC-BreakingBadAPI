@@ -8,11 +8,11 @@
 
 import Foundation
 
-class PersistenceManager {
+class FavoritePersistenceManager {
     private init() {}
     
     enum Keys { static let favorites = "favorites" }
-    static let shared = PersistenceManager()
+    static let shared = FavoritePersistenceManager()
     let userDefaults = UserDefaults.standard
     
     func updateFavorites(with character: Character, isFavorite: Bool) {

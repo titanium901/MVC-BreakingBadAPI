@@ -9,24 +9,24 @@
 import Foundation
 import Alamofire
 
-class NetworkCharacterManager: NetworkManager {
+class NetworkCharacterManager {
     
     static let shared = NetworkCharacterManager()
     
-    func getCharacter(name: String, completionHandler: @escaping ([Character], Bool?) -> Void) {
-        AF.request("https://www.breakingbadapi.com/api/characters?name=\(name)", method: .get).responseJSON { (response) in
+    func getCharacter(name: String, completionHandler: @escaping (Result<[Character], Error>) -> Void) {
+        AF.request("https://www.breakingbadapi.com/api/characters?name=\(name)", method: .get).responseJSON { response in
             switch response.result {
             case .success:
                 if let jsonData = response.data {
                     do {
-                        let characters = try self.jsonDecoder.decode([Character].self, from: jsonData)
-                        completionHandler(characters, true)
+                        let characters = try JSONDecoder().decode([Character].self, from: jsonData)
+                        completionHandler(.success(characters))
                     } catch let error {
-                        if self.delegate != nil { self.delegate?.catchError(erorr: error) }
+                        completionHandler(.failure(error))
                     }
                 }
             case .failure(let error):
-                if self.delegate != nil { self.delegate?.catchError(erorr: error) }
+                completionHandler(.failure(error))
             }
         }
     }

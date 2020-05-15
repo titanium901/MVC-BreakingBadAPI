@@ -66,7 +66,6 @@ class CharacterInfoVC: UIViewController {
         return button
     }()
     
-//    private let characterData = DataModel()
     var character: Character! {
         didSet {
             configureUIElements(with: character)
@@ -77,15 +76,7 @@ class CharacterInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        //
-        //вариант получения через делегат с использованием CharacterDataModel
-        //
-//        characterData.delegate = self
-//        characterData.loadCharacter(by: SearchValidRequest.shared.validText)
         layoutUI()
-        //
-        //вариант через Charactera
-        //
         loadCharacter()
 }
 
@@ -96,7 +87,7 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
-        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char in
+        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char, _  in
             guard let char = char else {
                 self?.characterNotFound(message: TextChecker.searchValidText)
                 return
@@ -134,7 +125,6 @@ class CharacterInfoVC: UIViewController {
             ].forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
 
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)
@@ -177,15 +167,3 @@ class CharacterInfoVC: UIViewController {
         showEmptyStateView(with: "Empty", in: view)
     }
 }
-
-//вариант получения через делегат с использованием CharacterDataModel
-
-//extension CharacterInfoVC: CharacterDataModelDelegate {
-//    func notRecieveCharacter() {
-//        characterNotFound(message: SearchValidRequest.shared.validName)
-//    }
-//
-//    func didRecieveCharacter(character: Character) {
-//        self.character = character
-//    }
-//}
