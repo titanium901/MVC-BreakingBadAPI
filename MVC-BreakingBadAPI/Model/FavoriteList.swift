@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FavoriteList {
+class FavoriteList {
     
     static var shared = FavoriteList()
     
