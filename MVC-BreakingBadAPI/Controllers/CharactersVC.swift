@@ -179,17 +179,17 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         
-        var input = TextChecker(text: text)
-        input.checkUserInput()
-        if !input.isValid {
+        var textChecker = TextChecker(text: text)
+        textChecker.checkUserInput()
+        if !textChecker.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
-            SearchingCharacters.isSearching = input.isValid
+            SearchingCharacters.isSearching = textChecker.isValid
             return
         }
         
-        SearchingCharacters.isSearching = input.isValid
-        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: input.text)
+        SearchingCharacters.isSearching = textChecker.isValid
+        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
         updateData(on: filteredCharacters)
     }
 }
