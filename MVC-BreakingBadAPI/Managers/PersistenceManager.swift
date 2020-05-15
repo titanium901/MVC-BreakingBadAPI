@@ -18,13 +18,13 @@ class PersistenceManager {
     func updateFavorites(with character: Character, isFavorite: Bool) {
         userDefaults.set(isFavorite, forKey: character.nickname)
         if isFavorite {
-            guard !FavoriteList.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            FavoriteList.favorites.append(character)
+            guard !FavoriteList.shared.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            FavoriteList.shared.favorites.append(character)
         } else {
-            guard FavoriteList.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            FavoriteList.favorites.removeAll { $0.nickname == character.nickname }
+            guard FavoriteList.shared.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
+            FavoriteList.shared.favorites.removeAll { $0.nickname == character.nickname }
         }
         
-        userDefaults.set(try? PropertyListEncoder().encode(FavoriteList.favorites), forKey: Keys.favorites)
+        userDefaults.set(try? PropertyListEncoder().encode(FavoriteList.shared.favorites), forKey: Keys.favorites)
     }
 }

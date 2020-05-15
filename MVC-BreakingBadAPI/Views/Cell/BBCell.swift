@@ -12,41 +12,32 @@ import SDWebImage
 class BBCell: UITableViewCell {
     
     static let reuseID = "BBCell"
-    private lazy var characterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemBackground
-        imageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-        return imageView
-    }()
-    private lazy var characterName: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell()
-        label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
-        return label
-    }()
-    private lazy var characterNickname: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell()
-        label.textColor = .orange
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        return label
-    }()
-    private lazy var characterStatus: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell()
-        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        return label
-    }()
-    private lazy var characterPortrayed: UILabel = {
-        let label = UILabel()
-        label.applyBBStyleForBBCell()
-        label.textColor = .orange
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        return label
-    }()
+    
+    private let characterImageView = update(UIImageView()) {
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .systemBackground
+        $0.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+    }
+    private let characterName = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+    }
+    private let characterNickname = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.textColor = .orange
+        $0.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+    }
+    private let characterStatus = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+    }
+    private let characterPortrayed = update(UILabel()) {
+        $0.applyBBStyleForBBCell()
+        $0.textColor = .orange
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

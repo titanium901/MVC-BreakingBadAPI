@@ -30,7 +30,7 @@ class FavoritesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        guard !FavoriteList.favorites.isEmpty else {
+        guard !FavoriteList.shared.favorites.isEmpty else {
             showEmptyStateView(with: EmptyScreen.empty, in: view)
             return
         }
@@ -54,18 +54,18 @@ class FavoritesVC: UIViewController {
 extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FavoriteList.favorites.count
+        return FavoriteList.shared.favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
-        let favorite = FavoriteList.favorites[indexPath.row]
+        let favorite = FavoriteList.shared.favorites[indexPath.row]
         cell.set(character: favorite)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favorite = FavoriteList.favorites[indexPath.row]
+        let favorite = FavoriteList.shared.favorites[indexPath.row]
         
         let destVC = CharacterInfoVC()
         destVC.character = favorite
@@ -78,13 +78,13 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = FavoriteList.favorites[indexPath.row]
+        var character = FavoriteList.shared.favorites[indexPath.row]
         
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
             character.isFavorite?.toggle()
-            FavoriteList.favorites.remove(at: indexPath.row)
+            FavoriteList.shared.favorites.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            if FavoriteList.favorites.isEmpty { self.showEmptyStateView(with: EmptyScreen.empty, in: self.view) }
+            if FavoriteList.shared.favorites.isEmpty { self.showEmptyStateView(with: EmptyScreen.empty, in: self.view) }
             
             character.updateFavoriteStatusInDB()
             self.presentAlert(

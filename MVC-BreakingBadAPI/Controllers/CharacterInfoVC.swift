@@ -66,7 +66,7 @@ class CharacterInfoVC: UIViewController {
         return button
     }()
     
-    private let characterData = CharacterDataModel()
+//    private let characterData = DataModel()
     var character: Character! {
         didSet {
             configureUIElements(with: character)

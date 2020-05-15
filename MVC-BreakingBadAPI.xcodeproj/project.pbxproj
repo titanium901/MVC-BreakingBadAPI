@@ -34,13 +34,15 @@
 		CA91CCF8245C313500B3AB30 /* CustomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */; };
 		CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06824669EE30018D96E /* TextChecker.swift */; };
 		CAB2B06D2466BF740018D96E /* CharacterDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */; };
-		CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */; };
+		CAB2B06F2466C36B0018D96E /* SearchingCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */; };
 		CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */; };
 		CAB2B0752466E7CA0018D96E /* NetworkCharactersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */; };
 		CAB2B079246809240018D96E /* FavoriteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B078246809240018D96E /* FavoriteList.swift */; };
 		CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2B07A24694F880018D96E /* Notification+Ext.swift */; };
 		CAE34EDF246A94E800DEAB16 /* NotificationFavoriteBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */; };
 		CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE0246D730E00DEAB16 /* BBAlert.swift */; };
+		CAE34EE3246EB2FA00DEAB16 /* PublicFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */; };
+		CAE34EE5246EC29600DEAB16 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE4246EC29600DEAB16 /* Characters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,13 +76,15 @@
 		CA91CCF7245C313500B3AB30 /* CustomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataSource.swift; sourceTree = "<group>"; };
 		CAB2B06824669EE30018D96E /* TextChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextChecker.swift; sourceTree = "<group>"; };
 		CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataModel.swift; sourceTree = "<group>"; };
-		CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchValidRequest.swift; sourceTree = "<group>"; };
+		CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingCharacters.swift; sourceTree = "<group>"; };
 		CAB2B0702466E77C0018D96E /* NetworkCharacterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharacterManager.swift; sourceTree = "<group>"; };
 		CAB2B0742466E7CA0018D96E /* NetworkCharactersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCharactersManager.swift; sourceTree = "<group>"; };
 		CAB2B078246809240018D96E /* FavoriteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteList.swift; sourceTree = "<group>"; };
 		CAB2B07A24694F880018D96E /* Notification+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Ext.swift"; sourceTree = "<group>"; };
 		CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFavoriteBadge.swift; sourceTree = "<group>"; };
 		CAE34EE0246D730E00DEAB16 /* BBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlert.swift; sourceTree = "<group>"; };
+		CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunc.swift; sourceTree = "<group>"; };
+		CAE34EE4246EC29600DEAB16 /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,10 +154,11 @@
 			isa = PBXGroup;
 			children = (
 				CA91CCD8244F316400B3AB30 /* Character.swift */,
+				CAE34EE4246EC29600DEAB16 /* Characters.swift */,
 				CAB2B078246809240018D96E /* FavoriteList.swift */,
 				CAB2B06824669EE30018D96E /* TextChecker.swift */,
 				CAB2B06C2466BF740018D96E /* CharacterDataModel.swift */,
-				CAB2B06E2466C36B0018D96E /* SearchValidRequest.swift */,
+				CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */,
 				CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */,
 				CAE34EE0246D730E00DEAB16 /* BBAlert.swift */,
 			);
@@ -186,6 +191,7 @@
 			children = (
 				CA91CCA8244DD69400B3AB30 /* AppDelegate.swift */,
 				CA91CCAA244DD69400B3AB30 /* SceneDelegate.swift */,
+				CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */,
 				CA91CCB6244DD69600B3AB30 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -387,8 +393,10 @@
 				CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,
 				CA91CCED24570D1800B3AB30 /* PersistenceManager.swift in Sources */,
-				CAB2B06F2466C36B0018D96E /* SearchValidRequest.swift in Sources */,
+				CAE34EE3246EB2FA00DEAB16 /* PublicFunc.swift in Sources */,
+				CAB2B06F2466C36B0018D96E /* SearchingCharacters.swift in Sources */,
 				CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */,
+				CAE34EE5246EC29600DEAB16 /* Characters.swift in Sources */,
 				CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */,
 				CA91CCC9244DEC6200B3AB30 /* BBTabBarController.swift in Sources */,
 				CAB2B0712466E77C0018D96E /* NetworkCharacterManager.swift in Sources */,

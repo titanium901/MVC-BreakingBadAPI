@@ -10,34 +10,26 @@ import UIKit
 
 class BBAlertVC: UIViewController {
     
-    private lazy var containerView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 16
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.white.cgColor
-        return view
-    }()
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        return label
-    }()
-    private lazy var messageLabel: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        label.textColor = .orange
-        label.numberOfLines = 4
-        return label
-    }()
-    private lazy var actionButton: UIButton = {
-        let button = UIButton()
-        button.applyBBStyle()
-        button.setTitle("OK", for: .normal)
-        button.backgroundColor = .orange
-        button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
-        return button
-    }()
+    private let containerView = update(UIView()) {
+        $0.backgroundColor = .systemBackground
+        $0.layer.cornerRadius = 16
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.white.cgColor
+    }
+    private let titleLabel = update(UILabel()) {
+        $0.applyBBStyle()
+    }
+    private let messageLabel = update(UILabel()) {
+        $0.applyBBStyle()
+        $0.textColor = .orange
+        $0.numberOfLines = 4
+    }
+    private let actionButton = update(UIButton()) {
+        $0.applyBBStyle()
+        $0.setTitle("OK", for: .normal)
+        $0.backgroundColor = .orange
+        $0.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+    }
     
     private var alert: BBAlert?
     

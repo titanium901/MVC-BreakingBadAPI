@@ -13,14 +13,17 @@ class BBTabBarController: UITabBarController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
-    let favoritiesVC = FavoritesVC()
+    
+    enum TabBarType: Int {
+        case search
+        case favorites
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().tintColor = .systemOrange
         viewControllers = [createSearchNC(), createFavoritesNC()]
-
+        
+        setFavoritesBadgeValue()
         NotificationFavoriteBadge.addObserver(with: #selector(updateBadge), observer: self)
     }
     
@@ -34,9 +37,9 @@ class BBTabBarController: UITabBarController {
     }
     
     private func createFavoritesNC() -> UINavigationController {
+        let favoritiesVC = FavoritesVC()
         favoritiesVC.title = "Favorities"
         favoritiesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        setFavoritesBadgeValue()
         
         return UINavigationController(rootViewController: favoritiesVC)
     }
@@ -46,6 +49,6 @@ class BBTabBarController: UITabBarController {
     }
     
     private func setFavoritesBadgeValue() {
-        favoritiesVC.tabBarItem.badgeValue = FavoriteList.favorites.count == 0 ? nil : "\(FavoriteList.favorites.count)"
+        viewControllers?[TabBarType.favorites.rawValue].tabBarItem.badgeValue = FavoriteList.shared.favorites.count == 0 ? nil : "\(FavoriteList.shared.favorites.count)"
     }
 }

@@ -66,13 +66,13 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        Character.loadAllCharacters { [weak self] characters in
+        Characters.loadAllCharacters { [weak self] characters in
             guard let characters = characters else {
                 self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
                 return
             }
             self?.characters = characters
-            self?.characters = Character.addFavoriteStatusToAll(to: characters)
+            self?.characters = Character.addFavoriteStatus(to: characters)
         }
     }
     
@@ -134,7 +134,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = SearchValidRequest.shared.isSearching ? filteredCharacters : characters
+        let activeArray = SearchingCharacters.shared.isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC()
         destVC.character = character
@@ -179,12 +179,12 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         if !input.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
-            SearchValidRequest.shared.isSearching = input.isValid
+            SearchingCharacters.shared.isSearching = input.isValid
             return
         }
         
-        SearchValidRequest.shared.isSearching = input.isValid
-        filteredCharacters = Character.filterCharactersByName(characters: characters, name: input.text)
+        SearchingCharacters.shared.isSearching = input.isValid
+        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: input.text)
         updateData(on: filteredCharacters)
     }
 }

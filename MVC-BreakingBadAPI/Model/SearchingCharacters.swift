@@ -1,5 +1,5 @@
 //
-//  SearchValidRequest.swift
+//  SearchingCharacters.swift
 //  MVC-BreakingBadAPI
 //
 //  Created by Iury Popov on 09.05.2020.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SearchValidRequest {
-    static let shared = SearchValidRequest()
+class SearchingCharacters {
+    static let shared = SearchingCharacters()
     private init() {}
     
     var isSearching = false

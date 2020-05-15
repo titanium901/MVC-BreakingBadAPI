@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-protocol NetworkManagerDelegate {
+protocol NetworkManagerDelegate: class {
     func catchError(erorr: Error)
 }
 
 class NetworkManager: NSObject {
     let jsonDecoder = JSONDecoder()
     
-    var error: Error?
-    var delegate: NetworkManagerDelegate?
+//    var error: Error?
+    weak var delegate: NetworkManagerDelegate?
 }

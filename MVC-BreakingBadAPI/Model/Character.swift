@@ -30,7 +30,7 @@ struct Character: Codable, Hashable {
         PersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
     }
 
-    static func addFavoriteStatusToAll(to characters : [Character]) -> [Character] {
+    static func addFavoriteStatus(to characters : [Character]) -> [Character] {
         var favCharacters: [Character] = []
         for var character in characters {
             character.addFavoriteStatus()
@@ -45,18 +45,6 @@ struct Character: Codable, Hashable {
                 completion(characters.first ?? nil)
             }
         }
-    }
-    
-    static func loadAllCharacters(completion: @escaping ([Character]?) -> Void) {
-        NetworkCharactersManager.shared.getCharacters { (characters, success) in
-            if success == true {
-                completion(characters)
-            }
-        }
-    }
-    
-    static func filterCharactersByName(characters: [Character], name: String) -> [Character] {
-        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
     }
 }
 

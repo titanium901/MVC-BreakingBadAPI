@@ -10,6 +10,8 @@ import UIKit
 
 class SearchVC: UIViewController {
     
+    
+    
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Images.bbLogo
