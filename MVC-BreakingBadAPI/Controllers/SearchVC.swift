@@ -41,7 +41,7 @@ class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayoutUI()
+        layoutUI()
         createAndSetDismissKeyboardTapGesture()
     }
     
@@ -74,7 +74,7 @@ class SearchVC: UIViewController {
         navigationController?.pushViewController(charactersListVC, animated: true)
     }
     
-    private func configureLayoutUI() {
+    private func layoutUI() {
         view.addSubviews(logoImageView, characterTextField, showAllCharacteButton, searchCharacterButton)
         
         [logoImageView,

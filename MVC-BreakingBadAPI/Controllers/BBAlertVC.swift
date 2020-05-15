@@ -56,7 +56,7 @@ class BBAlertVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         configureAlert()
-        configureLayoutUI()
+        layoutUI()
     }
     
     private func configureAlert() {
@@ -65,7 +65,7 @@ class BBAlertVC: UIViewController {
         actionButton.setTitle(alert?.buttonTitle ?? "OK", for: .normal)
     }
     
-    private func configureLayoutUI() {
+    private func layoutUI() {
         view.addSubview(containerView)
         containerView.addSubviews(titleLabel, actionButton, messageLabel)
         

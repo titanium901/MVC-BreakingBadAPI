@@ -25,7 +25,7 @@ class BBEmptyStateView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        addSubviews()
         layoutUI()
     }
     
@@ -38,7 +38,7 @@ class BBEmptyStateView: UIView {
         messageLabel.text = message
     }
     
-    private func configure() {
+    private func addSubviews() {
         addSubview(messageLabel)
         addSubview(logoImageView)
     }

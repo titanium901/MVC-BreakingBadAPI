@@ -18,6 +18,7 @@ class BBCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .systemBackground
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         return imageView
     }()
     private lazy var characterName: UILabel = {
@@ -49,7 +50,7 @@ class BBCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
@@ -61,12 +62,10 @@ class BBCell: UITableViewCell {
         characterNickname.text = character.nickname
         characterStatus.text = character.status
         characterPortrayed.text = character.portrayed
-        
-        characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: UIImage(named: "placeholder"))
     }
     
-    private func configure() {
+    private func layoutUI() {
         addSubviews(characterImageView, characterName, characterNickname, characterStatus, characterPortrayed)
         
         [characterImageView,

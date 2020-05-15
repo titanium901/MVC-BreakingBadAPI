@@ -23,6 +23,7 @@ class CharacterInfoVC: UIViewController {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .systemBackground
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         return imageView
     }()
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -118,8 +119,6 @@ class CharacterInfoVC: UIViewController {
         characterStatus.text = character.status
         characterPortrayed.text = character.portrayed
         characterAppearance.text = "\(character.appearance)"
-        
-        characterImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
         
         addToFavoriteButton.setImage(character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"), for: .normal)
