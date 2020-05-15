@@ -11,12 +11,10 @@ import SDWebImage
 
 class CharacterInfoVC: UIViewController {
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        return stackView
-    }()
+    private let stackView = update(UIStackView()){
+        $0.axis = .vertical
+        $0.distribution = .equalSpacing
+    }
     private lazy var characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10

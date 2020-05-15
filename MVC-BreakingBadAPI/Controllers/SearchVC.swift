@@ -9,37 +9,27 @@
 import UIKit
 
 class SearchVC: UIViewController {
-    
-    
-    
-    private lazy var logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Images.bbLogo
-        return imageView
-    }()
-    private lazy var characterTextField: UITextField = {
-        let textField = UITextField()
-        textField.applyBBStyle()
-        textField.placeholder = "Enter a Character Name"
-        textField.delegate = self
-        return textField
-    }()
-    private lazy var searchCharacterButton: UIButton = {
-        let button = UIButton()
-        button.applyBBStyle()
-        button.setTitle("Search", for: .normal)
-        button.backgroundColor = .orange
-        button.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
-        return button
-    }()
-    private lazy var showAllCharacteButton: UIButton = {
-        let button = UIButton()
-        button.applyBBStyle()
-        button.setTitle("Show All Characters", for: .normal)
-        button.backgroundColor = .black
-        button.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
-        return button
-    }()
+
+    private let logoImageView = update(UIImageView()) {
+        $0.image = Images.bbLogo
+    }
+    private lazy var characterTextField = update(UITextField()) {
+        $0.applyBBStyle()
+        $0.placeholder = "Enter a Character Name"
+        $0.delegate = self
+    }
+    private let searchCharacterButton = update(UIButton()) {
+        $0.applyBBStyle()
+        $0.setTitle("Search", for: .normal)
+        $0.backgroundColor = .orange
+        $0.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
+    }
+    private let showAllCharacteButton = update(UIButton()){
+        $0.applyBBStyle()
+        $0.setTitle("Show All Characters", for: .normal)
+        $0.backgroundColor = .black
+        $0.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
