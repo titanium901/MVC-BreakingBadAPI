@@ -140,9 +140,11 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //передавай SearchingCharacters в инит контроллера
         let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters
         let character = activeArray[indexPath.row]
         let destVC = CharacterInfoVC()
+        // передавай в конструктор
         destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
@@ -185,6 +187,7 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         if !textChecker.isValid {
            filteredCharacters.removeAll()
             updateData(on: characters)
+            // от этой штуки надо избавиться или подругому сделать
             SearchingCharacters.isSearching = textChecker.isValid
             return
         }

@@ -25,3 +25,24 @@ struct Characters {
         characters.filter { $0.name.lowercased().contains(name.lowercased()) }
     }
 }
+
+// отказаться от статики можно например так
+//struct Characters {
+//    var characters: [Character] = []
+//
+//    func loadAllCharacters(completion: @escaping (Error?) -> Void) {
+//        NetworkCharactersManager.getCharacters { result in
+//            switch result {
+//            case .success(let characters):
+//                self.characters = characters
+//                completion(nil)
+//            case.failure(let error):
+//                completion(error)
+//            }
+//        }
+//    }
+//
+//    func filterCharactersByName(name: String) -> [Character] {
+//        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
+//    }
+//}

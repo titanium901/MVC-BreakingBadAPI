@@ -68,6 +68,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         let favorite = FavoriteList.shared.favorites[indexPath.row]
         
         let destVC = CharacterInfoVC()
+        // передавай в конструктор
         destVC.character = favorite
         navigationController?.pushViewController(destVC, animated: true)
     }

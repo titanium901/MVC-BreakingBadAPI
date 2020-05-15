@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+// можно enum NetworkCharacterManager {
 class NetworkCharacterManager {
     
     static func getCharacter(name: String, completionHandler: @escaping (Result<[Character], Error>) -> Void) {

@@ -17,7 +17,8 @@ class FavoriteList {
             NotificationFavoriteBadge.post()
         }
     }
-    
+
+    // почему статик?
     private static func loadFavorites() -> [Character] {
         if let data = FavoritePersistenceManager.shared.userDefaults.value(forKey: FavoritePersistenceManager.Keys.favorites) as? Data {
             return try! PropertyListDecoder().decode([Character].self, from: data)
@@ -26,4 +27,12 @@ class FavoriteList {
             return []
         }
     }
+
+    // без статики
+//    private func loadFavorites() {
+//        if let data = FavoritePersistenceManager.shared.userDefaults.value(forKey: FavoritePersistenceManager.Keys.favorites) as? Data {
+//            self.favorites = try? PropertyListDecoder()
+//                .decode([Character].self, from: data) ?? []
+//        }
+//    }
 }

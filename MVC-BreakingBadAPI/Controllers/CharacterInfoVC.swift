@@ -54,7 +54,18 @@ class CharacterInfoVC: UIViewController {
             activityIndicator.stopAnimating()
         }
     }
-    
+
+    private let searchRequest: SearchRequest
+
+    init(searchRequest: SearchRequest) {
+        self.searchRequest = searchRequest
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -69,17 +80,20 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
-        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char, error  in
+        Character.loadCharacter(by: searchRequest.characterName) { [weak self] char, error  in
+            guard let self = self else { return }
             guard error == nil else {
-                self?.ifNetworkError(error: error!)
+                self.ifNetworkError(error: error!)
                 return
             }
             guard let char = char else {
-                self?.characterNotFound(message: TextChecker.searchValidText)
+                self.characterNotFound(
+                    message: self.searchRequest.characterName
+                )
                 return
             }
-            self?.character = char
-            self?.character.loadFavouriteStatus()
+            self.character = char
+            self.character.loadFavouriteStatus()
         }
     }
     

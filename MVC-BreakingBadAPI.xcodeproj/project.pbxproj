@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8ED5D7C6246F311E0097D00E /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5D7C5246F311E0097D00E /* SearchRequest.swift */; };
 		A983835385339DF74C8483B1 /* Pods_MVC_BreakingBadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4756AD9D1C598C73EB96A4 /* Pods_MVC_BreakingBadAPI.framework */; };
 		CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCA8244DD69400B3AB30 /* AppDelegate.swift */; };
 		CA91CCAB244DD69400B3AB30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CCAA244DD69400B3AB30 /* SceneDelegate.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		4A4756AD9D1C598C73EB96A4 /* Pods_MVC_BreakingBadAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVC_BreakingBadAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ED5D7C5246F311E0097D00E /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
 		8F03454C5BF32128D2257E6A /* Pods-MVC-BreakingBadAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.release.xcconfig"; sourceTree = "<group>"; };
 		CA91CCA5244DD69400B3AB30 /* MVC-BreakingBadAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVC-BreakingBadAPI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA91CCA8244DD69400B3AB30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				CAB2B06E2466C36B0018D96E /* SearchingCharacters.swift */,
 				CAE34EDE246A94E800DEAB16 /* NotificationFavoriteBadge.swift */,
 				CAE34EE0246D730E00DEAB16 /* BBAlert.swift */,
+				8ED5D7C5246F311E0097D00E /* SearchRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
+				8ED5D7C6246F311E0097D00E /* SearchRequest.swift in Sources */,
 				CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,
 				CA91CCED24570D1800B3AB30 /* FavoritePersistenceManager.swift in Sources */,

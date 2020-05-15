@@ -12,7 +12,9 @@ struct TextChecker {
     
     var text: String
     var isValid: Bool!
-    static var searchValidText: String!
+    // зачем статика? зачем unwrap?
+//    static var searchValidText: String!
+    var searchValidText: String = ""
     
     init(text: String) {
         self.text = text
@@ -23,7 +25,7 @@ struct TextChecker {
             isValid = false
         } else {
             isValid = true
-            TextChecker.searchValidText = makeStringForSearchRequest(text)
+            searchValidText = makeStringForSearchRequest(text)
         }
     }
     

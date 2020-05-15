@@ -57,7 +57,11 @@ class SearchVC: UIViewController {
             return
         }
         
-        let characterInfoVC = CharacterInfoVC()
+        let characterInfoVC = CharacterInfoVC(
+            searchRequest: SearchRequest(
+                characterName: textChecker.searchValidText
+            )
+        )
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }
     

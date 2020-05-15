@@ -8,6 +8,7 @@
 
 import Foundation
 
+// можно отказаться от синглтона
 class FavoritePersistenceManager {
     private init() {}
     
