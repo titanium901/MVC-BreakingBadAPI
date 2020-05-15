@@ -10,8 +10,6 @@ import UIKit
 
 extension UIButton {
     func applyBBStyle() {
-//        self.backgroundColor = backgroundColor
-//        setTitle(title, for: .normal)
         layer.cornerRadius = 10
         setTitleColor(.white, for: .normal)
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
