@@ -71,7 +71,8 @@ class CharactersVC: UIViewController {
                 self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
                 self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
                 self?.activityIndicator.stopAnimating()
-                return }
+                return
+            }
             guard let characters = characters else {
                 self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
                 return

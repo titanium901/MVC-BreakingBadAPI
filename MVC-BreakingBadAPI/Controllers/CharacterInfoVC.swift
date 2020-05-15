@@ -11,58 +11,42 @@ import SDWebImage
 
 class CharacterInfoVC: UIViewController {
     
-    private let stackView = update(UIStackView()){
+    private let stackView = update(UIStackView()) {
         $0.axis = .vertical
         $0.distribution = .equalSpacing
     }
-    private lazy var characterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemBackground
-        imageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-        return imageView
-    }()
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.startAnimating()
-        activity.style = .large
-        activity.color = .systemOrange
-        return activity
-    }()
-    private lazy var characterName: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        return label
-    }()
-    private lazy var characterNickname: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        label.textColor = .orange
-        return label
-    }()
-    private lazy var characterStatus: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        return label
-    }()
-    private lazy var characterPortrayed: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        label.textColor = .orange
-        return label
-    }()
-    private lazy var characterAppearance: UILabel = {
-        let label = UILabel()
-        label.applyBBStyle()
-        return label
-    }()
-    private lazy var addToFavoriteButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(addDeleteFavoriteButtonTapped), for: .touchUpInside)
-        return button
-    }()
+    private let characterImageView = update(UIImageView()) {
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .systemBackground
+        $0.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+    }
+    private let activityIndicator = update(UIActivityIndicatorView()) {
+        $0.startAnimating()
+        $0.style = .large
+        $0.color = .systemOrange
+    }
+    private let characterName = update(UILabel()) {
+        $0.applyBBStyle()
+    }
+    private let characterNickname = update(UILabel()) {
+        $0.applyBBStyle()
+        $0.textColor = .orange
+    }
+    private let characterStatus = update(UILabel()) {
+        $0.applyBBStyle()
+    }
+    private let characterPortrayed = update(UILabel()) {
+        $0.applyBBStyle()
+        $0.textColor = .orange
+    }
+    private let characterAppearance = update(UILabel()) {
+        $0.applyBBStyle()
+    }
+    private lazy var addToFavoriteButton = update(UIButton()) {
+        $0.addTarget(self, action: #selector(self.addDeleteFavoriteButtonTapped), for: .touchUpInside)
+    }
     
     var character: Character! {
         didSet {
@@ -85,7 +69,11 @@ class CharacterInfoVC: UIViewController {
     
     private func loadCharacter() {
         guard character == nil else { return }
-        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char, _  in
+        Character.loadCharacter(by: TextChecker.searchValidText) { [weak self] char, error  in
+            guard error == nil else {
+                self?.ifNetworkError(error: error!)
+                return
+            }
             guard let char = char else {
                 self?.characterNotFound(message: TextChecker.searchValidText)
                 return
@@ -163,5 +151,11 @@ class CharacterInfoVC: UIViewController {
         activityIndicator.stopAnimating()
         characterImageView.isHidden = true
         showEmptyStateView(with: "Empty", in: view)
+    }
+    
+    private func ifNetworkError(error: Error) {
+        presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
+        showEmptyStateView(with: error.localizedDescription, in: view)
+        activityIndicator.stopAnimating()
     }
 }
