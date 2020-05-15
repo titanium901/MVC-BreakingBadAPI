@@ -20,18 +20,21 @@ class BBAlertVC: UIViewController {
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .label)
+        label.applyBBStyle()
         return label
     }()
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .orange)
+        label.applyBBStyle()
+        label.textColor = .orange
         label.numberOfLines = 4
         return label
     }()
     private lazy var actionButton: UIButton = {
         let button = UIButton()
-        button.applyBBStyle(title: "OK", backgroundColor: .orange)
+        button.applyBBStyle()
+        button.setTitle("OK", for: .normal)
+        button.backgroundColor = .orange
         button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         return button
     }()

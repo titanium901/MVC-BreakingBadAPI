@@ -34,27 +34,29 @@ class CharacterInfoVC: UIViewController {
     }()
     private lazy var characterName: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .label)
+        label.applyBBStyle()
         return label
     }()
     private lazy var characterNickname: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .systemOrange)
+        label.applyBBStyle()
+        label.textColor = .orange
         return label
     }()
     private lazy var characterStatus: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .label)
+        label.applyBBStyle()
         return label
     }()
     private lazy var characterPortrayed: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .systemOrange)
+        label.applyBBStyle()
+        label.textColor = .orange
         return label
     }()
     private lazy var characterAppearance: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .label)
+        label.applyBBStyle()
         return label
     }()
     private lazy var addToFavoriteButton: UIButton = {

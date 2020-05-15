@@ -9,22 +9,21 @@
 import UIKit
 
 extension UILabel {
-    func applyBBStyle(textColor: UIColor) {
-        self.textColor = textColor
+    func applyBBStyle() {
         adjustsFontSizeToFitWidth = true
+        textColor = .label
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
         textAlignment = .center
         font = UIFont.systemFont(ofSize: 26, weight: .bold)
     }
     
-    func applyBBStyleForBBCell(textColor: UIColor, fontSize: CGFloat) {
-        self.textColor = textColor
+    func applyBBStyleForBBCell() {
         textAlignment = .center
         adjustsFontSizeToFitWidth = true
+        textColor = .label
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
         textAlignment = .center
-        font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
 }

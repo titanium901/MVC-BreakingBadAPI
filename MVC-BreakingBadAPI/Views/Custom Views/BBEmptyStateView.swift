@@ -12,7 +12,7 @@ class BBEmptyStateView: UIView {
     
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
-        label.applyBBStyle(textColor: .label)
+        label.applyBBStyle()
         label.numberOfLines = 3
         label.textColor = .secondaryLabel
         return label

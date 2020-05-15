@@ -24,13 +24,17 @@ class SearchVC: UIViewController {
     }()
     private lazy var searchCharacterButton: UIButton = {
         let button = UIButton()
-        button.applyBBStyle(title: "Search", backgroundColor: .orange)
+        button.applyBBStyle()
+        button.setTitle("Search", for: .normal)
+        button.backgroundColor = .orange
         button.addTarget(self, action: #selector(pushCharacterInfoVC), for: .touchUpInside)
         return button
     }()
     private lazy var showAllCharacteButton: UIButton = {
         let button = UIButton()
-        button.applyBBStyle(title: "Show All Characters", backgroundColor: .black)
+        button.applyBBStyle()
+        button.setTitle("Show All Characters", for: .normal)
+        button.backgroundColor = .black
         button.addTarget(self, action: #selector(pushCharactersListVC), for: .touchUpInside)
         return button
     }()
@@ -108,6 +112,7 @@ class SearchVC: UIViewController {
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         pushCharacterInfoVC()
+        characterTextField.resignFirstResponder()
         return true
     }
 }

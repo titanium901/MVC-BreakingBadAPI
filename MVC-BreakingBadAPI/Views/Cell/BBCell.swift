@@ -22,22 +22,28 @@ class BBCell: UITableViewCell {
     }()
     private lazy var characterName: UILabel = {
         let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .label, fontSize: 26)
+        label.applyBBStyleForBBCell()
+        label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         return label
     }()
     private lazy var characterNickname: UILabel = {
         let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 24)
+        label.applyBBStyleForBBCell()
+        label.textColor = .orange
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         return label
     }()
     private lazy var characterStatus: UILabel = {
         let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .label, fontSize: 22)
+        label.applyBBStyleForBBCell()
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         return label
     }()
     private lazy var characterPortrayed: UILabel = {
         let label = UILabel()
-        label.applyBBStyleForBBCell(textColor: .orange, fontSize: 20)
+        label.applyBBStyleForBBCell()
+        label.textColor = .orange
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     

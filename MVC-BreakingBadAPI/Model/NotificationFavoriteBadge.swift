@@ -11,10 +11,10 @@ import Foundation
 class NotificationFavoriteBadge {
     
     static func addObserver(with selector: Selector, observer: Any) {
-        NotificationCenter.default.addObserver(observer, selector: selector, name: .FavoritesBadgeChange, object: nil)
+        NotificationCenter.default.addObserver(observer, selector: selector, name: .favoritesBadgeChange, object: nil)
     }
     
     static func post() {
-        NotificationCenter.default.post(name: .FavoritesBadgeChange, object: nil)
+        NotificationCenter.default.post(name: .favoritesBadgeChange, object: nil)
     }
 }
