@@ -16,24 +16,6 @@ struct Character: Codable, Hashable {
     let nickname: String
     let appearance: [Int]
     let portrayed: String
-    var isFavorite: Bool?
-    
-    mutating func loadFavouriteStatus() {
-        isFavorite = FavoritePersistenceManager.shared.userDefaults.bool(forKey: self.nickname)
-    }
-    
-    func updateFavoriteStatusInDB() {
-        FavoritePersistenceManager.shared.updateFavorites(with: self, isFavorite: self.isFavorite!)
-    }
-
-    static func addFavoriteStatus(to characters : [Character]) -> [Character] {
-        var favCharacters: [Character] = []
-        for var character in characters {
-            character.isFavorite = false
-            favCharacters.append(character)
-        }
-        return favCharacters
-    }
     
     static func loadCharacter(by name: String, completion: @escaping (Character?, Error?) -> Void) {
         NetworkCharacterManager.getCharacter(name: name) { result in

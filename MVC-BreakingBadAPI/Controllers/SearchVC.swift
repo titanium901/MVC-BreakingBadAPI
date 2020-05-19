@@ -50,17 +50,14 @@ class SearchVC: UIViewController {
     
     @objc private func pushCharacterInfoVC() {
         guard let text = characterTextField.text else { return }
-        var textChecker = TextChecker(text: text)
-        textChecker.checkUserInput()
-        if !textChecker.isValid {
+        let request = SearchRequest(characterName: text)
+        if !request.isValid {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }
         
         let characterInfoVC = CharacterInfoVC(
-            searchRequest: SearchRequest(
-                characterName: textChecker.searchValidText
-            )
+            searchRequest: request
         )
         navigationController?.pushViewController(characterInfoVC, animated: true)
     }

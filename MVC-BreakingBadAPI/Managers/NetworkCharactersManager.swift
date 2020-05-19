@@ -6,10 +6,9 @@
 //  Copyright © 2020 Iurii Popov. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 
-class NetworkCharactersManager {
+enum NetworkCharactersManager {
 
     static func getCharacters(completionHandler: @escaping (Result<[Character], Error>) -> Void) {
         AF.request("https://www.breakingbadapi.com/api/characters", method: .get).responseJSON { response in

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NotificationFavoriteBadge {
+enum NotificationFavoriteBadge {
     
     static func addObserver(with selector: Selector, observer: Any) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: .favoritesBadgeChange, object: nil)
@@ -17,4 +17,8 @@ class NotificationFavoriteBadge {
     static func post() {
         NotificationCenter.default.post(name: .favoritesBadgeChange, object: nil)
     }
+}
+
+extension NotificationCenter {
+
 }

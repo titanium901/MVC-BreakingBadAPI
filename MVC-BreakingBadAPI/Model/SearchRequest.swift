@@ -7,5 +7,18 @@
 //
 
 struct SearchRequest {
-    let characterName: String
+    // Избавиться от опционала
+    let characterName: String?
+
+    var isValid: Bool {
+        characterName?.isEmpty ?? false
+    }
+
+    var query: String {
+        characterName?.trimmingCharacters(in:
+            .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "+")
+            .lowercased()
+            .capitalized ?? ""
+    }
 }

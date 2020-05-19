@@ -8,24 +8,31 @@
 
 import Foundation
 
-// можно отказаться от синглтона
-class FavoritePersistenceManager {
-    private init() {}
-    
-    enum Keys { static let favorites = "favorites" }
-    static let shared = FavoritePersistenceManager()
-    let userDefaults = UserDefaults.standard
-    
-    func updateFavorites(with character: Character, isFavorite: Bool) {
-        userDefaults.set(isFavorite, forKey: character.nickname)
-        if isFavorite {
-            guard !FavoriteList.shared.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            FavoriteList.shared.favorites.append(character)
-        } else {
-            guard FavoriteList.shared.favorites.contains(where: { $0.nickname == character.nickname }) else { return }
-            FavoriteList.shared.favorites.removeAll { $0.nickname == character.nickname }
-        }
-        
-        userDefaults.set(try? PropertyListEncoder().encode(FavoriteList.shared.favorites), forKey: Keys.favorites)
+// умеет сохранять и загружать список персонажей 
+struct FavoritePersistenceManager {
+    enum Keys: String {
+        case favorites
+    }
+    private let userDefaults: UserDefaults
+
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+    }
+
+    // ["id1", "id2"]  [AviaOffer.Id]
+    // [Character]  [Sing]
+
+    func save(characters: [Character]) {
+        userDefaults.set(
+            try? PropertyListEncoder().encode(
+                FavoriteList.shared.favorites
+            ),
+            forKey: Keys.favorites.rawValue
+        )
+    }
+
+    func load() -> [Character] {
+        userDefaults.array(forKey: Keys.favorites.rawValue) as? [Character]
+            ?? []
     }
 }

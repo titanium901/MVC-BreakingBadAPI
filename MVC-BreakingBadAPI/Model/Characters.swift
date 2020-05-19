@@ -8,41 +8,46 @@
 
 import Foundation
 
-struct Characters {
-    
-    static func loadAllCharacters(completion: @escaping ([Character]?, Error?) -> Void) {
-        NetworkCharactersManager.getCharacters { result in
+class Characters {
+
+    private(set) var characters: Result<[Character], Error> = .success([]) {
+        didSet {
+            // Notify about changes
+        }
+    }
+
+//    func sort() -> [Character] {}
+//    func filter() -> [Character] {}
+//    func getByName() -> Character {}
+}
+
+extension Characters {
+    func loadAll() {
+        // DI
+        NetworkCharactersManager.getCharacters { [weak self] result in
             switch result {
             case .success(let characters):
-                completion(characters, nil)
+                self?.characters = .success(characters)
             case.failure(let error):
-                completion(nil, error)
+                self?.characters = .failure(error)
             }
         }
     }
-    
-    static func filterCharactersByName(characters: [Character], name: String) -> [Character] {
-        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
+
+    func fetch(name: String) -> [Character] {
+        characters.value?.filter {
+            $0.name.lowercased().contains(name.lowercased())
+        } ?? []
     }
 }
 
-// отказаться от статики можно например так
-//struct Characters {
-//    var characters: [Character] = []
-//
-//    func loadAllCharacters(completion: @escaping (Error?) -> Void) {
-//        NetworkCharactersManager.getCharacters { result in
-//            switch result {
-//            case .success(let characters):
-//                self.characters = characters
-//                completion(nil)
-//            case.failure(let error):
-//                completion(error)
-//            }
-//        }
-//    }
-//
-//    func filterCharactersByName(name: String) -> [Character] {
-//        characters.filter { $0.name.lowercased().contains(name.lowercased()) }
-//    }
-//}
+extension Result {
+    var value: Success? {
+        switch self  {
+        case .success(let success):
+            return success
+        case .failure:
+            return nil
+        }
+    }
+}

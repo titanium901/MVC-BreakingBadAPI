@@ -9,17 +9,17 @@
 import Foundation
 
 struct TextChecker {
-    
+
     var text: String
     var isValid: Bool!
     // зачем статика? зачем unwrap?
 //    static var searchValidText: String!
     var searchValidText: String = ""
-    
+
     init(text: String) {
         self.text = text
     }
-    
+
     mutating func checkUserInput(){
         if text.isEmpty {
             isValid = false
@@ -28,7 +28,7 @@ struct TextChecker {
             searchValidText = makeStringForSearchRequest(text)
         }
     }
-    
+
     private func makeStringForSearchRequest(_ text: String) -> String {
         return text.trimmingCharacters(in:
             .whitespacesAndNewlines)
