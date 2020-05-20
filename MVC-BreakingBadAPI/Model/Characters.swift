@@ -8,13 +8,20 @@
 
 import Foundation
 
+protocol CharactersProtocol: class {
+    func didChangedChatacters(result: Result<[Character], Error>)
+}
+
 class Characters {
 
     private(set) var characters: Result<[Character], Error> = .success([]) {
         didSet {
+            delegate?.didChangedChatacters(result: characters)
             // Notify about changes
         }
     }
+    
+    weak var delegate: CharactersProtocol?
 
 //    func sort() -> [Character] {}
 //    func filter() -> [Character] {}

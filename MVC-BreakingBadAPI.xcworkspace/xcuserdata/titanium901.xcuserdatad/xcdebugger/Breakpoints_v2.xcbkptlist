@@ -30,9 +30,9 @@
             filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "addDeleteFavoriteButtonTapped()"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "characterNotFound(message:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,10 +46,10 @@
             filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "character"
-            landmarkType = "24">
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "CharacterInfoVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,10 +62,10 @@
             filePath = "MVC-BreakingBadAPI/Controllers/CharacterInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "loadCharacter()"
-            landmarkType = "7">
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "CharacterInfoVC"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "5DD45BAE-5439-447D-AE96-3771B1C9F6BF - 2a869124286de5d3"
@@ -158,8 +158,8 @@
             filePath = "MVC-BreakingBadAPI/Controllers/CharactersVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "tableView(_:trailingSwipeActionsConfigurationForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

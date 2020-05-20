@@ -10,92 +10,7 @@ import UIKit
 import SDWebImage
 
 class CharacterInfoVC: UIViewController {
-    private let searchRequest: SearchRequest
-    private let favoriteList: FavoriteList
-    private var character: Character! {
-        didSet {
-            configureUIElements(with: character)
-            activityIndicator.stopAnimating()
-        }
-    }
-
-    private var characterInfoView: CharacterInfoView {
-        view as! CharacterInfoView
-    }
-
-    init(
-        searchRequest: SearchRequest,
-        favoriteList: FavoriteList = .shared
-    ) {
-        self.searchRequest = searchRequest
-        self.favoriteList = favoriteList
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func loadView() {
-        view = CharacterInfoView()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        layoutUI()
-        loadCharacter()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
     
-    private func loadCharacter() {
-        Character.loadCharacter(by: searchRequest.query) { [weak self] char, error  in
-            guard let self = self else { return }
-            guard error == nil else {
-                self.ifNetworkError(error: error!)
-                return
-            }
-            guard let char = char else {
-                self.characterNotFound(
-                    message: self.searchRequest.characterName ?? ""
-                )
-                return
-            }
-            self.character = char
-        }
-    }
-    
-    @objc private func addDeleteFavoriteButtonTapped() {
-        character.isFavorite?.toggle()
-        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
-        addToFavoriteButton.setImage(image, for: .normal)
-        character.updateFavoriteStatusInDB()
-    }
-    
-    private func characterNotFound(message: String) {
-        presentAlert(
-            title: AlertTitle.error,
-            message: message + " - not found",
-            buttonTitle: "ОК"
-        )
-        
-        activityIndicator.stopAnimating()
-        characterImageView.isHidden = true
-        showEmptyStateView(with: "Empty", in: view)
-    }
-    
-    private func ifNetworkError(error: Error) {
-        presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
-        showEmptyStateView(with: error.localizedDescription, in: view)
-        activityIndicator.stopAnimating()
-    }
-}
-
-class CharacterInfoView: UIView {
     private let stackView = update(UIStackView()) {
         $0.axis = .vertical
         $0.distribution = .equalSpacing
@@ -176,17 +91,52 @@ class CharacterInfoView: UIView {
                activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
            ])
        }
-}
-
-extension CharacterInfoView {
-    enum Event {
-
+    
+    private let searchRequest: SearchRequest
+    private let favoriteList: FavoriteList
+    private var character: Character! {
+        didSet {
+            configureUIElements(with: character)
+            activityIndicator.stopAnimating()
+        }
     }
 
-    private func configureUIElements(
-        name: String,
-        isFavorite: Bool
-    ) {
+    private var characterInfoView: CharacterInfoView {
+        view as! CharacterInfoView
+    }
+    
+    init(searchRequest: SearchRequest?, favoriteList: FavoriteList? = .shared) {
+        self.searchRequest = searchRequest ?? SearchRequest.init(characterName: "")
+        self.favoriteList = favoriteList ?? FavoriteList.shared
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(character: Character) {
+        self.init(searchRequest: nil, favoriteList: nil)
+        self.character = character
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = CharacterInfoView()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        layoutUI()
+        loadCharacter()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func configureUIElements(with character: Character) {
         characterName.text = character.name
         characterNickname.text = character.nickname
         characterStatus.text = character.status
@@ -194,11 +144,80 @@ extension CharacterInfoView {
         characterAppearance.text = "\(character.appearance)"
         characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
 
-        addToFavoriteButton.setImage(
-            isFavorite ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"),
-            for: .normal
-        )
+//        addToFavoriteButton.setImage(
+//            isFavorite ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"),
+//            for: .normal
+//        )
     }
+    
+    private func loadCharacter() {
+        Character.loadCharacter(by: searchRequest.query) { [weak self] char, error  in
+            guard let self = self else { return }
+            guard error == nil else {
+                self.ifNetworkError(error: error!)
+                return
+            }
+            guard let char = char else {
+                self.characterNotFound(
+                    message: self.searchRequest.characterName ?? ""
+                )
+                return
+            }
+            self.character = char
+        }
+    }
+    
+    @objc private func addDeleteFavoriteButtonTapped() {
+//        character.isFavorite?.toggle()
+//        let image = character.isFavorite ?? false ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
+//        addToFavoriteButton.setImage(image, for: .normal)
+//        character.updateFavoriteStatusInDB()
+    }
+    
+    private func characterNotFound(message: String) {
+        presentAlert(
+            title: AlertTitle.error,
+            message: message + " - not found",
+            buttonTitle: "ОК"
+        )
+        
+        activityIndicator.stopAnimating()
+        characterImageView.isHidden = true
+        showEmptyStateView(with: "Empty", in: view)
+    }
+    
+    private func ifNetworkError(error: Error) {
+        presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
+        showEmptyStateView(with: error.localizedDescription, in: view)
+        activityIndicator.stopAnimating()
+    }
+}
+
+class CharacterInfoView: UIView {
+    
+}
+
+extension CharacterInfoView {
+    enum Event {
+
+    }
+
+//    private func configureUIElements(
+//        name: String,
+//        isFavorite: Bool
+//    ) {
+//        characterName.text = character.name
+//        characterNickname.text = character.nickname
+//        characterStatus.text = character.status
+//        characterPortrayed.text = character.portrayed
+//        characterAppearance.text = "\(character.appearance)"
+//        characterImageView.sd_setImage(with: URL(string: character.img), placeholderImage: Images.placeholder)
+//
+//        addToFavoriteButton.setImage(
+//            isFavorite ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart"),
+//            for: .normal
+//        )
+//    }
 
 //    var event: Observable<Event> {
 //

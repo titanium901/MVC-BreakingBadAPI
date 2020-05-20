@@ -21,7 +21,18 @@ class FavoritesVC: UIViewController {
         tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
         return tableView
     }()
-
+    
+    private let favoriteList: FavoriteList
+    
+    init(favoriteList: FavoriteList = .shared) {
+        self.favoriteList = favoriteList
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -67,9 +78,8 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = FavoriteList.shared.favorites[indexPath.row]
         
-        let destVC = CharacterInfoVC()
+        let destVC = CharacterInfoVC(character: favorite)
         // передавай в конструктор
-        destVC.character = favorite
         navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -79,15 +89,15 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = FavoriteList.shared.favorites[indexPath.row]
+        let character = favoriteList.favorites[indexPath.row]
         
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, _, completition) in
-            character.isFavorite?.toggle()
-            FavoriteList.shared.favorites.remove(at: indexPath.row)
+//            character.isFavorite?.toggle()
+            self.favoriteList.remove(character: character)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             if FavoriteList.shared.favorites.isEmpty { self.showEmptyStateView(with: EmptyScreen.empty, in: self.view) }
             
-            character.updateFavoriteStatusInDB()
+//            character.updateFavoriteStatusInDB()
             self.presentAlert(
                 title: AlertTitle.bye,
                 message: "\(character.name) 💩",
@@ -96,7 +106,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
             completition(true)
         }
         
-        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
+//        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
         action.backgroundColor = .systemBackground
         return action
     }

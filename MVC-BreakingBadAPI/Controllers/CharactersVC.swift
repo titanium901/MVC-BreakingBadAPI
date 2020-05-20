@@ -38,20 +38,22 @@ class CharactersVC: UIViewController {
         return searchController
     }()
     
+    private var characters2 = Characters()
     private var filteredCharacters: [Character] = []
     private var dataSource: CustomDataSource<Section, Character>!
     
-    private var characters: [Character] = [] {
-        didSet {
-            tableView.reloadData()
-            view.bringSubviewToFront(tableView)
-            activityIndicator.stopAnimating()
-            updateData(on: characters)
-        }
-    }
+//    private var characters: [Character] = [] {
+//        didSet {
+//            tableView.reloadData()
+//            view.bringSubviewToFront(tableView)
+//            activityIndicator.stopAnimating()
+//            updateData(on: characters)
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        characters2.delegate = self
         configureViewController()
         navigationItem.searchController = searchController
         layoutUI()
@@ -66,20 +68,22 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        Characters.loadAllCharacters { [weak self] characters, error in
-            guard error == nil else {
-                self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
-                self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
-                self?.activityIndicator.stopAnimating()
-                return
-            }
-            guard let characters = characters else {
-                self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
-                return
-            }
-            self?.characters = characters
-            self?.characters = Character.addFavoriteStatus(to: characters)
-        }
+        characters2.loadAll()
+
+//        Characters.loadAllCharacters { [weak self] characters, error in
+//            guard error == nil else {
+//                self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
+//                self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
+//                self?.activityIndicator.stopAnimating()
+//                return
+//            }
+//            guard let characters = characters else {
+//                self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
+//                return
+//            }
+//            self?.characters = characters
+//            self?.characters = Character.addFavoriteStatus(to: characters)
+//        }
     }
     
     private func configureViewController() {
@@ -129,23 +133,23 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return characters.count
+        return characters2.characters.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
-        let character = characters[indexPath.row]
-        cell.set(character: character)
+        if let character = characters2.characters.value?[indexPath.row] {
+            cell.set(character: character)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //передавай SearchingCharacters в инит контроллера
-        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters
-        let character = activeArray[indexPath.row]
-        let destVC = CharacterInfoVC()
+        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters2.characters.value
+        let character = activeArray?[indexPath.row]
+        let destVC = CharacterInfoVC(character: character!)
         // передавай в конструктор
-        destVC.character = character
         
         navigationController?.pushViewController(destVC, animated: true)
     }
@@ -156,22 +160,22 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = characters[indexPath.row]
-        character.loadFavouriteStatus()
+        var character = characters2.characters.value?[indexPath.row]
+//        character.loadFavouriteStatus()
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
-            character.isFavorite?.toggle()
-            character.updateFavoriteStatusInDB()
+//            character.isFavorite?.toggle()
+//            character.updateFavoriteStatusInDB()
  
-            self.presentAlert(
-                title: "\(character.name)",
-                message: character.isFavorite! ? "♥︎" : "♡",
-                buttonTitle: "ОК"
-            )
+//            self.presentAlert(
+//                title: "\(character.name)",
+//                message: character.isFavorite! ? "♥︎" : "♡",
+//                buttonTitle: "ОК"
+//            )
             completition(true)
         }
         
-        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
+//        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
         action.backgroundColor = .systemBackground
         return action
     }
@@ -186,14 +190,32 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         textChecker.checkUserInput()
         if !textChecker.isValid {
            filteredCharacters.removeAll()
-            updateData(on: characters)
+//            updateData(on: characters)
             // от этой штуки надо избавиться или подругому сделать
             SearchingCharacters.isSearching = textChecker.isValid
             return
         }
         
         SearchingCharacters.isSearching = textChecker.isValid
-        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
+//        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
+        filteredCharacters = characters2.fetch(name: textChecker.text)
         updateData(on: filteredCharacters)
+    }
+}
+
+extension CharactersVC: CharactersProtocol {
+    func didChangedChatacters(result: Result<[Character], Error>) {
+        switch result {
+        case .success(_):
+            tableView.reloadData()
+            view.bringSubviewToFront(tableView)
+            activityIndicator.stopAnimating()
+            updateData(on: characters2.characters.value!)
+        case .failure(let error):
+            self.presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
+            self.showEmptyStateView(with: error.localizedDescription, in: self.view)
+            self.activityIndicator.stopAnimating()
+            return
+        }
     }
 }
