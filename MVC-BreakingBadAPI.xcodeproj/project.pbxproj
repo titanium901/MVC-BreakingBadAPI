@@ -41,6 +41,8 @@
 		CAE34EE1246D730E00DEAB16 /* BBAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE0246D730E00DEAB16 /* BBAlert.swift */; };
 		CAE34EE3246EB2FA00DEAB16 /* PublicFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */; };
 		CAE34EE5246EC29600DEAB16 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE4246EC29600DEAB16 /* Characters.swift */; };
+		CAE34EE924757EED00DEAB16 /* SearchInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EE824757EED00DEAB16 /* SearchInfoView.swift */; };
+		CAE34EEE2475890200DEAB16 /* CharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE34EED2475890200DEAB16 /* CharactersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		CAE34EE0246D730E00DEAB16 /* BBAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBAlert.swift; sourceTree = "<group>"; };
 		CAE34EE2246EB2FA00DEAB16 /* PublicFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicFunc.swift; sourceTree = "<group>"; };
 		CAE34EE4246EC29600DEAB16 /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
+		CAE34EE824757EED00DEAB16 /* SearchInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoView.swift; sourceTree = "<group>"; };
+		CAE34EED2475890200DEAB16 /* CharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersView.swift; sourceTree = "<group>"; };
 		EDBD021B720ACA055AD84253 /* Pods-MVC-BreakingBadAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-BreakingBadAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVC-BreakingBadAPI/Pods-MVC-BreakingBadAPI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +168,8 @@
 		CA91CCBD244DE87D00B3AB30 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CAE34EE824757EED00DEAB16 /* SearchInfoView.swift */,
+				CAE34EED2475890200DEAB16 /* CharactersView.swift */,
 				CA91CCE12450323000B3AB30 /* Cell */,
 				CA91CCC7244DEC3000B3AB30 /* Custom Views */,
 			);
@@ -377,10 +383,12 @@
 				CA91CCCB244DF4E800B3AB30 /* UIButton+Ext.swift in Sources */,
 				CA91CCD7244F25C900B3AB30 /* CharactersVC.swift in Sources */,
 				CA91CCC2244DEBA900B3AB30 /* SearchVC.swift in Sources */,
+				CAE34EE924757EED00DEAB16 /* SearchInfoView.swift in Sources */,
 				CA91CCE02450322C00B3AB30 /* BBCell.swift in Sources */,
 				CA91CCF32459D50700B3AB30 /* BBAlertVC.swift in Sources */,
 				CA91CCA9244DD69400B3AB30 /* AppDelegate.swift in Sources */,
 				CA91CCC4244DEBDD00B3AB30 /* CharacterInfoVC.swift in Sources */,
+				CAE34EEE2475890200DEAB16 /* CharactersView.swift in Sources */,
 				8ED5D7C6246F311E0097D00E /* SearchRequest.swift in Sources */,
 				CAB2B07B24694F880018D96E /* Notification+Ext.swift in Sources */,
 				CAB2B06924669EE30018D96E /* TextChecker.swift in Sources */,

@@ -11,7 +11,7 @@ struct SearchRequest {
     let characterName: String?
 
     var isValid: Bool {
-        characterName?.isEmpty ?? false
+        !(characterName?.isEmpty ?? false)
     }
 
     var query: String {

@@ -12,48 +12,33 @@ class CharactersVC: UIViewController {
     
     enum Section { case main }
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemBackground
-        tableView.frame = view.bounds
-        tableView.rowHeight = 200
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.removeExcessCells()
-        tableView.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
-        return tableView
-    }()
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.startAnimating()
-        activity.style = .large
-        activity.color = .systemOrange
-        return activity
-    }()
-    private lazy var searchController: UISearchController = {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a character name"
-        searchController.obscuresBackgroundDuringPresentation = false
-        return searchController
-    }()
+    lazy var tableView = update(UITableView()) {
+        $0.backgroundColor = .systemBackground
+        $0.frame = self.view.bounds
+        $0.rowHeight = 200
+        $0.delegate = self
+        $0.dataSource = self
+        $0.removeExcessCells()
+        $0.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+    }
+    lazy var activityIndicator = update(UIActivityIndicatorView()){
+        $0.startAnimating()
+        $0.style = .large
+        $0.color = .systemOrange
+    }
+    lazy var searchController = update(UISearchController()){
+        $0.searchResultsUpdater = self
+        $0.searchBar.placeholder = "Search for a character name"
+        $0.obscuresBackgroundDuringPresentation = false
+    }
     
-    private var characters2 = Characters()
+    private var characters = Characters()
     private var filteredCharacters: [Character] = []
     private var dataSource: CustomDataSource<Section, Character>!
-    
-//    private var characters: [Character] = [] {
-//        didSet {
-//            tableView.reloadData()
-//            view.bringSubviewToFront(tableView)
-//            activityIndicator.stopAnimating()
-//            updateData(on: characters)
-//        }
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        characters2.delegate = self
+        characters.delegate = self
         configureViewController()
         navigationItem.searchController = searchController
         layoutUI()
@@ -68,22 +53,7 @@ class CharactersVC: UIViewController {
     }
     
     private func loadAllCharacters() {
-        characters2.loadAll()
-
-//        Characters.loadAllCharacters { [weak self] characters, error in
-//            guard error == nil else {
-//                self?.presentAlert(title: AlertTitle.oops, message: error!.localizedDescription, buttonTitle: "ОК")
-//                self?.showEmptyStateView(with: error!.localizedDescription, in: self!.view)
-//                self?.activityIndicator.stopAnimating()
-//                return
-//            }
-//            guard let characters = characters else {
-//                self?.presentAlert(title: AlertTitle.oops, message: AlertMessage.somethingWrong, buttonTitle: "ОК")
-//                return
-//            }
-//            self?.characters = characters
-//            self?.characters = Character.addFavoriteStatus(to: characters)
-//        }
+        characters.loadAll()
     }
     
     private func configureViewController() {
@@ -133,12 +103,12 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return characters2.characters.value?.count ?? 0
+        return characters.characters.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID) as! BBCell
-        if let character = characters2.characters.value?[indexPath.row] {
+        if let character = characters.characters.value?[indexPath.row] {
             cell.set(character: character)
         }
         return cell
@@ -146,7 +116,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //передавай SearchingCharacters в инит контроллера
-        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters2.characters.value
+        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters.characters.value
         let character = activeArray?[indexPath.row]
         let destVC = CharacterInfoVC(character: character!)
         // передавай в конструктор
@@ -160,7 +130,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = characters2.characters.value?[indexPath.row]
+        var character = characters.characters.value?[indexPath.row]
 //        character.loadFavouriteStatus()
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
@@ -198,7 +168,7 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
         
         SearchingCharacters.isSearching = textChecker.isValid
 //        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
-        filteredCharacters = characters2.fetch(name: textChecker.text)
+        filteredCharacters = characters.fetch(name: textChecker.text)
         updateData(on: filteredCharacters)
     }
 }
@@ -210,7 +180,7 @@ extension CharactersVC: CharactersProtocol {
             tableView.reloadData()
             view.bringSubviewToFront(tableView)
             activityIndicator.stopAnimating()
-            updateData(on: characters2.characters.value!)
+            updateData(on: characters.characters.value!)
         case .failure(let error):
             self.presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
             self.showEmptyStateView(with: error.localizedDescription, in: self.view)
