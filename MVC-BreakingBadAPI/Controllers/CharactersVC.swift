@@ -12,34 +12,13 @@ class CharactersVC: UIViewController {
     
     enum Section { case main }
     
-    lazy var tableView = update(UITableView()) {
-        $0.backgroundColor = .systemBackground
-        $0.frame = self.view.bounds
-        $0.rowHeight = 200
-        $0.delegate = self
-        $0.dataSource = self
-        $0.removeExcessCells()
-        $0.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)
+    private var charactersView: CharactersView {
+        view as! CharactersView
     }
-    lazy var activityIndicator = update(UIActivityIndicatorView()){
-        $0.startAnimating()
-        $0.style = .large
-        $0.color = .systemOrange
+
+    override func loadView() {
+        view = CharactersView()
     }
-    lazy var searchController = update(UISearchController()){
-        $0.searchResultsUpdater = self
-        $0.searchBar.placeholder = "Search for a character name"
-        $0.obscuresBackgroundDuringPresentation = false
-    }
-    
-//    private var charactersView: CharactersView {
-//        view as! CharactersView
-//    }
-//
-//    override func loadView() {
-//        view = CharactersView()
-//
-//    }
     
     private var characters = Characters()
     private var filteredCharacters: [Character] = []
@@ -51,8 +30,10 @@ class CharactersVC: UIViewController {
         super.viewDidLoad()
         characters.delegate = self
         configureViewController()
-        navigationItem.searchController = searchController
-        layoutUI()
+        navigationItem.searchController = charactersView.searchController
+        charactersView.searchController.searchResultsUpdater = self
+        charactersView.tableView.delegate = self
+        charactersView.tableView.dataSource = self
         dataSource = createDataSource()
         loadAllCharacters()
     }
@@ -73,20 +54,9 @@ class CharactersVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func layoutUI() {
-        view.addSubview(tableView)
-        tableView.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-    }
-    
     private func createDataSource() -> CustomDataSource<Section, Character> {
         CustomDataSource<Section, Character>(
-            tableView: tableView,
+            tableView: charactersView.tableView,
             cellProvider: { tableView, indexPath, character -> UITableViewCell? in
                 let cell = tableView.dequeueReusableCell(withIdentifier: BBCell.reuseID, for: indexPath) as! BBCell
                 cell.set(character: character)
@@ -95,8 +65,8 @@ class CharactersVC: UIViewController {
     }
     
     private func backRowToNormalState() {
-        tableView.setEditing(false, animated: true)
-        if let index = tableView.indexPathForSelectedRow { tableView.deselectRow(at: index, animated: false) }
+        charactersView.tableView.setEditing(false, animated: true)
+        if let index = charactersView.tableView.indexPathForSelectedRow { charactersView.tableView.deselectRow(at: index, animated: false) }
     }
     
     private func updateData(on characters: [Character]) {
@@ -181,14 +151,14 @@ extension CharactersVC: CharactersProtocol {
     func didChangedChatacters(result: Result<[Character], Error>) {
         switch result {
         case .success(_):
-            tableView.reloadData()
-            view.bringSubviewToFront(tableView)
-            activityIndicator.stopAnimating()
+            charactersView.tableView.reloadData()
+            view.bringSubviewToFront(charactersView.tableView)
+            charactersView.activityIndicator.stopAnimating()
             updateData(on: characters.characters.value ?? [])
         case .failure(let error):
             self.presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
             self.showEmptyStateView(with: error.localizedDescription, in: self.view)
-            self.activityIndicator.stopAnimating()
+            self.charactersView.activityIndicator.stopAnimating()
             return
         }
     }

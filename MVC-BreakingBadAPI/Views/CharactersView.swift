@@ -11,7 +11,6 @@ import UIKit
 class CharactersView: UIView {
     
     lazy var tableView = update(UITableView()) {
-        $0.backgroundColor = .systemBackground
         $0.frame = self.bounds
         $0.rowHeight = 200
         $0.removeExcessCells()
@@ -43,11 +42,18 @@ class CharactersView: UIView {
     }
     
     private func layoutUI() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
+            tableView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: self.bottomAnchor, multiplier: 0)
         ])
     }
 }
