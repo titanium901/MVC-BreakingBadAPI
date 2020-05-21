@@ -32,6 +32,15 @@ class CharactersVC: UIViewController {
         $0.obscuresBackgroundDuringPresentation = false
     }
     
+//    private var charactersView: CharactersView {
+//        view as! CharactersView
+//    }
+//
+//    override func loadView() {
+//        view = CharactersView()
+//
+//    }
+    
     private var characters = Characters()
     private var filteredCharacters: [Character] = []
     private var dataSource: CustomDataSource<Section, Character>!
@@ -117,10 +126,9 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //передавай SearchingCharacters в инит контроллера
         let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters.characters.value
-        let character = activeArray?[indexPath.row]
-        let destVC = CharacterInfoVC(character: character!)
+        guard let character = activeArray?[indexPath.row] else { return }
+        let destVC = CharacterInfoVC(character: character)
         // передавай в конструктор
-        
         navigationController?.pushViewController(destVC, animated: true)
     }
     

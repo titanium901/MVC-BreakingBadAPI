@@ -39,7 +39,7 @@ class CharactersView: UIView {
     
     private func addSubviews() {
         addSubview(tableView)
-        tableView.addSubview(activityIndicator)
+        addSubview(activityIndicator)
     }
     
     private func layoutUI() {

@@ -48,10 +48,12 @@ extension FavoriteList {
     }
 
     func add(character: Character) {
+        guard !favorites.contains(character) else { return }
         favorites.append(character)
     }
 
     func remove(character: Character) {
+        guard favorites.contains(character) else { return }
         favorites.removeAll(where: { $0 == character })
     }
 }

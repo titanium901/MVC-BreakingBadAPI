@@ -25,14 +25,18 @@ struct FavoritePersistenceManager {
     func save(characters: [Character]) {
         userDefaults.set(
             try? PropertyListEncoder().encode(
-                FavoriteList.shared.favorites
+                characters
             ),
             forKey: Keys.favorites.rawValue
         )
     }
 
     func load() -> [Character] {
-        userDefaults.array(forKey: Keys.favorites.rawValue) as? [Character]
-            ?? []
+        if let data = userDefaults.value(forKey: Keys.favorites.rawValue) as? Data {
+            return try! PropertyListDecoder().decode([Character].self, from: data)
+        }
+        else {
+            return []
+        }
     }
 }
