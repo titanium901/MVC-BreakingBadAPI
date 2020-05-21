@@ -9,5 +9,5 @@
 import Foundation
 
 class SearchingCharacters {
-    static var isSearching = false
+    var isSearching = false
 }

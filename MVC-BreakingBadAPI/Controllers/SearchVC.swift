@@ -40,7 +40,7 @@ class SearchVC: UIViewController {
     @objc private func pushCharacterInfoVC() {
         guard let text = characterInfoView.characterTextField.text else { return }
         let request = SearchRequest(characterName: text)
-        if !request.isValid {
+        if request.isValid {
             presentAlert(title: AlertTitle.oops, message: AlertMessage.withoutName, buttonTitle: "ОК")
             return
         }

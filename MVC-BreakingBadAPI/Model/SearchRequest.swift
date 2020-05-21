@@ -8,10 +8,10 @@
 
 struct SearchRequest {
     // Избавиться от опционала
-    let characterName: String?
+    let characterName: String!
 
     var isValid: Bool {
-        !(characterName?.isEmpty ?? false)
+        characterName.isEmpty 
     }
 
     var query: String {

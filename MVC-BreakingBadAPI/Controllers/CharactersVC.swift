@@ -43,8 +43,10 @@ class CharactersVC: UIViewController {
     
     private var characters = Characters()
     private var filteredCharacters: [Character] = []
+    private var isSearching = SearchingCharacters().isSearching
+    private let favoriteList = FavoriteList.shared
     private var dataSource: CustomDataSource<Section, Character>!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         characters.delegate = self
@@ -124,11 +126,10 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //передавай SearchingCharacters в инит контроллера
-        let activeArray = SearchingCharacters.isSearching ? filteredCharacters : characters.characters.value
+        let activeArray = isSearching ? filteredCharacters : characters.characters.value
         guard let character = activeArray?[indexPath.row] else { return }
         let destVC = CharacterInfoVC(character: character)
-        // передавай в конструктор
+
         navigationController?.pushViewController(destVC, animated: true)
     }
     
@@ -138,22 +139,23 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
-        var character = characters.characters.value?[indexPath.row]
-//        character.loadFavouriteStatus()
+        guard let character = characters.characters.value?[indexPath.row] else {
+            return UIContextualAction()
+        }
+        let isFavorite = favoriteList.isFavorite(character: character)
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
-//            character.isFavorite?.toggle()
-//            character.updateFavoriteStatusInDB()
+            isFavorite ? self.favoriteList.remove(character: character) : self.favoriteList.add(character: character)
  
-//            self.presentAlert(
-//                title: "\(character.name)",
-//                message: character.isFavorite! ? "♥︎" : "♡",
-//                buttonTitle: "ОК"
-//            )
+            self.presentAlert(
+                title: "\(character.name)",
+                message: !isFavorite ? "♥︎" : "♡",
+                buttonTitle: "ОК"
+            )
             completition(true)
         }
         
-//        action.image = character.isFavorite! ? Images.heartIcon : Images.unselectedHeart
+        action.image = isFavorite ? Images.heartIcon : Images.unselectedHeart
         action.backgroundColor = .systemBackground
         return action
     }
@@ -163,20 +165,14 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        
-        var textChecker = TextChecker(text: text)
-        textChecker.checkUserInput()
-        if !textChecker.isValid {
-           filteredCharacters.removeAll()
-//            updateData(on: characters)
-            // от этой штуки надо избавиться или подругому сделать
-            SearchingCharacters.isSearching = textChecker.isValid
+        let request = SearchRequest(characterName: text)
+        if request.isValid {
+            filteredCharacters.removeAll()
+            updateData(on: characters.characters.value ?? [])
             return
         }
         
-        SearchingCharacters.isSearching = textChecker.isValid
-//        filteredCharacters = Characters.filterCharactersByName(characters: characters, name: textChecker.text)
-        filteredCharacters = characters.fetch(name: textChecker.text)
+        filteredCharacters = characters.filterByName(name: text)
         updateData(on: filteredCharacters)
     }
 }
@@ -188,7 +184,7 @@ extension CharactersVC: CharactersProtocol {
             tableView.reloadData()
             view.bringSubviewToFront(tableView)
             activityIndicator.stopAnimating()
-            updateData(on: characters.characters.value!)
+            updateData(on: characters.characters.value ?? [])
         case .failure(let error):
             self.presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
             self.showEmptyStateView(with: error.localizedDescription, in: self.view)

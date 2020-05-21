@@ -41,7 +41,7 @@ extension Characters {
         }
     }
 
-    func fetch(name: String) -> [Character] {
+    func filterByName(name: String) -> [Character] {
         characters.value?.filter {
             $0.name.lowercased().contains(name.lowercased())
         } ?? []
