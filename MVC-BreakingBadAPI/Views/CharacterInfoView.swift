@@ -50,57 +50,47 @@ class CharacterInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
-        layoutUI()
+        _setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addSubviews() {
-        addSubviews(characterImageView, stackView, addToFavoriteButton, activityIndicator)
-    }
-    
-    private func layoutUI() {
-        [characterImageView,
-         stackView,
-         addToFavoriteButton,
-         activityIndicator
-            ].forEach {
-                $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+    private func _setupLayout() {
 
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(characterNickname)
         stackView.addArrangedSubview(characterStatus)
         stackView.addArrangedSubview(characterPortrayed)
         stackView.addArrangedSubview(characterAppearance)
-
-        // глянь как верстается в ПТТ (своя реализация)
-        // сделать Core frameworks
-        // SnapKit
-        // ...
-        NSLayoutConstraint.activate([
-            characterImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            characterImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            characterImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            characterImageView.heightAnchor.constraint(equalToConstant: 300),
-            characterImageView.widthAnchor.constraint(equalToConstant: 150),
-
-            stackView.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            stackView.heightAnchor.constraint(equalToConstant: 200),
-
-            addToFavoriteButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            addToFavoriteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60),
-            addToFavoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -60),
-            addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50),
-
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        
+        addSubview(characterImageView, constraints: [
+            equal(\.topAnchor, \.safeAreaLayoutGuide.topAnchor, constant: 20),
+            equal(\.leadingAnchor, constant: 20),
+            equal(\.trailingAnchor, constant: -20),
+            equal(\.heightAnchor, constant: 300),
+            equal(\.widthAnchor, constant: 150)
+        ])
+        
+        addSubview(stackView, constraints: [
+            equal(\.topAnchor, to: characterImageView, \.bottomAnchor, constant: 20),
+            equal(\.leadingAnchor, constant: 20),
+            equal(\.trailingAnchor, constant: -20),
+            equal(\.heightAnchor, constant: 200)
+        ])
+        
+        addSubview(addToFavoriteButton, constraints: [
+            equal(\.bottomAnchor, \.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            equal(\.leadingAnchor, constant: 60),
+            equal(\.trailingAnchor, constant: -60),
+            equal(\.heightAnchor, constant: 50),
+            equal(\.widthAnchor, constant: 50)
+        ])
+        
+        addSubview(activityIndicator, constraints: [
+            equal(\.centerYAnchor),
+            equal(\.centerXAnchor)
         ])
     }
     

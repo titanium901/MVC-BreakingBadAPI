@@ -22,7 +22,7 @@ class BBTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = [createSearchNC(), createFavoritesNC()]
-        
+        UITabBar.appearance().tintColor = .orange
         setFavoritesBadgeValue()
         NotificationFavoriteBadge.addObserver(with: #selector(updateBadge), observer: self)
     }

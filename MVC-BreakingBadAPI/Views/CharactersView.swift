@@ -28,32 +28,25 @@ class CharactersView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
-        layoutUI()
+        _setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addSubviews() {
-        addSubview(tableView)
-        addSubview(activityIndicator)
-    }
-    
-    private func layoutUI() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+    private func _setupLayout() {
         
-        NSLayoutConstraint.activate([
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: self.bottomAnchor, multiplier: 0)
+        addSubview(tableView, constraints: [
+            equal(\.topAnchor, \.safeAreaLayoutGuide.topAnchor, constant: 0),
+            equal(\.leadingAnchor, constant: 0),
+            equal(\.trailingAnchor, constant: 0),
+            equal(\.bottomAnchor)
+        ])
+        
+        addSubview(activityIndicator, constraints: [
+            equal(\.centerXAnchor),
+            equal(\.centerYAnchor)
         ])
     }
 }

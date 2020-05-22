@@ -21,8 +21,7 @@ class BBEmptyStateView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
-        layoutUI()
+        _setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -34,29 +33,20 @@ class BBEmptyStateView: UIView {
         messageLabel.text = message
     }
     
-    private func addSubviews() {
-        addSubview(messageLabel)
-        addSubview(logoImageView)
-    }
-    
-    private func layoutUI() {
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func _setupLayout() {
+
+        addSubview(logoImageView, constraints: [
+            equal(\.bottomAnchor),
+            equal(\.widthAnchor, constant: 300),
+            equal(\.heightAnchor, constant: 300),
+            equal(\.trailingAnchor, constant: 50)
+        ])
         
-        let logoImageViewBottomConstraint = logoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 40)
-        logoImageViewBottomConstraint.isActive = true
-        
-        let messageLabelCenterYConstraint = messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150)
-        messageLabelCenterYConstraint.isActive = true
-        
-        NSLayoutConstraint.activate([
-            logoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.3),
-            logoImageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.3),
-            logoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 170),
-            
-            messageLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
-            messageLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40),
-            messageLabel.heightAnchor.constraint(equalToConstant: 200)
+        addSubview(messageLabel, constraints: [
+            equal(\.centerYAnchor, constant: -150),
+            equal(\.leadingAnchor, constant: 40),
+            equal(\.trailingAnchor, constant: -40),
+            equal(\.heightAnchor, constant: 200)
         ])
     }
 }

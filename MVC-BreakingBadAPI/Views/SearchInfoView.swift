@@ -30,47 +30,41 @@ class SearchInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
-        layoutUI()
+        _setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addSubviews() {
-        addSubviews(logoImageView, characterTextField, showAllCharacteButton, searchCharacterButton)
-    }
-    
-    private func layoutUI() {
-        [logoImageView,
-         characterTextField,
-         showAllCharacteButton,
-         searchCharacterButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+    private func _setupLayout() {
         
-        NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            logoImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            logoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            logoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            logoImageView.heightAnchor.constraint(equalToConstant: 400),
-            
-            characterTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
-            characterTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
-            characterTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
-            characterTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-            showAllCharacteButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            showAllCharacteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
-            showAllCharacteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
-            showAllCharacteButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            searchCharacterButton.bottomAnchor.constraint(equalTo: showAllCharacteButton.topAnchor, constant: -20),
-            searchCharacterButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
-            searchCharacterButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
-            searchCharacterButton.heightAnchor.constraint(equalToConstant: 50)
+        addSubview(logoImageView, constraints: [
+            equal(\.topAnchor, \.safeAreaLayoutGuide.topAnchor, constant: 10),
+            equal(\.leadingAnchor, constant: 0),
+            equal(\.trailingAnchor, constant: 0),
+            equal(\.heightAnchor, constant: 400)
+        ])
+        
+        addSubview(characterTextField, constraints: [
+            equal(\.topAnchor, to: logoImageView, \.bottomAnchor, constant: 50),
+            equal(\.leadingAnchor, constant: 50),
+            equal(\.trailingAnchor, constant: -50),
+            equal(\.heightAnchor, constant: 50)
+        ])
+        
+        addSubview(showAllCharacteButton, constraints: [
+            equal(\.bottomAnchor, \.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            equal(\.leadingAnchor, constant: 50),
+            equal(\.trailingAnchor, constant: -50),
+            equal(\.heightAnchor, constant: 50)
+        ])
+        
+        addSubview(searchCharacterButton, constraints: [
+            equal(\.bottomAnchor, to: showAllCharacteButton, \.topAnchor, constant: -20),
+            equal(\.leadingAnchor, constant: 50),
+            equal(\.trailingAnchor, constant: -50),
+            equal(\.heightAnchor, constant: 50)
         ])
     }
 }

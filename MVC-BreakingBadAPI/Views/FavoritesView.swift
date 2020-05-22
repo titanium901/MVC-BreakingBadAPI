@@ -19,27 +19,14 @@ class FavoritesView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
-        layoutUI()
+        _setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func addSubviews() {
-        addSubview(tableView)
-    }
-    
-    private func layoutUI() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-        tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
-        tableView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-        tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-        tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-        tableView.bottomAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: self.bottomAnchor, multiplier: 0)
-        ])
+
+    private func _setupLayout() {
+        addSubview(tableView, constraints: .allAnchors)
     }
 }
