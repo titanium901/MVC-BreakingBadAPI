@@ -44,6 +44,7 @@ class FavoritesVC: UIViewController {
         }
         
         layoutScreenIfHaveFavorite()
+        // что то странное
         if let index = favoritesView.tableView.indexPathForSelectedRow { favoritesView.tableView.deselectRow(at: index, animated: true) }
     }
     

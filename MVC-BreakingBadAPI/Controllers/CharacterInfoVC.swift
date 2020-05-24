@@ -21,7 +21,9 @@ class CharacterInfoVC: UIViewController {
     private var characterInfoView: CharacterInfoView {
         view as! CharacterInfoView
     }
-    
+
+    // если дернуть этот конструктор без searchRequest,
+    // то нарушится поведение экрана (он не опциональный тут должен быть)
     init(searchRequest: SearchRequest? = nil, favoriteList: FavoriteList = .shared) {
         self.searchRequest = searchRequest
         self.favoriteList = favoriteList
@@ -45,7 +47,7 @@ class CharacterInfoVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         characterInfoView.addToFavoriteButton.addTarget(self, action: #selector(self.addDeleteFavoriteButtonTapped), for: .touchUpInside)
-        guard searchRequest != nil else {
+        guard searchRequest != nil else { // тут лучше иф
             characterInfoView.configureUIElements(with: character, favoriteList: favoriteList)
             return
         }
@@ -56,7 +58,8 @@ class CharacterInfoVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+
+    // можешь сюда передать searchRequest (не опциональный)
     private func loadCharacter() {
         Character.loadCharacter(by: searchRequest!.query) { [weak self] char, error  in
             guard let self = self else { return }
@@ -66,6 +69,7 @@ class CharacterInfoVC: UIViewController {
             }
             guard let char = char else {
                 self.characterNotFound(
+                    // странно что ты подозреваешь что имени может не быть
                     message: self.searchRequest?.characterName ?? ""
                 )
                 return
@@ -75,6 +79,7 @@ class CharacterInfoVC: UIViewController {
     }
     
     @objc private func addDeleteFavoriteButtonTapped() {
+        // favoriteList.toggle(for: character)
         favoriteList.isFavorite(character: character) ? favoriteList.remove(character: character) : favoriteList.add(character: character)
         let image = favoriteList.isFavorite(character: character) ? #imageLiteral(resourceName: "heartIcon") : #imageLiteral(resourceName: "unselectedHeart")
         characterInfoView.addToFavoriteButton.setImage(image, for: .normal)

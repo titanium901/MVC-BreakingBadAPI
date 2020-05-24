@@ -8,6 +8,7 @@
 
 struct SearchRequest {
     // Избавиться от опционала
+    // зачем тебе анврап?
     let characterName: String!
 
     var isValid: Bool {

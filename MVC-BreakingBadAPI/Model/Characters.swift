@@ -48,6 +48,7 @@ extension Characters {
     }
 }
 
+// вынести
 extension Result {
     var value: Success? {
         switch self  {

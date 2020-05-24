@@ -22,6 +22,7 @@ class CharactersVC: UIViewController {
     
     private var characters = Characters()
     private var filteredCharacters: [Character] = []
+    // а когда isSearching меняется?
     private var isSearching = SearchingCharacters().isSearching
     private let favoriteList = FavoriteList.shared
     private var dataSource: CustomDataSource<Section, Character>!
@@ -115,6 +116,7 @@ extension CharactersVC: UITableViewDataSource, UITableViewDelegate {
         let isFavorite = favoriteList.isFavorite(character: character)
 
         let action = UIContextualAction(style: .normal, title: "Favorite") { (action, _, completition) in
+            // self.favoriteList.update(character, isFavorite)
             isFavorite ? self.favoriteList.remove(character: character) : self.favoriteList.add(character: character)
  
             self.presentAlert(
@@ -141,7 +143,8 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
             updateData(on: characters.characters.value ?? [])
             return
         }
-        
+        // зачем два массива для одной таблицы?
+        // сделай один и влаг isSearching не нужен будет
         filteredCharacters = characters.filterByName(name: text)
         updateData(on: filteredCharacters)
     }
@@ -150,8 +153,10 @@ extension CharactersVC: UISearchResultsUpdating, UISearchBarDelegate {
 extension CharactersVC: CharactersProtocol {
     func didChangedChatacters(result: Result<[Character], Error>) {
         switch result {
+//      case .success:
         case .success(_):
             charactersView.tableView.reloadData()
+            // зачем?
             view.bringSubviewToFront(charactersView.tableView)
             charactersView.activityIndicator.stopAnimating()
             updateData(on: characters.characters.value ?? [])
@@ -159,7 +164,7 @@ extension CharactersVC: CharactersProtocol {
             self.presentAlert(title: AlertTitle.oops, message: error.localizedDescription, buttonTitle: "ОК")
             self.showEmptyStateView(with: error.localizedDescription, in: self.view)
             self.charactersView.activityIndicator.stopAnimating()
-            return
+            return // лишний
         }
     }
 }

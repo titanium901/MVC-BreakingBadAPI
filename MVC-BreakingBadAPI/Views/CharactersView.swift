@@ -11,7 +11,7 @@ import UIKit
 class CharactersView: UIView {
     
     lazy var tableView = update(UITableView()) {
-        $0.frame = self.bounds
+        $0.frame = self.bounds // WTF?
         $0.rowHeight = 200
         $0.removeExcessCells()
         $0.register(BBCell.self, forCellReuseIdentifier: BBCell.reuseID)

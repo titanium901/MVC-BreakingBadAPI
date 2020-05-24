@@ -9,6 +9,7 @@
 import Foundation
 
 struct BBAlert {
+    // а если всп три nil? нафиг такой алерт
     var alertTitle: String?
     var message: String?
     var buttonTitle: String?
