@@ -8,7 +8,6 @@
 
 import Foundation
 
-// умеет сохранять и загружать список персонажей 
 struct FavoritePersistenceManager {
     enum Keys: String {
         case favorites
@@ -18,9 +17,6 @@ struct FavoritePersistenceManager {
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
-
-    // ["id1", "id2"]  [AviaOffer.Id]
-    // [Character]  [Sing]
 
     func save(characters: [Character]) {
         userDefaults.set(

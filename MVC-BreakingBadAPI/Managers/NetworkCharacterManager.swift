@@ -8,7 +8,6 @@
 
 import Alamofire // Moya
 
-// можно enum NetworkCharacterManager {
 enum NetworkCharacterManager {
     
     static func getCharacter(name: String, completionHandler: @escaping (Result<[Character], Error>) -> Void) {

@@ -7,7 +7,7 @@
 //
 
 struct SearchRequest {
-    // Избавиться от опционала
+
     let characterName: String!
 
     var isValid: Bool {
