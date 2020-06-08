@@ -6,8 +6,15 @@
 //  Copyright © 2020 Iurii Popov. All rights reserved.
 //
 
+// Уведомление об изменении
+// Паттерн наблюдатель
+// Observable (Rx, KVO)
+// Delegate
+// Notification Center
 class FavoriteList {
 
+    // синглтон потому что favorites: [Character] нужны
+    // в течение жизни приложения
     static var shared = FavoriteList()
 
     private let persistenceManager = FavoritePersistenceManager()

@@ -19,3 +19,6 @@ enum NotificationFavoriteBadge {
     }
 }
 
+extension NotificationCenter {
+
+}
